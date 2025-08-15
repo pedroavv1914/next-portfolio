@@ -184,6 +184,11 @@ export default function Hero() {
       <canvas ref={canvasRef} className="constellation" aria-hidden="true" />
       <div className="interface">
         <div className="v2-wrap" data-reveal style={{ ['--d' as any]: '0ms' }}>
+          {/* Availability badge */}
+          <div className="v2-availability" data-reveal style={{ ['--d' as any]: '20ms' }}>
+            <span className="dot" aria-hidden="true" />
+            <span>Disponível para freelas</span>
+          </div>
           <div className="v2-flag" data-reveal style={{ ['--d' as any]: '50ms' }}>
             <span className="flag-green" />
             <span className="flag-white" />
@@ -198,6 +203,13 @@ export default function Hero() {
           <div className="v2-ctas" data-reveal style={{ ['--d' as any]: '420ms' }}>
             <a href="#portifolio" className="btn-primary v2-primary"><i className="bi bi-rocket-takeoff" /> Ver Projetos</a>
             <a href="#formulario" className="btn-secondary v2-secondary"><i className="bi bi-chat-dots" /> Iniciar Conversa</a>
+            <a href="/cv.pdf" className="btn-tertiary v2-tertiary" download><i className="bi bi-file-earmark-arrow-down" /> Baixar CV</a>
+          </div>
+          {/* Contact shortcuts */}
+          <div className="v2-contacts" data-reveal style={{ ['--d' as any]: '480ms' }}>
+            <a href="#formulario" aria-label="WhatsApp"><i className="bi bi-whatsapp" /></a>
+            <a href="mailto:" aria-label="Email"><i className="bi bi-envelope" /></a>
+            <a href="https://www.linkedin.com/in/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="bi bi-linkedin" /></a>
           </div>
           <ul className="v2-strip" aria-label="Tecnologias" data-reveal style={{ ['--d' as any]: '520ms' }}>
             <li>React</li>
@@ -207,6 +219,12 @@ export default function Hero() {
             <li>SQL</li>
             <li>Tailwind</li>
           </ul>
+          {/* Client logos */}
+          <div className="v2-logos" data-reveal style={{ ['--d' as any]: '560ms' }} aria-label="Clientes">
+            <img src="/api-stratix.png" alt="Stratix" loading="lazy" />
+            <img src="/api-shopsphere.png" alt="ShopSphere" loading="lazy" />
+            <img src="/api-petshop.png" alt="Petshop" loading="lazy" />
+          </div>
           <ul className="v2-stats" aria-label="Métricas" data-reveal style={{ ['--d' as any]: '620ms' }}>
             <li><strong><span data-to="3" data-suffix="+">0</span></strong><span>Anos</span></li>
             <li><strong><span data-to="20" data-suffix="+">0</span></strong><span>Projetos</span></li>
