@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +12,136 @@
   }
 }
 
+html { scroll-behavior: smooth; }
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
+
+/* Links básicos */
+a { text-decoration: none; color: inherit; }
+
+/* Container padrão */
+.interface { @apply max-w-6xl mx-auto px-4 sm:px-6; }
+
+/* Títulos de seção */
+.titulo { @apply text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight mb-8; }
+.titulo span { @apply text-green-600 dark:text-green-400; }
+
+/* Botões utilitários */
+.btn-primary { @apply inline-flex items-center gap-2 rounded-md bg-green-600 text-white px-4 py-2 text-sm font-medium hover:bg-green-500 active:bg-green-700 transition-colors; }
+.btn-secondary { @apply inline-flex items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-700 px-4 py-2 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors; }
+.btn-link-as-input { @apply inline-flex items-center justify-center rounded-md bg-green-600 text-white px-4 py-2 text-sm font-semibold hover:bg-green-500 active:bg-green-700; }
+
+/* Chips/Tags */
+.chip { @apply inline-flex items-center rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-200 px-3 py-1 text-xs font-medium; }
+
+/* Header/Nav */
+.nav-magic { @apply sticky top-0 z-50 border-b border-zinc-200/70 dark:border-zinc-800/70 bg-white/70 dark:bg-black/40 backdrop-blur pt-4 pb-3; }
+.nav-magic .interface { @apply relative flex items-center justify-center; }
+/* Navbar estilo pílula */
+.navbar-shell { @apply hidden md:flex items-center gap-4 px-2 py-2 rounded-full bg-white/20 dark:bg-zinc-900/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-lg mx-auto; }
+.brand { @apply inline-flex items-center gap-3 pl-2 pr-3 py-1 rounded-full hover:bg-white/20 dark:hover:bg-white/5 transition; }
+.brand-icon { @apply inline-flex items-center justify-center size-8 rounded-full bg-white/70 dark:bg-zinc-800/80 text-green-700 dark:text-green-400 shadow; }
+.brand-text h1 { @apply text-sm font-semibold leading-tight text-zinc-800 dark:text-zinc-100; }
+.brand-text span { @apply block text-[10px] uppercase text-zinc-500; }
+.pill-nav ul { @apply flex items-center gap-5; }
+.pill-nav a { @apply text-sm font-medium text-zinc-700 dark:text-zinc-100 hover:text-green-600 dark:hover:text-white; }
+.only-desktop-cta { @apply hidden md:block pl-1; }
+.nav-cta { @apply rounded-full px-4 py-2 bg-green-600 hover:bg-green-500 active:bg-green-700 shadow text-white; }
+/* Mobile trigger visível apenas < md */
+.btn-abrir-menu { @apply md:hidden text-2xl text-zinc-700 dark:text-zinc-200 absolute left-4 top-1/2 -translate-y-1/2; }
+.menu-mobile { @apply fixed inset-y-0 right-0 w-72 translate-x-full bg-white dark:bg-zinc-950 shadow-xl transition-transform; }
+.menu-mobile nav ul { @apply p-6 flex flex-col gap-4; }
+.menu-mobile a { @apply text-sm font-medium text-zinc-800 dark:text-zinc-100; }
+.menu-mobile .btn-fechar { @apply flex justify-end p-4 text-xl text-zinc-700 dark:text-zinc-300; }
+.overlay-menu { @apply fixed inset-0 bg-black/40 opacity-0 pointer-events-none transition-opacity; }
+
+/* Hero */
+.hero { @apply relative py-16 md:py-24; }
+.hero .interface { @apply grid grid-cols-1 md:grid-cols-[1.3fr_0.7fr] gap-10 items-center; }
+.hero-greeting { @apply text-sm uppercase tracking-widest text-zinc-500; }
+.hero-title { @apply text-4xl md:text-6xl font-bold leading-tight; }
+.hero-title span { @apply text-green-600 dark:text-green-400; }
+.hero-subtitle { @apply mt-2 text-lg text-zinc-600 dark:text-zinc-300; }
+.hero-description { @apply mt-4 text-zinc-600 dark:text-zinc-400 max-w-2xl; }
+.hero-buttons { @apply mt-6 flex gap-3; }
+.hero-social { @apply flex md:flex-col gap-4 md:justify-center; }
+.hero-scroll { @apply absolute left-1/2 -translate-x-1/2 bottom-4 text-xs text-zinc-500 flex items-center gap-2; }
+
+/* Sobre */
+.sobre { @apply py-16 md:py-24; }
+.sobre-neo { @apply grid grid-cols-1 md:grid-cols-2 gap-10 items-start; }
+.about-avatar .avatar-circle { @apply size-48 md:size-56 rounded-full overflow-hidden border-4 border-green-600/20 mx-auto; }
+.about-avatar img { @apply w-full h-full object-cover; }
+.avatar-caption { @apply mt-3 text-center text-xs text-zinc-500; }
+.about-lead { @apply text-zinc-700 dark:text-zinc-300 text-lg leading-relaxed; }
+.about-values { @apply mt-6 space-y-2 text-zinc-700 dark:text-zinc-300; }
+.about-values i { @apply text-green-600 dark:text-green-400 mr-2; }
+.about-metrics { @apply mt-8 grid grid-cols-3 gap-4; }
+.metric { @apply text-center; }
+.metric__num { @apply block text-2xl md:text-3xl font-bold text-green-600 dark:text-green-400; }
+.metric__label { @apply text-xs text-zinc-500; }
+.about-actions { @apply mt-8 flex gap-3; }
+.about-stack { @apply mt-6 flex flex-wrap gap-2; }
+
+/* Especialidades */
+.especialidades { @apply py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950/40; }
+.habilidades-paineis { @apply space-y-4; }
+.painel-categoria { @apply rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900; }
+.painel-header { @apply w-full flex items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800; }
+.painel-titulo { @apply inline-flex items-center gap-2; }
+.painel-meta { @apply hidden sm:inline text-xs font-normal text-zinc-500; }
+.painel-body { @apply px-4 py-4; }
+.skill-list { @apply space-y-3; }
+.skill-row { @apply grid grid-cols-[auto_1fr_auto] gap-3 items-center; }
+.skill-icon { @apply text-green-600 dark:text-green-400 text-base; }
+.skill-name { @apply font-medium; }
+.level-badge { @apply text-[10px] uppercase tracking-wide rounded-full px-2 py-1; }
+.level-strong { @apply bg-green-600 text-white; }
+.level-good { @apply bg-amber-500 text-white; }
+.skill-chips { @apply col-span-3 flex flex-wrap gap-2 ml-6; }
+
+/* Portifolio */
+.portifolio { @apply py-16 md:py-24; }
+.filtros-projetos { @apply mb-6 flex flex-wrap gap-2; }
+.filtros-projetos .filtro { @apply px-3 py-1.5 text-xs rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800; }
+.filtros-projetos .filtro.ativo { @apply bg-green-600 border-green-600 text-white; }
+.grid-projetos { @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6; }
+.card-projeto { @apply overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-shadow; }
+.card-media img { @apply w-full h-44 object-cover; }
+.card-content { @apply p-4; }
+.card-title { @apply text-base font-semibold; }
+.card-desc { @apply mt-1 text-sm text-zinc-600 dark:text-zinc-300; }
+.card-tags { @apply mt-3 flex flex-wrap gap-2; }
+.card-actions { @apply mt-4; }
+
+/* FX extras do Portifolio */
+.card-projeto--fx { @apply relative; }
+.card-badge { @apply absolute top-3 left-3 z-10; }
+.badge { @apply px-2 py-0.5 text-[10px] rounded-full font-semibold uppercase tracking-wide; }
+.badge.front { @apply bg-green-600 text-white; }
+.badge.back { @apply bg-red-600 text-white; }
+.badge.full { @apply bg-green-800 text-white; }
+.quick-actions { @apply absolute inset-0 flex items-center justify-center gap-3 bg-gradient-to-t from-black/60 via-black/30 to-transparent opacity-0 transition-opacity; }
+.group:hover .quick-actions { @apply opacity-100; }
+.qa-btn { @apply inline-flex items-center justify-center size-10 rounded-full bg-white/95 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-50 shadow hover:scale-105 transition; }
+
+/* Formulário de Contato */
+.formulario { @apply py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950/40; }
+.form { @apply max-w-3xl; }
+.form-grid { @apply grid grid-cols-1 md:grid-cols-2 gap-4; }
+.form-field { @apply flex flex-col gap-1; }
+.form-field--full { @apply md:col-span-2; }
+.form-field label { @apply text-sm font-medium text-zinc-700 dark:text-zinc-300; }
+.form-field input,
+.form-field textarea { @apply rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500; }
+.error { @apply text-xs text-red-600 h-4; }
+.form-actions { @apply mt-4; }
+
+/* Footer */
+.site-footer { @apply border-t border-zinc-200 dark:border-zinc-800 py-8; }
+.site-footer .interface { @apply flex flex-col md:flex-row items-center justify-between gap-4; }
+.footer-social { @apply flex items-center gap-4 text-xl text-zinc-600 dark:text-zinc-300; }
