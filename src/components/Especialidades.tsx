@@ -1,133 +1,148 @@
+"use client";
+import { useEffect, useRef, useMemo } from "react";
+
 export default function Especialidades() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
+
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || typeof IntersectionObserver === 'undefined') {
+      items.forEach((n) => n.classList.add('is-in'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target as Element);
+        }
+      }
+    }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
+
+    requestAnimationFrame(() => {
+      const vh = window.innerHeight || 0;
+      items.forEach((n) => {
+        const r = n.getBoundingClientRect();
+        if (r.top < vh * 0.95 && r.bottom > 0) {
+          n.classList.add('is-in');
+        } else {
+          io.observe(n);
+        }
+      });
+    });
+
+    return () => io.disconnect();
+  }, []);
+
+  // Data model inspired by the reference section
+  type Level = "Forte" | "Bom";
+  type Tile = { icon?: React.ReactNode; title: string; level: Level; chips: string[] };
+  type Category = { id: string; title: string; meta: string; tiles: Tile[] };
+
+  const categories: Category[] = useMemo(() => ([
+    {
+      id: "front",
+      title: "Front-end",
+      meta: "JavaScript, React, TypeScript, Next.js",
+      tiles: [
+        { title: "JavaScript", level: "Forte", chips: ["ES6+", "DOM", "APIs", "+2"] },
+        { title: "React", level: "Forte", chips: ["Hooks", "SPA", "Styled Components"] },
+        { title: "TypeScript", level: "Forte", chips: ["Type Safety", "ESNext", "Full-stack"] },
+        { title: "Next.js", level: "Forte", chips: ["SSR", "SSG", "API Routes"] },
+      ],
+    },
+    {
+      id: "back",
+      title: "Back-end",
+      meta: "Node.js, Python",
+      tiles: [
+        { title: "Node.js", level: "Forte", chips: ["Express", "API REST", "Prisma"] },
+        { title: "Python", level: "Bom", chips: ["Django", "Flask", "Automação"] },
+      ],
+    },
+    {
+      id: "db",
+      title: "Banco de Dados",
+      meta: "SQL, MongoDB",
+      tiles: [
+        { title: "SQL", level: "Forte", chips: ["MySQL", "PostgreSQL", "SQLite"] },
+        { title: "MongoDB", level: "Bom", chips: ["NoSQL", "Aggregation", "Atlas"] },
+      ],
+    },
+    {
+      id: "devops",
+      title: "DevOps",
+      meta: "Docker",
+      tiles: [
+        { title: "Docker", level: "Bom", chips: ["Docker Compose", "Images", "Volumes"] },
+      ],
+    },
+    {
+      id: "tools",
+      title: "Ferramentas",
+      meta: "Git & GitHub",
+      tiles: [
+        { title: "Git & GitHub", level: "Forte", chips: ["Branching", "Pull request", "Actions"] },
+      ],
+    },
+  ]), []);
+
   return (
-    <section className="especialidades" id="especialidades">
+    <section ref={sectionRef} className="skills-v2" id="especialidades">
+      <div className="skills-bg" aria-hidden="true" />
       <div className="interface">
-        <h2 className="titulo">MINHAS <span>ESPECIALIDADES.</span></h2>
-        <div className="habilidades-paineis" role="list">
-          {/* Front-end */}
-          <section className="painel-categoria" data-category="front-end" role="region" aria-labelledby="painel-front-end-title">
-            <button className="painel-header" id="painel-front-end-title" aria-expanded="true">
-              <span className="painel-titulo"><i className="bi bi-braces" /> Front-end</span>
-              <span className="painel-meta">JavaScript, React, TypeScript, Next.js</span>
-              <i className="bi bi-chevron-down" aria-hidden="true" />
-            </button>
-            <div className="painel-body">
-              <ul className="skill-list">
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-filetype-js" /></span>
-                  <span className="skill-name">JavaScript</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>ES6+</li><li>DOM</li><li>APIs</li><li>Async/Await</li><li>Fetch</li></ul>
-                </li>
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-filetype-jsx" /></span>
-                  <span className="skill-name">React</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>Hooks</li><li>SPA</li><li>Styled Components</li></ul>
-                </li>
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-filetype-tsx" /></span>
-                  <span className="skill-name">TypeScript</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>Type Safety</li><li>ESNext</li><li>Full-stack</li></ul>
-                </li>
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-window-stack" /></span>
-                  <span className="skill-name">Next.js</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>SSR</li><li>SSG</li><li>API Routes</li></ul>
-                </li>
-              </ul>
-            </div>
-          </section>
+        <div className="skills-wrap">
+          <div className="v2-flag" aria-hidden="true">
+            <span className="flag-green" />
+            <span className="flag-white" />
+            <span className="flag-red" />
+          </div>
 
-          {/* Back-end */}
-          <section className="painel-categoria" data-category="back-end" role="region" aria-labelledby="painel-back-end-title">
-            <button className="painel-header" id="painel-back-end-title" aria-expanded="true">
-              <span className="painel-titulo"><i className="bi bi-cpu" /> Back-end</span>
-              <span className="painel-meta">Node.js, Python</span>
-              <i className="bi bi-chevron-down" aria-hidden="true" />
-            </button>
-            <div className="painel-body">
-              <ul className="skill-list">
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-filetype-js" /></span>
-                  <span className="skill-name">Node.js</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>Express</li><li>API REST</li><li>Prisma</li></ul>
-                </li>
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-filetype-py" /></span>
-                  <span className="skill-name">Python</span>
-                  <span className="level-badge level-good" aria-label="Nível: Bom">Bom</span>
-                  <ul className="skill-chips"><li>Django</li><li>Flask</li><li>Automação</li></ul>
-                </li>
-              </ul>
-            </div>
-          </section>
+          <h2 className="about-title" data-reveal style={{ ['--d' as any]: '80ms' }}>
+            <span className="line">Minhas</span>
+            <span className="line">Especialidades</span>
+          </h2>
 
-          {/* Banco de Dados */}
-          <section className="painel-categoria" data-category="database" role="region" aria-labelledby="painel-database-title">
-            <button className="painel-header" id="painel-database-title" aria-expanded="true">
-              <span className="painel-titulo"><i className="bi bi-database" /> Banco de Dados</span>
-              <span className="painel-meta">SQL, MongoDB</span>
-              <i className="bi bi-chevron-down" aria-hidden="true" />
-            </button>
-            <div className="painel-body">
-              <ul className="skill-list">
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-database" /></span>
-                  <span className="skill-name">SQL</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>MySQL</li><li>PostgreSQL</li><li>SQLite</li></ul>
-                </li>
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-collection" /></span>
-                  <span className="skill-name">MongoDB</span>
-                  <span className="level-badge level-good" aria-label="Nível: Bom">Bom</span>
-                  <ul className="skill-chips"><li>NoSQL</li><li>Aggregation</li><li>Atlas</li></ul>
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* DevOps */}
-          <section className="painel-categoria" data-category="devops" role="region" aria-labelledby="painel-devops-title">
-            <button className="painel-header" id="painel-devops-title" aria-expanded="true">
-              <span className="painel-titulo"><i className="bi bi-diagram-3" /> DevOps</span>
-              <span className="painel-meta">Docker</span>
-              <i className="bi bi-chevron-down" aria-hidden="true" />
-            </button>
-            <div className="painel-body">
-              <ul className="skill-list">
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-box" /></span>
-                  <span className="skill-name">Docker</span>
-                  <span className="level-badge level-good" aria-label="Nível: Bom">Bom</span>
-                  <ul className="skill-chips"><li>Docker Compose</li><li>Images</li><li>Volumes</li></ul>
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Ferramentas */}
-          <section className="painel-categoria" data-category="tools" role="region" aria-labelledby="painel-tools-title">
-            <button className="painel-header" id="painel-tools-title" aria-expanded="true">
-              <span className="painel-titulo"><i className="bi bi-tools" /> Ferramentas</span>
-              <span className="painel-meta">Git & GitHub</span>
-              <i className="bi bi-chevron-down" aria-hidden="true" />
-            </button>
-            <div className="painel-body">
-              <ul className="skill-list">
-                <li className="skill-row">
-                  <span className="skill-icon"><i className="bi bi-git" /></span>
-                  <span className="skill-name">Git & GitHub</span>
-                  <span className="level-badge level-strong" aria-label="Nível: Forte">Forte</span>
-                  <ul className="skill-chips"><li>Branching</li><li>Pull Request</li><li>Actions</li></ul>
-                </li>
-              </ul>
-            </div>
-          </section>
+          <p className="skills-lead" data-reveal style={{ ['--d' as any]: '120ms' }}>
+            Foco em entregar resultados com stack moderna, performance e boas práticas.
+          </p>
+          <div className="skill-accordion">
+            {categories.map((cat, idx) => (
+              <section key={cat.id} className="acc-panel" data-reveal style={{ ['--d' as any]: `${160 + idx*60}ms` }}>
+                <div className="acc-head" aria-hidden="true" role="presentation">
+                  <div className="acc-head-left">
+                    <span className="acc-category">{cat.title}</span>
+                    <span className="acc-meta">{cat.meta}</span>
+                  </div>
+                </div>
+                <div id={`acc-${cat.id}`} className="acc-body is-open" role="region" aria-label={cat.title}>
+                  <div className="tile-grid">
+                    {cat.tiles.map((t) => (
+                      <article className="tile" key={t.title}>
+                        <header className="tile-head">
+                          <div className="tile-icon" aria-hidden>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2"/></svg>
+                          </div>
+                          <div className="tile-titles">
+                            <h4 className="tile-title">{t.title}</h4>
+                          </div>
+                          <span className={`tile-badge ${t.level === 'Forte' ? 'lvl-strong' : 'lvl-good'}`}>{t.level}</span>
+                        </header>
+                        <ul className="tile-chips" role="list">
+                          {t.chips.map((c) => (<li key={c} className="chip">{c}</li>))}
+                        </ul>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ))}
+          </div>
         </div>
       </div>
     </section>
