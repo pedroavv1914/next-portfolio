@@ -252,6 +252,85 @@ a { text-decoration: none; color: inherit; }
   .v2-highlights .pill i { @apply text-base text-emerald-400; }
   .v2-highlights .pill:hover { @apply border-emerald-700/60; background: rgba(16,185,129,.09); }
 
+  /* Sobre V2 */
+  .sobre-v2 { @apply relative min-h-[100svh] grid items-center py-24 md:py-32; }
+  .sobre-v2 .interface { @apply relative; }
+  .sobre-wrap { @apply relative z-10 max-w-6xl mx-auto px-6 text-center; }
+  .sobre-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(60rem 60rem at 15% 85%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 70%),
+      radial-gradient(50rem 50rem at 85% 20%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .about-title { @apply text-4xl md:text-6xl font-extrabold leading-tight; 
+    font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    letter-spacing: .02em;
+  }
+  .about-title .line { display: block; position: relative; background-size: 200% 100%; background-position: 0% 50%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: titleSweep 7s linear infinite; }
+  .about-title .line:nth-child(1) {
+    background-image: linear-gradient(90deg,
+      var(--brand) 0%, var(--brand) 44%,
+      #ffffff 52%,
+      var(--brand) 60%, var(--brand) 100%);
+  }
+  .about-title .line:nth-child(2) {
+    background-image: linear-gradient(90deg,
+      #ffffff 0%, #ffffff 44%,
+      var(--brand) 52%,
+      #ffffff 60%, #ffffff 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-title .line { animation: none; background-position: 100% 50%; }
+  }
+
+  .about-grid { @apply mt-14 grid grid-cols-1 md:grid-cols-[380px_1fr] gap-12 md:gap-14 items-start text-left; }
+  /* Column divider on desktop */
+  @media (min-width: 768px) {
+    .about-grid > :nth-child(2) { position: relative; }
+    .about-grid > :nth-child(2)::before {
+      content: ""; position: absolute; left: -1.75rem; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(63,63,70,.6), transparent);
+      pointer-events: none;
+    }
+  }
+
+  .about-card { @apply rounded-2xl border border-zinc-700/60 bg-black/30 backdrop-blur-md shadow-xl p-6 md:p-7 md:sticky md:top-24; }
+  .portrait-frame { @apply relative overflow-hidden rounded-2xl; border: 2px solid rgba(16,185,129,.35); transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+  .portrait-frame:hover { border-color: rgba(16,185,129,.6); box-shadow: 0 0 0 3px rgba(16,185,129,.12), 0 0 24px rgba(16,185,129,.18) inset; }
+  .portrait-frame:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(16,185,129,.35), 0 0 0 6px rgba(16,185,129,.18); }
+  .portrait-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(255,255,255,0.12), transparent 70%); mix-blend-mode: overlay; transition: opacity .25s ease; }
+  .portrait-frame::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+    background: conic-gradient(from 180deg at 50% 50%, rgba(16,185,129,.0), rgba(16,185,129,.25), rgba(16,185,129,.0) 60%);
+    opacity: .0; filter: blur(6px); transition: opacity .25s ease; }
+  .portrait-frame:hover::before { opacity: .7; }
+  .about-portrait img { @apply w-full h-auto rounded-xl; }
+  .portrait-caption { @apply mt-3 text-center text-xs md:text-sm text-zinc-300; }
+
+  .about-copy { @apply space-y-7; }
+  .about-lead2 { @apply text-zinc-300 text-xl md:text-2xl leading-relaxed; }
+  .about-values2 { @apply space-y-4 text-zinc-300 text-base md:text-lg; }
+  .about-values2 li { @apply flex items-start gap-3.5; }
+  .about-values2 svg { @apply mt-0.5 text-emerald-400; width: 20px; height: 20px; }
+
+  .about-ctas { @apply mt-3 flex flex-wrap gap-4; }
+  .about-ctas .v2-primary,
+  .about-ctas .v2-secondary { @apply text-base md:text-lg px-5 md:px-6 py-2.5 md:py-3 gap-2; }
+  .about-ctas .v2-primary svg,
+  .about-ctas .v2-secondary svg { width: 20px; height: 20px; }
+  /* Socials block (replaces chips) */
+  .about-socials { @apply mt-5 flex flex-wrap items-center gap-3; }
+  .sobre-v2 .social-btn { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 9999px;
+    border: 1px solid rgba(63,63,70,.6); background: rgba(3,7,7,.35); backdrop-filter: blur(4px); color: #e5e7eb; transition: transform .15s ease, border-color .2s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease; }
+  .sobre-v2 .social-btn:hover { border-color: rgba(16,185,129,.6); background: rgba(16,185,129,.08); color: #bbf7d0; box-shadow: 0 0 0 3px rgba(16,185,129,.10); transform: translateY(-1px); }
+  .sobre-v2 .social-btn:active { transform: translateY(0); }
+  .sobre-v2 .social-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(16,185,129,.35); }
+  .sobre-v2 .social-btn svg { width: 22px; height: 22px; }
+
+  /* Safety: never hide Sobre content if reveal fails */
+  .sobre-v2 [data-reveal] { opacity: 1; transform: none; }
+
 /* Reveal on scroll */
 [data-reveal] { opacity: 0; transform: translateY(14px) scale(.98); transition: opacity 600ms ease, transform 600ms ease; }
 [data-reveal].is-in { opacity: 1; transform: none; }
