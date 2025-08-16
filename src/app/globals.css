@@ -246,9 +246,11 @@ a { text-decoration: none; color: inherit; }
   .v2-logos img { @apply h-8 sm:h-10 opacity-70; filter: grayscale(100%) contrast(110%); transition: opacity .2s ease, filter .2s ease; }
   .v2-logos img:hover { @apply opacity-100; filter: grayscale(0%); }
 
-  .v2-stats { @apply mt-8 grid grid-cols-3 gap-6 md:gap-10 text-center; }
-  .v2-stats strong { @apply block text-3xl md:text-4xl font-bold; color: var(--brand); }
-  .v2-stats span { @apply text-[12px] md:text-[13px] uppercase tracking-widest text-zinc-500; }
+  .v2-highlights { @apply mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3; }
+  .v2-highlights .pill { @apply inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-xs sm:text-sm text-zinc-200; 
+    border-color: rgba(63,63,70,.6); background: rgba(3, 7, 7, .35); backdrop-filter: blur(2px); }
+  .v2-highlights .pill i { @apply text-base text-emerald-400; }
+  .v2-highlights .pill:hover { @apply border-emerald-700/60; background: rgba(16,185,129,.09); }
 
 /* Reveal on scroll */
 [data-reveal] { opacity: 0; transform: translateY(14px) scale(.98); transition: opacity 600ms ease, transform 600ms ease; }
