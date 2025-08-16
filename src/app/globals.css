@@ -149,7 +149,7 @@ a { text-decoration: none; color: inherit; }
 .hero-scroll { @apply absolute left-1/2 -translate-x-1/2 bottom-4 text-xs text-green-600/80 dark:text-green-400/80 flex items-center gap-2; }
 
 /* Hero V2 */
-  .hero-v2 { @apply relative min-h-[100svh] grid place-items-center py-20; }
+  .hero-v2 { @apply relative min-h-[100svh] grid place-items-center pt-28 md:pt-32 pb-20; }
   .hero-v2 .interface { @apply relative; }
 .hero-v2-bg { position: absolute; inset: 0; pointer-events: none; background:
       radial-gradient(60rem 60rem at 20% 80%, color-mix(in srgb, var(--brand) 18%, transparent), transparent 70%),
