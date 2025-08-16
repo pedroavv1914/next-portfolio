@@ -184,7 +184,6 @@ export default function Hero() {
       <canvas ref={canvasRef} className="constellation" aria-hidden="true" />
       <div className="interface">
         <div className="v2-wrap" data-reveal style={{ ['--d' as any]: '0ms' }}>
-          {/* Availability badge */}
           <div className="v2-availability" data-reveal style={{ ['--d' as any]: '20ms' }}>
             <span className="dot" aria-hidden="true" />
             <span>Disponível para freelas</span>
