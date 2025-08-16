@@ -234,11 +234,12 @@ export default function Especialidades() {
           <p className="skills-lead" data-reveal style={{ ['--d' as any]: '120ms' }}>
             Foco em entregar resultados com stack moderna, performance e boas práticas.
           </p>
-          <div className="skill-accordion">
-            {categories.map((cat, idx) => (
-              <section key={cat.id} className="acc-panel" data-reveal style={{ ['--d' as any]: `${160 + idx*60}ms` }}>
-                <div className="acc-head" aria-hidden="true" role="presentation">
-                  <div className="acc-head-left">
+          <div className="acc">
+            {/* Stacks padrão em coluna única */}
+            {categories.filter(c => c.id !== 'devops' && c.id !== 'tools').map((cat) => (
+              <section key={cat.id} className="acc-item" data-reveal>
+                <div className="acc-head" role="heading" aria-level={3}>
+                  <div className="acc-titles">
                     <span className="acc-category">{cat.title}</span>
                     <span className="acc-meta">{cat.meta}</span>
                   </div>
@@ -268,6 +269,43 @@ export default function Especialidades() {
                 </div>
               </section>
             ))}
+
+            {/* DevOps e Ferramentas lado a lado */}
+            <div className="acc-duo" data-reveal>
+              {categories.filter(c => c.id === 'devops' || c.id === 'tools').map((cat) => (
+                <section key={cat.id} className="acc-item">
+                  <div className="acc-head" role="heading" aria-level={3}>
+                    <div className="acc-titles">
+                      <span className="acc-category">{cat.title}</span>
+                      <span className="acc-meta">{cat.meta}</span>
+                    </div>
+                  </div>
+                  <div id={`acc-${cat.id}`} className="acc-body is-open" role="region" aria-label={cat.title}>
+                    <div className="tile-grid">
+                      {cat.tiles.map((t) => (
+                        <article className="tile" key={t.title}>
+                          <header className="tile-head">
+                            <div className="tile-icon" aria-hidden>
+                              {techIcon(t.title)}
+                            </div>
+                            <div className="tile-titles">
+                              <h4 className="tile-title">{t.title}</h4>
+                            </div>
+                            <span className={`tile-badge ${t.level === 'Forte' ? 'lvl-strong' : 'lvl-good'}`}>{t.level}</span>
+                          </header>
+                          <div className="tile-meter" aria-label={`Proficiência: ${t.level}`} role="img">
+                            <span className="tile-meter-bar" style={{ width: meterPercent(t.level) + '%' }} />
+                          </div>
+                          <ul className="tile-chips" role="list">
+                            {t.chips.map((c) => (<li key={c} className="chip" title={c}>{c}</li>))}
+                          </ul>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              ))}
+            </div>
           </div>
         </div>
       </div>
