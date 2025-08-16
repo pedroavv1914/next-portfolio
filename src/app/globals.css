@@ -344,10 +344,20 @@ a { text-decoration: none; color: inherit; }
   /* Override title scale locally to fill space like Hero/Sobre */
   .skills-v2 .about-title { @apply text-6xl md:text-7xl; line-height: .95; }
   .skills-lead { @apply mt-5 text-zinc-300 text-xl md:text-2xl max-w-5xl; }
+  /* Space between subtitle and stacks */
+  .skills-lead + .acc { margin-top: 16px; }
+  @media (min-width: 768px) { .skills-lead + .acc { margin-top: 20px; } }
+
+  /* Wrapper that contains all stacks (accordion list) */
+  .acc { display: grid; gap: 28px; }
 
   .skills-grid { @apply mt-10 grid gap-8; grid-template-columns: repeat(1, minmax(0, 1fr)); }
   @media (min-width: 768px) { .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1280px) { .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  /* Duo layout: only for DevOps + Ferramentas */
+  .acc-duo { display: grid; gap: 24px; grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 1024px) { .acc-duo { grid-template-columns: 1fr 1fr; } }
 
   .skill-card { @apply rounded-2xl text-zinc-200; position: relative; border: 1px solid rgba(63,63,70,.6);
     background: linear-gradient(180deg, rgba(3,7,7,.5), rgba(3,7,7,.3)); backdrop-filter: blur(6px);
@@ -389,9 +399,9 @@ a { text-decoration: none; color: inherit; }
   /* Accordion panels (reference-based layout) */
   /* Panels in a single column; spread happens inside with the tile grid */
   .skill-accordion { @apply mt-8; display: grid; gap: 28px; grid-template-columns: 1fr; }
-  .acc-panel { position: relative; display: flex; flex-direction: column; height: 100%; border: 1px solid rgba(63,63,70,.6); border-radius: 18px; background: linear-gradient(180deg, rgba(3,7,7,.45), rgba(3,7,7,.28));
+  .acc-panel, .acc-item { position: relative; display: flex; flex-direction: column; height: 100%; border: 1px solid rgba(63,63,70,.6); border-radius: 18px; background: linear-gradient(180deg, rgba(3,7,7,.45), rgba(3,7,7,.28));
     box-shadow: 0 6px 20px rgba(0,0,0,.22); overflow: hidden; }
-  .acc-panel:hover { border-color: rgba(16,185,129,.45); box-shadow: 0 10px 28px rgba(0,0,0,.28), 0 0 0 3px rgba(16,185,129,.05); }
+  .acc-panel:hover, .acc-item:hover { border-color: rgba(16,185,129,.45); box-shadow: 0 10px 28px rgba(0,0,0,.28), 0 0 0 3px rgba(16,185,129,.05); }
 
   .acc-head { width: 100%; display: grid; grid-template-columns: 1fr; gap: 10px; align-items: center; padding: 16px 18px; color: #e5e7eb; text-align: left;
     background: transparent; border: 0; cursor: default; transition: background-color .2s ease; }
