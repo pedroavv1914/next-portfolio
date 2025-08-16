@@ -224,11 +224,11 @@ export default function Hero() {
             <img src="/api-shopsphere.png" alt="ShopSphere" loading="lazy" />
             <img src="/api-petshop.png" alt="Petshop" loading="lazy" />
           </div>
-          <ul className="v2-stats" aria-label="Métricas" data-reveal style={{ ['--d' as any]: '620ms' }}>
-            <li><strong><span data-to="3" data-suffix="+">0</span></strong><span>Anos</span></li>
-            <li><strong><span data-to="20" data-suffix="+">0</span></strong><span>Projetos</span></li>
-            <li><strong><span data-to="98" data-suffix="%">0</span></strong><span>Satisfação</span></li>
-          </ul>
+          <div className="v2-highlights" aria-label="Destaques" data-reveal style={{ ['--d' as any]: '620ms' }}>
+            <span className="pill"><i className="bi bi-speedometer2" /> 90+ no Lighthouse</span>
+            <span className="pill"><i className="bi bi-rocket" /> Entrega ágil</span>
+            <span className="pill"><i className="bi bi-code-slash" /> Código limpo</span>
+          </div>
         </div>
       </div>
     </section>
