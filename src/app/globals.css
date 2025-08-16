@@ -180,8 +180,7 @@ a { text-decoration: none; color: inherit; }
   .v2-wrap { @apply relative z-10 text-center max-w-4xl mx-auto px-6; }
   .v2-flag { @apply mx-auto mb-6 flex items-center justify-center gap-1; }
   .v2-flag .flag-green { @apply block h-1.5 w-16 rounded-full; background: var(--brand); }
-  .v2-flag .flag-white { @apply block h-1.5 w-10 rounded-full bg-white dark:bg-zinc-100; }
-  .v2-flag .flag-red { @apply block h-1.5 w-16 rounded-full; background: var(--accent); }
+  .v2-flag .flag-white { @apply block h-1.5 w-16 rounded-full bg-white dark:bg-zinc-100; }
 
   .v2-title { @apply text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-normal tracking-wide leading-[0.9] mt-0 mb-2; font-family: 'Bebas Neue', sans-serif; color: #fff; }
   .v2-title .line { display: block; position: relative; background-size: 200% 100%; background-position: 0% 50%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: titleSweep 6s linear infinite; }
