@@ -545,8 +545,9 @@ a { text-decoration: none; color: inherit; }
 /* ============================= */
 /* Projects V2                   */
 /* ============================= */
-.projects-v2 { position: relative; padding: 72px 0; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; width: 100%; }
-.projects-v2 > .interface { max-width: 100% !important; width: 100% !important; padding-left: clamp(16px, 5vw, 64px) !important; padding-right: clamp(16px, 5vw, 64px) !important; margin-left: auto; margin-right: auto; }
+.projects-v2 { @apply py-16 md:py-24 bg-zinc-50 dark:bg-zinc-950/40; }
+.projects-v2 > .interface { max-width: 94% !important; width: 100% !important; padding-left: clamp(16px, 5vw, 64px) !important; padding-right: clamp(16px, 5vw, 64px) !important; margin-left: auto; margin-right: auto; }
+.projects-v2 .about-title { @apply text-6xl md:text-7xl; line-height: .95; }
 .projects-head { @apply flex flex-col md:flex-row md:items-end md:justify-between gap-4; }
 .projects-lead { @apply text-zinc-400 mt-2; }
 .ph-search input { @apply w-full md:w-72 rounded-lg border border-zinc-600/60 bg-zinc-900/40 text-zinc-100 px-3 py-2 outline-none; }
