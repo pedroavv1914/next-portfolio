@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Portifolio() {
-  type Tipo = "front" | "back" | "full";
+  type Tipo = "front" | "back" | "full"; // retained for data, no longer used for filtering
   type Projeto = {
     id: string;
     title: string;
@@ -15,49 +15,54 @@ export default function Portifolio() {
   };
 
   const projetos: Projeto[] = [
+    // 1) API Petshop — Full stack
     {
       id: "api-petshop",
       title: "API Petshop",
-      desc: "API REST para gestão de petshop com autenticação e CRUD completo.",
+      desc: "Página de gerenciamento de Petshop. Permite cadastrar, consultar e atualizar pets, clientes e serviços, integrando frontend e backend com foco em experiência do usuário.",
       imgSrc: "/api-petshop.png",
-      type: "back",
-      tags: ["Node.js", "Express", "MongoDB"],
+      type: "full",
+      tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
       codeUrl: "https://github.com/pedroavv1914",
     },
-    {
-      id: "api-shopsphere",
-      title: "API ShopSphere",
-      desc: "API de e-commerce com carrinho, pedidos e pagamentos.",
-      imgSrc: "/api-shopsphere.png",
-      type: "back",
-      tags: ["Node.js", "Prisma", "PostgreSQL"],
-      codeUrl: "https://github.com/pedroavv1914",
-    },
-    {
-      id: "api-stratix",
-      title: "API Stratix",
-      desc: "Serviços de catálogo com autenticação JWT e documentação Swagger.",
-      imgSrc: "/api-stratix.png",
-      type: "back",
-      tags: ["Node.js", "Express", "JWT"],
-      codeUrl: "https://github.com/pedroavv1914",
-    },
-    {
-      id: "github-finder",
-      title: "GitHub Finder",
-      desc: "Busca perfis do GitHub com UI moderna e responsiva.",
-      imgSrc: "/githubfinder.png",
-      type: "front",
-      tags: ["React", "TypeScript"],
-      codeUrl: "https://github.com/pedroavv1914",
-    },
+    // 2) Palazzo Travel — Front-end
     {
       id: "palazzo-travel",
       title: "Palazzo Travel",
-      desc: "Landing page de viagens com efeitos e animações sutis.",
+      desc: "Site moderno e responsivo para agência de viagens, com menu lateral animado, carrossel de pacotes e navegação intuitiva.",
       imgSrc: "/palazzotravel.png",
       type: "front",
-      tags: ["HTML", "CSS", "JS"],
+      tags: ["React", "CSS", "TypeScript", "Vite", "React Router DOM"],
+      codeUrl: "https://github.com/pedroavv1914",
+    },
+    // 3) GitHub Finder — Front-end
+    {
+      id: "github-finder",
+      title: "GitHub Finder",
+      desc: "Busque e visualize perfis do GitHub de forma simples e eficiente. App moderno, responsivo e com consulta à API pública do GitHub.",
+      imgSrc: "/githubfinder.png",
+      type: "front",
+      tags: ["CSS", "React", "TypeScript", "Vite", "API GitHub"],
+      codeUrl: "https://github.com/pedroavv1914",
+    },
+    // 4) STRATIX – Task Manager — Full stack
+    {
+      id: "api-stratix",
+      title: "STRATIX – Task Manager",
+      desc: "Sistema completo para gerenciamento de tarefas, permitindo criar, organizar e acompanhar atividades com integração entre frontend e backend.",
+      imgSrc: "/api-stratix.png",
+      type: "full",
+      tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
+      codeUrl: "https://github.com/pedroavv1914",
+    },
+    // 5) SHOPSPHERE – E-commerce Platform — Full stack
+    {
+      id: "api-shopsphere",
+      title: "SHOPSPHERE – E-commerce Platform",
+      desc: "Plataforma completa de e‑commerce para compra e venda de produtos online, com interface moderna, busca e filtragem, carrinho e processamento seguro de pagamentos.",
+      imgSrc: "/api-shopsphere.png",
+      type: "full",
+      tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
       codeUrl: "https://github.com/pedroavv1914",
     },
   ];
@@ -66,7 +71,6 @@ export default function Portifolio() {
   const allTags = useMemo(() => Array.from(new Set(projetos.flatMap(p => p.tags))).sort(), [projetos]);
 
   // UI state
-  const [tipo, setTipo] = useState<Tipo | "all">("all");
   const [tag, setTag] = useState<string | "all">("all");
   const [q, setQ] = useState("");
   const [sel, setSel] = useState<Projeto | null>(null);
@@ -108,13 +112,13 @@ export default function Portifolio() {
   }, []);
 
   const list = useMemo(() => {
-    const filtered = projetos.filter(p => (tipo === "all" || p.type === tipo))
+    const filtered = projetos
       .filter(p => (tag === "all" || p.tags.includes(tag)))
       .filter(p => (q.trim() === "" || (p.title+" "+p.desc+" "+p.tags.join(" ")).toLowerCase().includes(q.toLowerCase())));
     if (sort === 'az') return [...filtered].sort((a,b)=>a.title.localeCompare(b.title));
     if (sort === 'za') return [...filtered].sort((a,b)=>b.title.localeCompare(a.title));
     return filtered; // 'recent' preserves original order
-  }, [projetos, tipo, tag, q, sort]);
+  }, [projetos, tag, q, sort]);
 
   // Close modal on ESC
   useEffect(() => {
@@ -144,22 +148,12 @@ export default function Portifolio() {
                 <option value="az">A–Z</option>
                 <option value="za">Z–A</option>
               </select>
-              <button className={`toggle-density ${dense? 'is-on': ''}`} onClick={()=>setDense(v=>!v)} aria-pressed={dense} aria-label="Alternar densidade">
-                {dense? 'Compacto' : 'Conforto'}
-              </button>
             </div>
           </div>
         </header>
 
         <div className="projects-filters" role="group" aria-label="Filtros">
           <div className="pf-row">
-            <div className="pf-types" role="tablist">
-              {(["all","front","back","full"] as const).map(t => (
-                <button key={t} className={`pf-pill ${tipo===t? 'is-active':''}`} onClick={()=>setTipo(t as any)} role="tab" aria-selected={tipo===t}>
-                  {t==='all'? 'Todos' : t==='front'? 'Front-end' : t==='back'? 'Back-end' : 'Full Stack'}
-                </button>
-              ))}
-            </div>
             <div className="pf-tags">
               <button className={`pf-tag ${tag==='all'?'is-active':''}`} onClick={()=>setTag('all')}>Todas</button>
               {allTags.map(t => (
@@ -174,7 +168,7 @@ export default function Portifolio() {
             <div className="proj-empty" role="status">
               Nenhum projeto encontrado.
               <div className="proj-empty-actions">
-                <button className="btn-secondary" onClick={()=>{ setTipo('all'); setTag('all'); setQ(""); setSort('recent'); }}>Limpar filtros</button>
+                <button className="btn-secondary" onClick={()=>{ setTag('all'); setQ(""); setSort('recent'); }}>Limpar filtros</button>
               </div>
             </div>
           )}
@@ -185,16 +179,19 @@ export default function Portifolio() {
                 <img src={p.imgSrc} alt="" loading="lazy" decoding="async" />
                 <span className={`pc-type ${p.type}`}>{p.type==='front'? 'Front-end': p.type==='back'? 'Back-end':'Full Stack'}</span>
                 <span className="pc-shine" aria-hidden />
+                {(p.codeUrl || p.demoUrl) && (
+                  <div className="pc-overlay" aria-hidden>
+                    {p.codeUrl && <a href={p.codeUrl} target="_blank" className="btn-overlay">Código</a>}
+                    {p.demoUrl && <a href={p.demoUrl} target="_blank" className="btn-overlay">Demo</a>}
+                  </div>
+                )}
               </div>
               <div className="pc-body">
                 <h3 className="pc-title">{p.title}</h3>
                 <p className="pc-desc">{p.desc}</p>
+                <span className="pc-subtitle" aria-hidden>Tecnologias utilizadas</span>
                 <div className="pc-tags">
                   {p.tags.map(t=> <span key={t} className="chip">{t}</span>)}
-                </div>
-                <div className="pc-actions">
-                  {p.codeUrl && <a href={p.codeUrl} target="_blank" className="btn-secondary">Código</a>}
-                  {p.demoUrl && <a href={p.demoUrl} target="_blank" className="btn-primary">Demo</a>}
                 </div>
               </div>
             </article>
