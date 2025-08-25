@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Portifolio() {
-  type Tipo = "front" | "back" | "full"; // retained for data, no longer used for filtering
+  type Tipo = "front" | "back" | "full";  
   type Projeto = {
     id: string;
     title: string;
@@ -12,8 +12,8 @@ export default function Portifolio() {
     tags: string[];
     codeUrl?: string;
     demoUrl?: string;
-    frontUrl?: string; // opcional: link do frontend (demo ou repo)
-    backUrl?: string;  // opcional: link do backend (repo/API docs)
+    frontUrl?: string; 
+    backUrl?: string;  
   };
 
   const projetos: Projeto[] = [
@@ -25,9 +25,9 @@ export default function Portifolio() {
       imgSrc: "/api-petshop.png",
       type: "full",
       tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
-      codeUrl: "https://github.com/pedroavv1914", // backend (fallback)
-      frontUrl: "https://github.com/pedroavv1914", // TODO: substituir pela demo/frontend real
-      backUrl: "https://github.com/pedroavv1914",  // TODO: substituir pelo repo/backend real
+      codeUrl: "https://github.com/pedroavv1914", 
+      frontUrl: "https://github.com/pedroavv1914", 
+      backUrl: "https://github.com/pedroavv1914", 
     },
     // 2) Palazzo Travel — Front-end
     {
@@ -60,8 +60,8 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
       codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914", // TODO: demo/frontend real
-      backUrl: "https://github.com/pedroavv1914",  // TODO: backend real
+      frontUrl: "https://github.com/pedroavv1914", 
+      backUrl: "https://github.com/pedroavv1914", 
     },
     // 5) SHOPSPHERE – E-commerce Platform — Full stack
     {
@@ -72,22 +72,19 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
       codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914", // TODO: demo/frontend real
-      backUrl: "https://github.com/pedroavv1914",  // TODO: backend real
+      frontUrl: "https://github.com/pedroavv1914",      
+      backUrl: "https://github.com/pedroavv1914", 
     },
   ];
 
-  // Derived data
   const allTags = useMemo(() => Array.from(new Set(projetos.flatMap(p => p.tags))).sort(), [projetos]);
 
-  // UI state
   const [tag, setTag] = useState<string | "all">("all");
   const [q, setQ] = useState("");
   const [sel, setSel] = useState<Projeto | null>(null);
   const [sort, setSort] = useState<"recent"|"az"|"za">("recent");
   const [dense, setDense] = useState<boolean>(false);
 
-  // Reveal on view (match behavior of other sections)
   const sectionRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const el = sectionRef.current;
@@ -106,7 +103,7 @@ export default function Portifolio() {
         }
       }
     }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
-    // Reveal already in view
+    
     requestAnimationFrame(() => {
       const vh = window.innerHeight || 0;
       items.forEach((n) => {
@@ -127,10 +124,9 @@ export default function Portifolio() {
       .filter(p => (q.trim() === "" || (p.title+" "+p.desc+" "+p.tags.join(" ")).toLowerCase().includes(q.toLowerCase())));
     if (sort === 'az') return [...filtered].sort((a,b)=>a.title.localeCompare(b.title));
     if (sort === 'za') return [...filtered].sort((a,b)=>b.title.localeCompare(a.title));
-    return filtered; // 'recent' preserves original order
+    return filtered; 
   }, [projetos, tag, q, sort]);
 
-  // Close modal on ESC
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSel(null); };
     window.addEventListener('keydown', onKey);
