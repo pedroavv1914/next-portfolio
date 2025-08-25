@@ -194,31 +194,6 @@ export default function Portifolio() {
         </div>
       </div>
 
-      {/* Modal preview */}
-      {sel && (
-        <div className="proj-modal" role="dialog" aria-modal="true" aria-label={`Pré-visualização de ${sel.title}`} onClick={()=>setSel(null)}>
-          <div className="pm-dialog" onClick={(e)=>e.stopPropagation()}>
-            <button className="pm-close" onClick={()=>setSel(null)} aria-label="Fechar">✕</button>
-            {/* Prev/Next */}
-            <button className="pm-nav pm-prev" aria-label="Anterior" onClick={(e)=>{ e.stopPropagation();
-              const i = list.findIndex(x=>x.id===sel.id); if (i>0) setSel(list[i-1]); }}>&lsaquo;</button>
-            <button className="pm-nav pm-next" aria-label="Próximo" onClick={(e)=>{ e.stopPropagation();
-              const i = list.findIndex(x=>x.id===sel.id); if (i>-1 && i<list.length-1) setSel(list[i+1]); }}>&rsaquo;</button>
-            <div className="pm-media">
-              <img src={sel.imgSrc} alt={sel.title} />
-            </div>
-            <div className="pm-body">
-              <h3 className="pm-title">{sel.title}</h3>
-              <p className="pm-desc">{sel.desc}</p>
-              <div className="pm-tags">{sel.tags.map(t=> <span key={t} className="chip">{t}</span>)}</div>
-              <div className="pm-actions">
-                {sel.codeUrl && <a href={sel.codeUrl} target="_blank" className="btn-secondary">Código</a>}
-                {sel.demoUrl && <a href={sel.demoUrl} target="_blank" className="btn-primary">Demo</a>}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
