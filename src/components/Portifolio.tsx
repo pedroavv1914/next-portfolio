@@ -12,6 +12,8 @@ export default function Portifolio() {
     tags: string[];
     codeUrl?: string;
     demoUrl?: string;
+    frontUrl?: string; // opcional: link do frontend (demo ou repo)
+    backUrl?: string;  // opcional: link do backend (repo/API docs)
   };
 
   const projetos: Projeto[] = [
@@ -23,7 +25,9 @@ export default function Portifolio() {
       imgSrc: "/api-petshop.png",
       type: "full",
       tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
-      codeUrl: "https://github.com/pedroavv1914",
+      codeUrl: "https://github.com/pedroavv1914", // backend (fallback)
+      frontUrl: "https://github.com/pedroavv1914", // TODO: substituir pela demo/frontend real
+      backUrl: "https://github.com/pedroavv1914",  // TODO: substituir pelo repo/backend real
     },
     // 2) Palazzo Travel — Front-end
     {
@@ -34,6 +38,7 @@ export default function Portifolio() {
       type: "front",
       tags: ["React", "CSS", "TypeScript", "Vite", "React Router DOM"],
       codeUrl: "https://github.com/pedroavv1914",
+      // demoUrl: "" // opcional: informe a URL de demo quando disponível
     },
     // 3) GitHub Finder — Front-end
     {
@@ -44,6 +49,7 @@ export default function Portifolio() {
       type: "front",
       tags: ["CSS", "React", "TypeScript", "Vite", "API GitHub"],
       codeUrl: "https://github.com/pedroavv1914",
+      // demoUrl: ""
     },
     // 4) STRATIX – Task Manager — Full stack
     {
@@ -54,6 +60,8 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
       codeUrl: "https://github.com/pedroavv1914",
+      frontUrl: "https://github.com/pedroavv1914", // TODO: demo/frontend real
+      backUrl: "https://github.com/pedroavv1914",  // TODO: backend real
     },
     // 5) SHOPSPHERE – E-commerce Platform — Full stack
     {
@@ -64,6 +72,8 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
       codeUrl: "https://github.com/pedroavv1914",
+      frontUrl: "https://github.com/pedroavv1914", // TODO: demo/frontend real
+      backUrl: "https://github.com/pedroavv1914",  // TODO: backend real
     },
   ];
 
@@ -184,8 +194,43 @@ export default function Portifolio() {
                   {p.tags.map(t=> <span key={t} className="chip">{t}</span>)}
                 </div>
                 <footer className="pc-actions">
-                  {p.demoUrl && <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">Ver Frontend</a>}
-                  {p.codeUrl && <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">Backend</a>}
+                  {(p.frontUrl || p.backUrl) ? (
+                    <>
+                      {p.frontUrl && (
+                        <a href={p.frontUrl} target="_blank" rel="noopener noreferrer" className="btn-front">
+                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-4 4v-4H5a2 2 0 0 1-2-2V5z"/></svg>
+                          <span>Front End</span>
+                        </a>
+                      )}
+                      {p.backUrl && (
+                        <a href={p.backUrl} target="_blank" rel="noopener noreferrer" className="btn-back">
+                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v4H4V6zm0 6h16v6H4v-6z"/></svg>
+                          <span>Back End</span>
+                        </a>
+                      )}
+                      {p.demoUrl && (
+                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-demo">
+                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+                          <span>Demo</span>
+                        </a>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      {p.codeUrl && (
+                        <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L5.8 13l3.6-3.6L8 4l-8 8 8 8 1.4-3.4zm5.2 0L18.2 13l-3.6-3.6L16 4l8 8-8 8-1.4-3.4z"/></svg>
+                          <span>Código (GitHub)</span>
+                        </a>
+                      )}
+                      {p.demoUrl && (
+                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+                          <span>Demo</span>
+                        </a>
+                      )}
+                    </>
+                  )}
                 </footer>
                 </div>
               </div>
