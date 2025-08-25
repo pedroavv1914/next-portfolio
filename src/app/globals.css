@@ -522,11 +522,12 @@ a { text-decoration: none; color: inherit; }
 }
 
 .proj-card {
-  @apply h-[450px] overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-lg transition-all duration-300;
+  @apply h-[450px] overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-lg;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .proj-card:hover {
-  @apply transform -translate-y-1;
+  @apply transform scale-105 -translate-y-1;
 }
 
 .pc-media {
@@ -537,9 +538,6 @@ a { text-decoration: none; color: inherit; }
   @apply w-full h-full object-cover transition-transform duration-300;
 }
 
-.proj-card:hover .pc-media img {
-  @apply scale-150;
-}
 
 .pc-title {
   @apply text-lg font-bold text-white;
@@ -555,6 +553,15 @@ a { text-decoration: none; color: inherit; }
 
 .pc-actions {
   @apply mt-4 flex gap-3;
+}
+
+.pc-overlay-content {
+  @apply absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transform translate-y-4;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.group:hover .pc-overlay-content {
+  @apply opacity-100 translate-y-0;
 }
 
 /* Formulário de Contato */
