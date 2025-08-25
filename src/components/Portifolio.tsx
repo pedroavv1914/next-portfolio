@@ -185,13 +185,16 @@ export default function Portifolio() {
                     {p.demoUrl && <a href={p.demoUrl} target="_blank" className="btn-overlay">Demo</a>}
                   </div>
                 )}
-              </div>
-              <div className="pc-body">
+                <div className="pc-overlay-content">
                 <h3 className="pc-title">{p.title}</h3>
                 <p className="pc-desc">{p.desc}</p>
-                <span className="pc-subtitle" aria-hidden>Tecnologias utilizadas</span>
                 <div className="pc-tags">
                   {p.tags.map(t=> <span key={t} className="chip">{t}</span>)}
+                </div>
+                <footer className="pc-actions">
+                  {p.demoUrl && <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">Ver Frontend</a>}
+                  {p.codeUrl && <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">Backend</a>}
+                </footer>
                 </div>
               </div>
             </article>
