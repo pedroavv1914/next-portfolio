@@ -527,7 +527,48 @@ a { text-decoration: none; color: inherit; }
   @apply text-2xl md:text-3xl font-bold text-white leading-tight tracking-tight;
 }
 /* Overlay scale (proporcional ao card) */
-.pc-overlay-content .pc-title { @apply text-[28px] md:text-[32px]; }
+.pc-overlay-content .pc-title { @apply text-[28px] md:text-[32px] font-extrabold; }
+/* Destaque sutil do título no overlay */
+.pc-overlay-content .pc-title { position: relative; text-shadow: 0 2px 10px rgba(0,0,0,.35); -webkit-text-stroke: 0.4px rgba(0,0,0,.35); filter: drop-shadow(0 6px 24px rgba(16,185,129,.15)); color: #f8fafc; mix-blend-mode: screen; letter-spacing: -0.01em; }
+.pc-overlay-content .pc-title::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 8%;
+  width: 3px;
+  height: 84%;
+  background: linear-gradient(180deg, rgba(34,197,94,.9), rgba(16,185,129,.7));
+  border-radius: 9999px;
+  box-shadow: 0 0 16px rgba(16,185,129,.35);
+}
+.pc-overlay-content .pc-title::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin-top: 6px;
+  background: linear-gradient(90deg, rgb(34 197 94), rgb(16 185 129));
+  border-radius: 9999px;
+  opacity: .95;
+  box-shadow: 0 0 12px rgba(16,185,129,.25);
+  transition: width .25s ease;
+}
+/* Anima a barra ao hover do card */
+.group:hover .pc-overlay-content .pc-title::after { width: 72px; box-shadow: 0 0 16px rgba(34,197,94,.35); opacity: 1; }
+
+/* Gradiente discreto no texto do título ao hover do card */
+.group:hover .pc-overlay-content .pc-title {
+  background: linear-gradient(90deg, #ffffff 0%, #bbf7d0 60%, #86efac 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background 250ms ease;
+}
+
+/* Acessibilidade: se usuário prefere menos movimento, mantém cor estática */
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .pc-overlay-content .pc-title { background: none; color: #fff; }
+}
 
 .pc-desc {
   @apply mt-2 text-base md:text-lg text-zinc-200/95 leading-relaxed;
@@ -542,6 +583,29 @@ a { text-decoration: none; color: inherit; }
 
 /* Botões proporcionais */
 .pc-actions .btn-primary, .pc-actions .btn-secondary { @apply text-sm md:text-sm px-4 py-2; }
+
+/* Base para todos os botões do overlay (layout, animação, acessibilidade) */
+.pc-actions a { @apply inline-flex items-center gap-2 rounded-md font-semibold transition-all duration-200 ease-out select-none;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+}
+.pc-actions a:hover { transform: translateY(-1px); }
+.pc-actions a:active { transform: translateY(0); }
+.pc-actions a:focus-visible { @apply outline-none ring-2 ring-offset-2 ring-offset-black/20 ring-emerald-400/60; }
+.pc-actions a svg { width: 18px; height: 18px; }
+
+/* Botão Front End — gradiente vívido */
+.pc-actions .btn-front { @apply text-zinc-900 bg-gradient-to-r from-emerald-400 to-teal-400 px-4 py-2 text-sm;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+}
+.pc-actions .btn-front:hover { @apply from-emerald-300 to-teal-300; }
+
+/* Botão Back End — contornado com leve fundo translúcido */
+.pc-actions .btn-back { @apply border border-emerald-500/60 text-emerald-300 px-4 py-2 text-sm bg-zinc-900/30 backdrop-blur-sm; }
+.pc-actions .btn-back:hover { @apply border-emerald-400 text-emerald-200 bg-zinc-900/40; }
+
+/* Botão Demo — gradiente destaque roxo/rosa */
+.pc-actions .btn-demo { @apply text-white bg-gradient-to-r from-fuchsia-500 via-violet-500 to-indigo-500 px-4 py-2 text-sm; }
+.pc-actions .btn-demo:hover { @apply from-fuchsia-400 via-violet-400 to-indigo-400; }
 
 .pc-actions {
   @apply mt-0 flex gap-3;
