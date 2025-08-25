@@ -38,7 +38,7 @@ export default function Portifolio() {
       type: "front",
       tags: ["React", "CSS", "TypeScript", "Vite", "React Router DOM"],
       codeUrl: "https://github.com/pedroavv1914",
-      // demoUrl: "" // opcional: informe a URL de demo quando disponível
+      demoUrl: "https://agencia-viagens-iota.vercel.app/"
     },
     // 3) GitHub Finder — Front-end
     {
@@ -49,7 +49,7 @@ export default function Portifolio() {
       type: "front",
       tags: ["CSS", "React", "TypeScript", "Vite", "API GitHub"],
       codeUrl: "https://github.com/pedroavv1914",
-      // demoUrl: ""
+      demoUrl: "https://github-finder-pearl-mu.vercel.app/"
     },
     // 4) STRATIX – Task Manager — Full stack
     {
