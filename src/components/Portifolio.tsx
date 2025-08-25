@@ -174,11 +174,11 @@ export default function Portifolio() {
           )}
           {list.map((p)=> (
             <article key={p.id} className={`proj-card ${dense? 'dense': ''}`} role="listitem">
-              <div className="pc-media" onClick={()=>setSel(p)} role="button" tabIndex={0}
+              <div className="pc-media group" onClick={()=>setSel(p)} role="button" tabIndex={0}
                    onKeyDown={(e)=>{ if(e.key==='Enter') setSel(p); }} aria-label={`Abrir pré-visualização de ${p.title}`}>
                 <img src={p.imgSrc} alt="" loading="lazy" decoding="async" />
                 <div className="pc-overlay-content">
-                <h3 className="pc-title">{p.title}</h3>
+                <h1 className="pc-title">{p.title}</h1>
                 <p className="pc-desc">{p.desc}</p>
                 <div className="pc-tags">
                   {p.tags.map(t=> <span key={t} className="chip">{t}</span>)}
