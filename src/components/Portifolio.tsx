@@ -163,7 +163,7 @@ export default function Portifolio() {
           </div>
         </div>
 
-        <div className={`proj-grid ${dense? 'is-dense': ''}`} role="list">
+        <div className="portfolio-grid" role="list">
           {list.length===0 && (
             <div className="proj-empty" role="status">
               Nenhum projeto encontrado.
@@ -177,14 +177,6 @@ export default function Portifolio() {
               <div className="pc-media" onClick={()=>setSel(p)} role="button" tabIndex={0}
                    onKeyDown={(e)=>{ if(e.key==='Enter') setSel(p); }} aria-label={`Abrir pré-visualização de ${p.title}`}>
                 <img src={p.imgSrc} alt="" loading="lazy" decoding="async" />
-                <span className={`pc-type ${p.type}`}>{p.type==='front'? 'Front-end': p.type==='back'? 'Back-end':'Full Stack'}</span>
-                <span className="pc-shine" aria-hidden />
-                {(p.codeUrl || p.demoUrl) && (
-                  <div className="pc-overlay" aria-hidden>
-                    {p.codeUrl && <a href={p.codeUrl} target="_blank" className="btn-overlay">Código</a>}
-                    {p.demoUrl && <a href={p.demoUrl} target="_blank" className="btn-overlay">Demo</a>}
-                  </div>
-                )}
                 <div className="pc-overlay-content">
                 <h3 className="pc-title">{p.title}</h3>
                 <p className="pc-desc">{p.desc}</p>
