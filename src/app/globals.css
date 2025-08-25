@@ -84,18 +84,7 @@ a { text-decoration: none; color: inherit; }
 .menu-mobile nav ul { @apply p-6 flex flex-col gap-4; }
 .menu-mobile a { @apply text-sm font-medium text-zinc-800 dark:text-zinc-100; }
 .menu-mobile .btn-fechar { @apply flex justify-end p-4 text-xl text-zinc-700 dark:text-zinc-300; }
-.pc-overlay-content {
-  @apply absolute inset-0 flex flex-col justify-end p-4;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 25%, rgba(0,0,0,0));
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.proj-card:hover .pc-overlay-content {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* removed early overlay rules to avoid conflicts; portfolio section defines these later */
 
 
 /* Hero */
@@ -154,11 +143,11 @@ a { text-decoration: none; color: inherit; }
 
 .preview { @apply relative; }
 .preview-card { @apply rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900 shadow-md; }
-.pc-media { @apply h-28 bg-gradient-to-r from-emerald-500/70 via-white/50 to-emerald-600/60; }
-.pc-title { @apply h-4 w-40 bg-zinc-200 dark:bg-zinc-800 mt-3 ml-3 rounded; }
-.pc-desc { @apply h-3 w-64 bg-zinc-200 dark:bg-zinc-800 mt-2 ml-3 rounded; }
-.pc-actions { @apply flex gap-2 p-4; }
-.pc-btn.ghost { @apply w-16 bg-zinc-200 dark:bg-zinc-800; }
+.preview-card .pc-media { @apply h-28 bg-gradient-to-r from-emerald-500/70 via-white/50 to-emerald-600/60; }
+.preview-card .pc-title { @apply h-4 w-40 bg-zinc-200 dark:bg-zinc-800 mt-3 ml-3 rounded; }
+.preview-card .pc-desc { @apply h-3 w-64 bg-zinc-200 dark:bg-zinc-800 mt-2 ml-3 rounded; }
+.preview-card .pc-actions { @apply flex gap-2 p-4; }
+.preview-card .pc-btn.ghost { @apply w-16 bg-zinc-200 dark:bg-zinc-800; }
 
 .hero-scroll { @apply absolute left-1/2 -translate-x-1/2 bottom-4 text-xs text-green-600/80 dark:text-green-400/80 flex items-center gap-2; }
 
@@ -522,12 +511,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .proj-card {
-  @apply h-[450px] overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-lg;
-  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.proj-card:hover {
-  @apply transform scale-105 -translate-y-1;
+  @apply h-[350px] overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm;
 }
 
 .pc-media {
@@ -540,23 +524,31 @@ a { text-decoration: none; color: inherit; }
 
 
 .pc-title {
-  @apply text-lg font-bold text-white;
+  @apply text-2xl md:text-3xl font-bold text-white leading-tight tracking-tight;
 }
+/* Overlay scale (proporcional ao card) */
+.pc-overlay-content .pc-title { @apply text-[28px] md:text-[32px]; }
 
 .pc-desc {
-  @apply mt-1 text-sm text-zinc-300 h-10 overflow-hidden text-ellipsis;
+  @apply mt-2 text-base md:text-lg text-zinc-200/95 leading-relaxed;
 }
+.pc-overlay-content .pc-desc { @apply text-[15px] md:text-[17px]; }
 
 .pc-tags {
   @apply mt-3 flex flex-wrap gap-2;
 }
+/* Chips (tecnologias) proporcionais */
+.pc-tags .chip { @apply text-[13px] md:text-sm px-3.5 py-1.5; }
+
+/* Botões proporcionais */
+.pc-actions .btn-primary, .pc-actions .btn-secondary { @apply text-sm md:text-sm px-4 py-2; }
 
 .pc-actions {
-  @apply mt-4 flex gap-3;
+  @apply mt-0 flex gap-3;
 }
 
 .pc-overlay-content {
-  @apply absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transform translate-y-4;
+  @apply absolute left-0 right-0 bottom-0 flex flex-col justify-between p-6 md:p-8 gap-1 md:gap-2 bg-gradient-to-t from-black/90 via-black/80 to-transparent opacity-0 transform translate-y-4 min-h-[50%];
   transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
