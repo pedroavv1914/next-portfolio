@@ -514,7 +514,7 @@ a { text-decoration: none; color: inherit; }
 
 /* Portifolio */
 .portifolio { @apply py-16 md:py-24; }
-.filtros-projetos { @apply mb-6 flex flex-wrap gap-2; }
+.filtros-projetos { @apply mb-10 flex flex-wrap gap-2; }
 .filtros-projetos .filtro { @apply px-3 py-1.5 text-xs rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800; }
 .filtros-projetos .filtro.ativo { @apply bg-green-600 border-green-600 text-white; }
 .portfolio-grid {
@@ -522,7 +522,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .proj-card {
-  @apply overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-lg transition-all duration-300;
+  @apply h-[450px] overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-lg transition-all duration-300;
 }
 
 .proj-card:hover {
@@ -530,15 +530,15 @@ a { text-decoration: none; color: inherit; }
 }
 
 .pc-media {
-  @apply relative overflow-hidden;
+  @apply relative overflow-hidden h-full;
 }
 
 .pc-media img {
-  @apply w-full h-56 object-cover transition-transform duration-300;
+  @apply w-full h-full object-cover transition-transform duration-300;
 }
 
 .proj-card:hover .pc-media img {
-  @apply scale-105;
+  @apply scale-150;
 }
 
 .pc-title {
@@ -586,7 +586,7 @@ a { text-decoration: none; color: inherit; }
   .projects-head { @apply flex flex-col md:flex-row md:items-end md:justify-between gap-4; }
   .ph-search input { @apply w-full md:w-72 rounded-lg border border-zinc-600/60 bg-zinc-900/40 text-zinc-100 px-3 py-2 outline-none; }
   .ph-search input:focus { box-shadow: 0 0 0 3px rgba(16,185,129,.25); border-color: rgba(16,185,129,.5); }
-  .projects-filters { @apply mt-5; }
+  .projects-filters { @apply mt-6 mb-6; }
   .pf-row { @apply flex flex-col gap-3; }
   .pf-types { @apply flex flex-wrap gap-2; }
   .pf-pill { @apply text-sm px-3 py-1.5 rounded-full border transition-colors; border-color: rgba(63,63,70,.6); color: #e5e7eb; background: rgba(3,7,7,.2); }
@@ -643,19 +643,6 @@ a { text-decoration: none; color: inherit; }
   @apply bg-transparent border border-zinc-700 text-emerald-400 font-semibold px-4 py-2 rounded-md text-sm;
 }
 
-/* Modal */
-.proj-modal { position: fixed; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(2px); display: grid; place-items: center; padding: 24px; z-index: 60; }
-.pm-dialog { position: relative; width: min(100%, 980px); border: 1px solid rgba(63,63,70,.6); border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, rgba(3,7,7,.9), rgba(3,7,7,.75)); box-shadow: 0 20px 60px rgba(0,0,0,.45); }
-.pm-close { position: absolute; right: 12px; top: 12px; width: 36px; height: 36px; border-radius: 9999px; background: rgba(3,7,7,.5); color: #e5e7eb; border: 1px solid rgba(63,63,70,.6); }
-.pm-close:hover { border-color: rgba(16,185,129,.45); color: #bbf7d0; }
-.pm-media { position: relative; background: #0b0f0f; }
-.pm-media img { display: block; width: 100%; object-fit: cover; }
-.pm-body { padding: 16px; }
-.pm-title { @apply text-xl font-semibold text-white; }
-.pm-desc { @apply mt-1 text-zinc-300; }
-.pm-tags { @apply mt-2 flex flex-wrap gap-2; }
-.pm-actions { @apply mt-3 flex items-center gap-2; }
-
 /* Controls and variants */
 .ph-controls { @apply flex items-center gap-2; }
 .ph-select { @apply rounded-lg border border-zinc-600/60 bg-zinc-900/40 text-zinc-100 px-3 py-2 text-sm outline-none; }
@@ -672,10 +659,3 @@ a { text-decoration: none; color: inherit; }
 
 /* Empty state actions */
 .proj-empty-actions { @apply mt-3; }
-
-/* Modal nav */
-.pm-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 9999px; border: 1px solid rgba(63,63,70,.6);
-  background: rgba(3,7,7,.55); color: #e5e7eb; display: grid; place-items: center; }
-.pm-prev { left: 8px; }
-.pm-next { right: 8px; }
-.pm-nav:hover { border-color: rgba(16,185,129,.45); color: #bbf7d0; }
