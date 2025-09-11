@@ -25,20 +25,7 @@ export default function Hero() {
     return () => io.disconnect();
   }, []);
 
-  // Cursor glow (CSS variables)
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const handleMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-      const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
-      el.style.setProperty("--mx", `${x}px`);
-      el.style.setProperty("--my", `${y}px`);
-    };
-    el.addEventListener("mousemove", handleMove);
-    return () => el.removeEventListener("mousemove", handleMove);
-  }, []);
+  // Cursor glow removido para evitar barra lateral
 
   // Constellation particles (lightweight, respects reduced motion)
   useEffect(() => {
@@ -178,9 +165,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="hero hero-v2 has-cursor-glow" id="inicio">
+    <section ref={sectionRef} className="hero hero-v2" id="inicio">
       <div className="hero-v2-bg" aria-hidden="true" />
-      <div className="cursor-glow" aria-hidden="true" />
+
       <canvas ref={canvasRef} className="constellation" aria-hidden="true" />
       <div className="interface">
         <div className="v2-wrap" data-reveal style={{ ['--d' as any]: '0ms' }}>
