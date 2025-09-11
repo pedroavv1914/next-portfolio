@@ -2,18 +2,11 @@
 import { useCallback, useEffect, useState } from "react";
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string>("inicio");
 
-  const close = useCallback(() => setOpen(false), []);
-  const openMenu = useCallback(() => setOpen(true), []);
-
-  // Fecha o menu ao navegar por hash links no mobile
   useEffect(() => {
-    const onHash = () => setOpen(false);
-    window.addEventListener("hashchange", onHash);
 
     const ids = ["inicio", "sobre", "especialidades", "portifolio", "formulario"]; // seções existentes
 
@@ -98,7 +91,6 @@ export default function Header() {
     window.addEventListener("hashchange", onHashActive);
 
     return () => {
-      window.removeEventListener("hashchange", onHash);
       window.removeEventListener("scroll", onScroll as EventListener);
       window.removeEventListener("load", onLoad as EventListener);
       window.removeEventListener("hashchange", onHashActive as EventListener);
@@ -136,31 +128,7 @@ export default function Header() {
           </nav>
         </div>
 
-        <button className="btn-abrir-menu" id="btn-menu" onClick={openMenu} aria-controls="menu-mobile" aria-expanded={open} aria-label="Abrir menu">
-          <i className="bi bi-list-nested" />
-        </button>
 
-        <div className={`menu-mobile ${open ? "translate-x-0" : "translate-x-full"}`} id="menu-mobile" role="dialog" aria-modal="true">
-          <button className="btn-fechar" onClick={close} aria-label="Fechar menu">
-            <i className="bi bi-x-lg" />
-          </button>
-          <nav>
-            <ul>
-              <li><a href="#inicio" onClick={close}>INICIO</a></li>
-              <li><a href="#sobre" onClick={close}>SOBRE</a></li>
-              <li><a href="#especialidades" onClick={close}>ESPECIALIDADES</a></li>
-              <li><a href="#portifolio" onClick={close}>PROJETOS</a></li>
-              <li><a href="#formulario" onClick={close}>CONTATO</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <button
-          className={`overlay-menu ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-          id="overlay-menu"
-          aria-hidden={!open}
-          onClick={close}
-        />
       </div>
     </header>
   );
