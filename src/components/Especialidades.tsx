@@ -119,6 +119,7 @@ export default function Especialidades() {
   const techIcon = (name: string) => {
     const n = name.toLowerCase();
     const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8 } as const;
+    
     if (n.includes('react')) {
       return (
         <svg {...common} strokeWidth={1.5}>
@@ -129,86 +130,119 @@ export default function Especialidades() {
         </svg>
       );
     }
+    
     if (n.includes('type') || n === 'ts' || n.includes('typescript')) {
       return (
-        <svg {...common}>
-          <rect x="3.5" y="5" width="17" height="14" rx="2.5" />
-          <path d="M7 12h5M9.5 12v6" />
-          <path d="M15 14.5c.6-1 2-1.4 3-.8 1 .6 1.2 2 .1 2.7-.8.5-1.6.6-2.4 1.4" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <rect x="2" y="3" width="20" height="18" rx="3" fill="#3178c6" />
+          <path d="M9 15.5v-3.5h3v-1.5h-3v-2h4.5v-1.5h-6v8.5h1.5zm6.5 0c.8 0 1.4-.2 1.9-.6.5-.4.8-1 .8-1.7 0-.6-.2-1.1-.6-1.4-.4-.3-.9-.5-1.5-.6l-.8-.1c-.3-.1-.5-.2-.6-.3-.1-.1-.2-.3-.2-.5s.1-.4.2-.5c.2-.1.4-.2.7-.2.4 0 .7.1.9.3.2.2.3.5.3.8h1.4c0-.7-.3-1.3-.8-1.7-.5-.4-1.2-.6-2-.6-.8 0-1.4.2-1.9.6-.5.4-.7.9-.7 1.6 0 .6.2 1.1.6 1.4.4.3.9.5 1.5.6l.8.1c.3.1.5.2.6.3.1.1.2.3.2.5s-.1.4-.2.5c-.2.1-.4.2-.8.2-.5 0-.8-.1-1.1-.4-.3-.2-.4-.6-.4-1h-1.4c0 .8.3 1.4.8 1.8.5.4 1.2.6 2.1.6z" fill="white" />
         </svg>
       );
     }
+    
     if (n.includes('next')) {
       return (
-        <svg {...common}>
-          <path d="M4 6h16v12H4z" />
-          <path d="M6 6l12 12" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <circle cx="12" cy="12" r="10" fill="black" />
+          <path d="M8 8h8v8l-8-8z" fill="white" />
+          <path d="M16 8v8" stroke="white" strokeWidth="1.5" />
         </svg>
       );
     }
-    if (n.includes('java') || n.includes('javascript')) {
+    
+    if (n.includes('java') && !n.includes('javascript')) {
       return (
-        <svg {...common}>
-          <rect x="3.5" y="5" width="17" height="14" rx="2.5" />
-          <path d="M8 16v-5m3 5v-3m3 3v-5" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M8.5 18c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5zm4.5 0c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5zm-6-4c0-2.2 1.8-4 4-4h2c2.2 0 4 1.8 4 4v1h-10v-1zm2-6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z" fill="#f89820" />
         </svg>
       );
     }
+    
+    if (n.includes('javascript')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <rect x="2" y="2" width="20" height="20" rx="3" fill="#f7df1e" />
+          <path d="M7.5 14.5c0 1.5 1 2.5 2.5 2.5 1.2 0 2-.6 2-1.5v-5h-1.5v5c0 .5-.3.8-.8.8-.6 0-.9-.4-.9-1l-1.3-.3zm6.5 2.5c1.5 0 2.5-.8 2.5-2 0-1.3-.8-1.7-2-2.2l-.5-.2c-.6-.3-.9-.5-.9-.9 0-.3.2-.6.6-.6.4 0 .6.2.8.6l1.2-.8c-.5-.8-1.2-1.2-2-.1.2-1.2.8-1.8 1.8-1.8 1.1 0 1.8.6 1.8 1.5 0 1.1-.6 1.6-1.6 2l-.5.2c-.7.3-1 .6-1 1 0 .4.3.7.8.7.5 0 .8-.2 1-.7l1.2.7c-.5 1-1.3 1.5-2.2 1.5z" fill="black" />
+        </svg>
+      );
+    }
+    
     if (n.includes('node')) {
       return (
-        <svg {...common}>
-          <polygon points="12,3 21,8 21,16 12,21 3,16 3,8" />
-          <path d="M9 10v4a3 3 0 0 0 6 0v-4" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2l8.5 5v10L12 22l-8.5-5V7L12 2z" fill="#68a063" />
+          <path d="M12 2v20M3.5 7l17 10M20.5 7l-17 10" stroke="#333" strokeWidth="0.5" />
         </svg>
       );
     }
+    
     if (n.includes('python')) {
       return (
-        <svg {...common}>
-          <path d="M12 4h3a3 3 0 0 1 3 3v3H9a2 2 0 0 1-2-2V7a3 3 0 0 1 3-3h2z" />
-          <circle cx="14.5" cy="6.5" r=".8" fill="currentColor" />
-          <path d="M12 20h-3a3 3 0 0 1-3-3v-3h9a2 2 0 0 1 2 2v1a3 3 0 0 1-3 3h-2z" />
-          <circle cx="9.5" cy="17.5" r=".8" fill="currentColor" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2c-1.1 0-2 .4-2.7 1.1-.4.4-.6.9-.8 1.4-.1.3-.1.6-.1.9v1.1c0 .8.7 1.5 1.5 1.5h3.2c.8 0 1.5.7 1.5 1.5v.5c0 .8-.7 1.5-1.5 1.5h-3.2c-.8 0-1.5.7-1.5 1.5v1.1c0 .3 0 .6.1.9.2.5.4 1 .8 1.4.7.7 1.6 1.1 2.7 1.1s2-.4 2.7-1.1c.4-.4.6-.9.8-1.4.1-.3.1-.6.1-.9v-1.1c0-.8-.7-1.5-1.5-1.5h-3.2c-.8 0-1.5-.7-1.5-1.5v-.5c0-.8.7-1.5 1.5-1.5h3.2c.8 0 1.5-.7 1.5-1.5v-1.1c0-.3 0-.6-.1-.9-.2-.5-.4-1-.8-1.4-.7-.7-1.6-1.1-2.7-1.1z" fill="url(#python-gradient)" />
+          <defs>
+            <linearGradient id="python-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#3776ab" />
+              <stop offset="100%" stopColor="#ffd43b" />
+            </linearGradient>
+          </defs>
+          <circle cx="9.5" cy="7.5" r="1" fill="white" />
+          <circle cx="14.5" cy="16.5" r="1" fill="white" />
         </svg>
       );
     }
+    
     if (n === 'sql' || n.includes('mysql') || n.includes('postgres') || n.includes('sqlite')) {
       return (
         <svg {...common}>
-          <ellipse cx="12" cy="6.5" rx="7" ry="2.5" />
-          <path d="M5 6.5v9c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-9" />
+          <ellipse cx="12" cy="6" rx="8" ry="3" fill="#336791" />
+          <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" stroke="#336791" strokeWidth="2" fill="none" />
+          <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" stroke="#336791" strokeWidth="2" fill="none" />
         </svg>
       );
     }
+    
     if (n.includes('mongo')) {
       return (
-        <svg {...common}>
-          <path d="M12 3c3 3 4.5 6.5 3.6 10.8-.7 3-2.4 4.9-3.6 6.2-1.2-1.3-2.9-3.2-3.6-6.2C5.5 9.5 9 5.5 12 3z" />
-          <path d="M12 3v18" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2c2.5 2.5 4 5.5 3.2 9.2-.6 2.5-2 4.1-3.2 5.3-1-1.1-2.6-2.8-3.2-5.3C8 10.5 9.5 4.5 12 2z" fill="#4db33d" />
+          <path d="M12 2v14.5" stroke="#4db33d" strokeWidth="1" />
+          <ellipse cx="12" cy="18" rx="1" ry="2" fill="#4db33d" />
         </svg>
       );
     }
+    
     if (n.includes('docker')) {
       return (
-        <svg {...common}>
-          <rect x="5" y="11" width="3" height="3" />
-          <rect x="9" y="11" width="3" height="3" />
-          <rect x="13" y="11" width="3" height="3" />
-          <rect x="9" y="7" width="3" height="3" />
-          <path d="M4 14h15a3 3 0 0 1-3 3H8a4 4 0 0 1-4-4" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <rect x="5" y="11" width="2.5" height="2.5" fill="#0db7ed" />
+          <rect x="8" y="11" width="2.5" height="2.5" fill="#0db7ed" />
+          <rect x="11" y="11" width="2.5" height="2.5" fill="#0db7ed" />
+          <rect x="14" y="11" width="2.5" height="2.5" fill="#0db7ed" />
+          <rect x="8" y="8" width="2.5" height="2.5" fill="#0db7ed" />
+          <rect x="11" y="8" width="2.5" height="2.5" fill="#0db7ed" />
+          <rect x="11" y="5" width="2.5" height="2.5" fill="#0db7ed" />
+          <path d="M17 11h2c1.1 0 2 .9 2 2v2c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2v-2c0-1.1.9-2 2-2h12z" fill="none" stroke="#0db7ed" strokeWidth="1.5" />
         </svg>
       );
     }
+    
+    if (n.includes('git') && n.includes('github')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.85 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 7.3c.85 0 1.71.12 2.51.34 1.9-1.33 2.74-1.05 2.74-1.05.56 1.4.21 2.44.11 2.7.64.72 1.02 1.63 1.02 2.75 0 3.96-2.34 4.82-4.57 5.08.36.32.67.95.67 1.92 0 1.39-.01 2.5-.01 2.84 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2z" fill="#333" />
+        </svg>
+      );
+    }
+    
     if (n.includes('git')) {
       return (
-        <svg {...common}>
-          <path d="M6 7l6 6m-2 2l-6-6" />
-          <circle cx="7" cy="6" r="2" fill="currentColor" />
-          <circle cx="12" cy="11" r="2" fill="currentColor" />
-          <circle cx="9" cy="13" r="2" fill="currentColor" />
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M21.62 11.11l-8.73-8.73c-.78-.78-2.05-.78-2.83 0L8.37 4.07l2.62 2.62c.83-.3 1.78-.1 2.44.56.67.67.87 1.65.55 2.49l2.53 2.53c.84-.32 1.82-.12 2.49.55.93.93.93 2.44 0 3.37-.93.93-2.44.93-3.37 0-.78-.78-.97-1.92-.58-2.88L13.14 11.4v6.25c.23.11.44.26.62.44.93.93.93 2.44 0 3.37-.93.93-2.44.93-3.37 0-.93-.93-.93-2.44 0-3.37.23-.23.5-.4.8-.5V11.4c-.3-.1-.57-.27-.8-.5-.79-.79-.97-1.95-.56-2.91L7.26 5.42 2.38 10.3c-.78.78-.78 2.05 0 2.83l8.73 8.73c.78.78 2.05.78 2.83 0l8.68-8.68c.78-.78.78-2.05 0-2.83z" fill="#f05032" />
         </svg>
       );
     }
+    
     // Fallback generic square
     return (
       <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2"/></svg>
