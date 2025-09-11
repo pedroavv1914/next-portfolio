@@ -1,6 +1,7 @@
 export default function Contato() {
   return (
     <section className="formulario" id="formulario">
+      <div className="formulario-bg"></div>
       <div className="interface">
         <h2 className="titulo">FALA <span>COMIGO.</span></h2>
         <form className="form" noValidate>
