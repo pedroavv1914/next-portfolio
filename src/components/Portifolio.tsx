@@ -135,6 +135,7 @@ export default function Portifolio() {
 
   return (
     <section ref={sectionRef} className="projects-v2" id="portifolio">
+      <div className="projects-bg"></div>
       <div className="interface">
         <header className="projects-head">
           <div className="ph-left">
