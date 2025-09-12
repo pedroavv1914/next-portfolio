@@ -77,13 +77,7 @@ export default function Portifolio() {
     },
   ];
 
-  const allTags = useMemo(() => Array.from(new Set(projetos.flatMap(p => p.tags))).sort(), [projetos]);
-
-  const [tag, setTag] = useState<string | "all">("all");
-  const [q, setQ] = useState("");
   const [sel, setSel] = useState<Projeto | null>(null);
-  const [sort, setSort] = useState<"recent"|"az"|"za">("recent");
-  const [dense, setDense] = useState<boolean>(false);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -118,14 +112,7 @@ export default function Portifolio() {
     return () => io.disconnect();
   }, []);
 
-  const list = useMemo(() => {
-    const filtered = projetos
-      .filter(p => (tag === "all" || p.tags.includes(tag)))
-      .filter(p => (q.trim() === "" || (p.title+" "+p.desc+" "+p.tags.join(" ")).toLowerCase().includes(q.toLowerCase())));
-    if (sort === 'az') return [...filtered].sort((a,b)=>a.title.localeCompare(b.title));
-    if (sort === 'za') return [...filtered].sort((a,b)=>b.title.localeCompare(a.title));
-    return filtered; 
-  }, [projetos, tag, q, sort]);
+  const list = projetos;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSel(null); };
@@ -143,92 +130,87 @@ export default function Portifolio() {
               <span className="line">Meus</span>
               <span className="line">Projetos</span>
             </h2>
-            <p className="projects-lead">Selecione um filtro ou pesquise para encontrar algo específico.</p>
-          </div>
-          <div className="ph-right">
-            <div className="ph-controls">
-              <div className="ph-search">
-                <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Buscar por título, tag..." aria-label="Buscar projetos" />
-              </div>
-              <select className="ph-select" aria-label="Ordenar" value={sort} onChange={e=>setSort(e.target.value as any)}>
-                <option value="recent">Recentes</option>
-                <option value="az">A–Z</option>
-                <option value="za">Z–A</option>
-              </select>
-            </div>
+            <p className="projects-lead">Confira meus principais projetos desenvolvidos.</p>
           </div>
         </header>
 
-        <div className="projects-filters" role="group" aria-label="Filtros">
-          <div className="pf-row">
-            <div className="pf-tags">
-              <button className={`pf-tag ${tag==='all'?'is-active':''}`} onClick={()=>setTag('all')}>Todas</button>
-              {allTags.map(t => (
-                <button key={t} className={`pf-tag ${tag===t?'is-active':''}`} onClick={()=>setTag(t)}>{t}</button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="portfolio-grid" role="list">
-          {list.length===0 && (
-            <div className="proj-empty" role="status">
-              Nenhum projeto encontrado.
-              <div className="proj-empty-actions">
-                <button className="btn-secondary" onClick={()=>{ setTag('all'); setQ(""); setSort('recent'); }}>Limpar filtros</button>
-              </div>
-            </div>
-          )}
-          {list.map((p)=> (
-            <article key={p.id} className={`proj-card ${dense? 'dense': ''}`} role="listitem">
-              <div className="pc-media group" onClick={()=>setSel(p)} role="button" tabIndex={0}
-                   onKeyDown={(e)=>{ if(e.key==='Enter') setSel(p); }} aria-label={`Abrir pré-visualização de ${p.title}`}>
-                <img src={p.imgSrc} alt="" loading="lazy" decoding="async" />
-                <div className="pc-overlay-content">
-                <h1 className="pc-title">{p.title}</h1>
-                <p className="pc-desc">{p.desc}</p>
-                <div className="pc-tags">
-                  {p.tags.map(t=> <span key={t} className="chip">{t}</span>)}
+        <div className="projects-grid" role="list">
+          {list.map((p, index)=> (
+            <article key={p.id} className="project-card-v2" role="listitem" 
+                     data-reveal style={{ ['--d' as any]: `${120 + index * 60}ms` }}>
+              <div className="card-image-v2">
+                <img src={p.imgSrc} alt={`Preview do projeto ${p.title}`} loading="lazy" decoding="async" />
+                <div className="card-overlay-v2">
+                  <button className="preview-btn-v2" onClick={()=>setSel(p)} 
+                          aria-label={`Visualizar detalhes de ${p.title}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <span>Visualizar</span>
+                  </button>
                 </div>
-                <footer className="pc-actions">
-                  {(p.frontUrl || p.backUrl) ? (
-                    <>
-                      {p.frontUrl && (
-                        <a href={p.frontUrl} target="_blank" rel="noopener noreferrer" className="btn-front">
-                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-4 4v-4H5a2 2 0 0 1-2-2V5z"/></svg>
-                          <span>Front End</span>
-                        </a>
-                      )}
-                      {p.backUrl && (
-                        <a href={p.backUrl} target="_blank" rel="noopener noreferrer" className="btn-back">
-                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v4H4V6zm0 6h16v6H4v-6z"/></svg>
-                          <span>Back End</span>
-                        </a>
-                      )}
-                      {p.demoUrl && (
-                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-demo">
-                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
-                          <span>Demo</span>
-                        </a>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {p.codeUrl && (
-                        <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L5.8 13l3.6-3.6L8 4l-8 8 8 8 1.4-3.4zm5.2 0L18.2 13l-3.6-3.6L16 4l8 8-8 8-1.4-3.4z"/></svg>
-                          <span>Código (GitHub)</span>
-                        </a>
-                      )}
-                      {p.demoUrl && (
-                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                          <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
-                          <span>Demo</span>
-                        </a>
-                      )}
-                    </>
+              </div>
+              
+              <div className="card-content-v2">
+                <div className="card-header-v2">
+                  <h3 className="card-title-v2">{p.title}</h3>
+                </div>
+                
+                <p className="card-description-v2">{p.desc}</p>
+                
+                <div className="card-technologies">
+                  <h4 className="tech-title">Tecnologias utilizadas:</h4>
+                  <div className="tech-grid">
+                    {p.tags.map(tech => (
+                      <span key={tech} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="card-actions-v2">
+                  {p.demoUrl && (
+                    <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="action-btn-v2 demo">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polygon points="5,3 19,12 5,21 5,3"/>
+                      </svg>
+                      <span>Ver Demo</span>
+                    </a>
                   )}
-                </footer>
+                  {p.codeUrl && (
+                    <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="action-btn-v2 code">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="16,18 22,12 16,6"/>
+                        <polyline points="8,6 2,12 8,18"/>
+                      </svg>
+                      <span>Código</span>
+                    </a>
+                  )}
+                  {p.frontUrl && (
+                    <a href={p.frontUrl} target="_blank" rel="noopener noreferrer" className="action-btn-v2 frontend">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                      </svg>
+                      <span>Ver Frontend</span>
+                    </a>
+                  )}
+                  {p.backUrl && (
+                    <a href={p.backUrl} target="_blank" rel="noopener noreferrer" className="action-btn-v2 backend">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                        <line x1="7" y1="2" x2="7" y2="22"/>
+                        <line x1="17" y1="2" x2="17" y2="22"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <line x1="2" y1="7" x2="7" y2="7"/>
+                        <line x1="2" y1="17" x2="7" y2="17"/>
+                        <line x1="17" y1="17" x2="22" y2="17"/>
+                        <line x1="17" y1="7" x2="22" y2="7"/>
+                      </svg>
+                      <span>Backend</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </article>
