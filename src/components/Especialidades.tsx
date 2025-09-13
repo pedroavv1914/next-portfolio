@@ -39,6 +39,32 @@ export default function Especialidades() {
     return () => io.disconnect();
   }, []);
 
+  // Parallax effect on scroll
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r = el.getBoundingClientRect();
+        const delta = Math.max(-100, Math.min(100, r.top));
+        el.style.setProperty('--parallax', `${delta}px`);
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   // Hover glow: track pointer within each tile and set CSS vars
   useEffect(() => {
     const root = sectionRef.current;
@@ -69,21 +95,24 @@ export default function Especialidades() {
     {
       id: "front",
       title: "Front-end  ",
-      meta: "JavaScript, React, TypeScript, Next.js",
+      meta: "React, Next.js, Tailwind CSS",
       tiles: [
-        { title: "JavaScript", level: "Forte", chips: ["ES6+", "DOM", "APIs", "Fetch", "Async/Await", "Vite"] },
         { title: "React", level: "Forte", chips: ["Hooks", "SPA", "Styled Components", "Context API", "React Router", "React Query"] },
-        { title: "TypeScript", level: "Forte", chips: ["Type Safety", "ESNext", "Full-stack", "Generics", "Utility Types", "Zod"] },
         { title: "Next.js", level: "Forte", chips: ["SSR", "SSG", "API Routes", "App Router", "Middleware", "Optimizações"] },
+        { title: "Tailwind CSS", level: "Forte", chips: ["Utility-first", "Responsive Design", "Dark Mode", "Custom Components", "JIT Mode", "Plugins"] },
       ],
     },
     {
       id: "back",
       title: "Back-end  ",
-      meta: "Node.js, Python",
+      meta: "JavaScript, TypeScript, Node.js, Python, C#, Java",
       tiles: [
+        { title: "JavaScript", level: "Forte", chips: ["ES6+", "DOM", "APIs", "Fetch", "Async/Await", "Vite"] },
+        { title: "TypeScript", level: "Forte", chips: ["Type Safety", "ESNext", "Full-stack", "Generics", "Utility Types", "Zod"] },
         { title: "Node.js", level: "Forte", chips: ["Express", "API REST", "Prisma", "JWT", "Fastify", "WebSockets"] },
         { title: "Python", level: "Bom", chips: ["Django", "Flask", "Automação", "Scripts", "Bots", "Pandas"] },
+        { title: "C#", level: "Bom", chips: [".NET Core", "ASP.NET", "Entity Framework", "LINQ", "Web API", "Blazor"] },
+        { title: "Java", level: "Bom", chips: ["Spring Boot", "Maven", "JPA", "REST APIs", "Microservices", "JUnit"] },
       ],
     },
     {
@@ -98,17 +127,23 @@ export default function Especialidades() {
     {
       id: "devops",
       title: "DevOps  ",
-      meta: "Docker",
+      meta: "Docker, AWS, Vercel, Nginx",
       tiles: [
         { title: "Docker", level: "Bom", chips: ["Docker Compose", "Images", "Volumes", "Multi-stage", "CI/CD", "Networking"] },
+        { title: "AWS", level: "Bom", chips: ["EC2", "S3", "RDS", "Lambda", "CloudFormation", "IAM"] },
+        { title: "Vercel", level: "Forte", chips: ["Deployment", "Serverless", "Edge Functions", "Analytics", "Preview URLs", "Custom Domains"] },
+        { title: "Nginx", level: "Bom", chips: ["Reverse Proxy", "Load Balancing", "SSL/TLS", "Caching", "Rate Limiting", "Configuration"] },
       ],
     },
     {
       id: "tools",
       title: "Ferramentas  ",
-      meta: "Git & GitHub",
+      meta: "Git & GitHub, VS Code, Postman, Figma",
       tiles: [
         { title: "Git & GitHub", level: "Forte", chips: ["Branching", "Pull request", "Actions", "Rebase", "Conventional Commits", "Issues/Projects"] },
+        { title: "VS Code", level: "Forte", chips: ["Extensions", "Debugging", "IntelliSense", "Integrated Terminal", "Live Share", "Snippets"] },
+        { title: "Postman", level: "Forte", chips: ["API Testing", "Collections", "Environments", "Automation", "Mock Servers", "Documentation"] },
+        { title: "Figma", level: "Bom", chips: ["UI Design", "Prototyping", "Components", "Auto Layout", "Design Systems", "Collaboration"] },
       ],
     },
   ]), []);
@@ -243,6 +278,107 @@ export default function Especialidades() {
       );
     }
 
+    if (n.includes('vue')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M2 3h4l6 10 6-10h4L12 21 2 3z" fill="#4fc08d" />
+          <path d="M6 3l6 10 6-10h-4L12 8 10 3H6z" fill="#35495e" />
+        </svg>
+      );
+    }
+
+    if (n.includes('tailwind')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.12 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.31-.74-1.91-1.35C15.61 7.15 14.47 6 12 6zM7 12c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.12 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.31-.74-1.91-1.35C10.61 13.15 9.47 12 7 12z" fill="#06b6d4" />
+        </svg>
+      );
+    }
+
+    if (n.includes('php')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <ellipse cx="12" cy="12" rx="10" ry="6" fill="#777bb4" />
+          <path d="M6 9h2c1.1 0 2 .4 2 1.5S9.1 12 8 12H7v2H6V9zm1 1v1.5h1c.3 0 .5-.2.5-.75S8.3 10 8 10H7zm4 3h1v2h1v-2h1c1.1 0 2-.4 2-1.5S15.1 9 14 9h-3v5zm1-4h1c.3 0 .5.2.5.75S13.3 11 13 11h-1v-1zm4-1h2c1.1 0 2 .4 2 1.5S18.1 12 17 12h-1v2h-1V9zm1 1v1.5h1c.3 0 .5-.2.5-.75S18.3 10 18 10h-1z" fill="white" />
+        </svg>
+      );
+    }
+
+    if (n.includes('c#') || n.includes('csharp')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <rect x="2" y="2" width="20" height="20" rx="3" fill="#239120" />
+          <path d="M8 7h2v2H8V7zm0 3h2v2H8v-2zm0 3h2v2H8v-2zm3-6h2v2h-2V7zm0 3h2v2h-2v-2zm0 3h2v2h-2v-2zm3-6h2v2h-2V7zm0 3h2v2h-2v-2zm0 3h2v2h-2v-2z" fill="white" />
+          <path d="M6 6h1v1H6V6zm0 2h1v1H6V8zm0 2h1v1H6v-1zm0 2h1v1H6v-1zm0 2h1v1H6v-1z" fill="white" />
+        </svg>
+      );
+    }
+
+    if (n.includes('java') && !n.includes('javascript')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M8.5 18c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5zm4.5 0c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5-.7-1.5-1.5-1.5-1.5.7-1.5 1.5zm-6-4c0-2.2 1.8-4 4-4h2c2.2 0 4 1.8 4 4v1h-10v-1zm2-6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z" fill="#f89820" />
+          <path d="M12 4c-1.1 0-2 .9-2 2v2c0 .6.4 1 1 1s1-.4 1-1V6c0-.6.4-1 1-1s1 .4 1 1v2c0 .6.4 1 1 1s1-.4 1-1V6c0-1.1-.9-2-2-2z" fill="#ed8b00" />
+        </svg>
+      );
+    }
+
+    if (n.includes('aws')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M6.5 14.5l-1.8 3.2c-.1.2-.3.3-.5.3-.2 0-.4-.1-.5-.3L1.9 14.5c-.1-.2-.1-.4 0-.6.1-.2.3-.3.5-.3h3.6c.2 0 .4.1.5.3.1.2.1.4 0 .6zm9.3-7.8c-.8-.8-1.9-1.2-3.1-1.2-1.2 0-2.3.4-3.1 1.2-.8.8-1.2 1.9-1.2 3.1s.4 2.3 1.2 3.1c.8.8 1.9 1.2 3.1 1.2 1.2 0 2.3-.4 3.1-1.2.8-.8 1.2-1.9 1.2-3.1s-.4-2.3-1.2-3.1zm5.3 7.8l-1.8 3.2c-.1.2-.3.3-.5.3-.2 0-.4-.1-.5-.3l-1.8-3.2c-.1-.2-.1-.4 0-.6.1-.2.3-.3.5-.3h3.6c.2 0 .4.1.5.3.1.2.1.4 0 .6z" fill="#ff9900" />
+          <path d="M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="#232f3e" />
+        </svg>
+      );
+    }
+
+    if (n.includes('vercel')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2L22 20H2L12 2z" fill="#000" />
+        </svg>
+      );
+    }
+
+    if (n.includes('nginx')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" fill="#009639" />
+          <path d="M8 8v8l8-8v8" stroke="white" strokeWidth="2" fill="none" />
+        </svg>
+      );
+    }
+
+    if (n.includes('vs code') || n.includes('vscode')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M17.5 2.5L9 11 4.5 7.5 2 9.5l2.5 2.5L2 14.5l2.5 2L9 13l8.5 8.5L22 19V5l-4.5-2.5zM17.5 6v12L11 12l6.5-6z" fill="#007acc" />
+        </svg>
+      );
+    }
+
+    if (n.includes('postman')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <circle cx="12" cy="12" r="10" fill="#ff6c37" />
+          <path d="M8 8l8 8M16 8l-8 8" stroke="white" strokeWidth="2" />
+          <circle cx="12" cy="12" r="3" fill="white" />
+        </svg>
+      );
+    }
+
+    if (n.includes('figma')) {
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M8 2h4v4H8c-1.1 0-2-.9-2-2s.9-2 2-2z" fill="#f24e1e" />
+          <path d="M12 2h4c1.1 0 2 .9 2 2s-.9 2-2 2h-4V2z" fill="#a259ff" />
+          <path d="M8 6h4v4H8c-1.1 0-2-.9-2-2s.9-2 2-2z" fill="#1abcfe" />
+          <path d="M8 10h4v4H8c-1.1 0-2-.9-2-2s.9-2 2-2z" fill="#0acf83" />
+          <circle cx="16" cy="12" r="2" fill="#f24e1e" />
+        </svg>
+      );
+    }
+
     // Fallback generic square
     return (
       <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2" /></svg>
@@ -304,42 +440,75 @@ export default function Especialidades() {
               </section>
             ))}
 
-            {/* DevOps e Ferramentas lado a lado */}
-            <div className="acc-duo" data-reveal>
-              {categories.filter(c => c.id === 'devops' || c.id === 'tools').map((cat) => (
-                <section key={cat.id} className="acc-item">
-                  <div className="acc-head" role="heading" aria-level={3}>
-                    <div className="acc-titles">
-                      <span className="acc-category">{cat.title}</span>
-                      <span className="acc-meta">{cat.meta}</span>
-                    </div>
+            {/* DevOps em linha separada */}
+            {categories.filter(c => c.id === 'devops').map((cat) => (
+              <section key={cat.id} className="acc-item" data-reveal>
+                <div className="acc-head" role="heading" aria-level={3}>
+                  <div className="acc-titles">
+                    <span className="acc-category">{cat.title}</span>
+                    <span className="acc-meta">{cat.meta}</span>
                   </div>
-                  <div id={`acc-${cat.id}`} className="acc-body is-open" role="region" aria-label={cat.title}>
-                    <div className="tile-grid">
-                      {cat.tiles.map((t) => (
-                        <article className="tile" key={t.title}>
-                          <header className="tile-head">
-                            <div className="tile-icon" aria-hidden>
-                              {techIcon(t.title)}
-                            </div>
-                            <div className="tile-titles">
-                              <h4 className="tile-title">{t.title}</h4>
-                            </div>
-                            <span className={`tile-badge ${t.level === 'Forte' ? 'lvl-strong' : 'lvl-good'}`}>{t.level}</span>
-                          </header>
-                          <div className="tile-meter" aria-label={`Proficiência: ${t.level}`} role="img">
-                            <span className="tile-meter-bar" style={{ width: meterPercent(t.level) + '%' }} />
+                </div>
+                <div id={`acc-${cat.id}`} className="acc-body is-open" role="region" aria-label={cat.title}>
+                  <div className="tile-grid">
+                    {cat.tiles.map((t) => (
+                      <article className="tile" key={t.title}>
+                        <header className="tile-head">
+                          <div className="tile-icon" aria-hidden>
+                            {techIcon(t.title)}
                           </div>
-                          <ul className="tile-chips" role="list">
-                            {t.chips.map((c) => (<li key={c} className="chip" title={c}>{c}</li>))}
-                          </ul>
-                        </article>
-                      ))}
-                    </div>
+                          <div className="tile-titles">
+                            <h4 className="tile-title">{t.title}</h4>
+                          </div>
+                          <span className={`tile-badge ${t.level === 'Forte' ? 'lvl-strong' : 'lvl-good'}`}>{t.level}</span>
+                        </header>
+                        <div className="tile-meter" aria-label={`Proficiência: ${t.level}`} role="img">
+                          <span className="tile-meter-bar" style={{ width: meterPercent(t.level) + '%' }} />
+                        </div>
+                        <ul className="tile-chips" role="list">
+                          {t.chips.map((c) => (<li key={c} className="chip" title={c}>{c}</li>))}
+                        </ul>
+                      </article>
+                    ))}
                   </div>
-                </section>
-              ))}
-            </div>
+                </div>
+              </section>
+            ))}
+
+            {/* Ferramentas em linha separada */}
+            {categories.filter(c => c.id === 'tools').map((cat) => (
+              <section key={cat.id} className="acc-item" data-reveal>
+                <div className="acc-head" role="heading" aria-level={3}>
+                  <div className="acc-titles">
+                    <span className="acc-category">{cat.title}</span>
+                    <span className="acc-meta">{cat.meta}</span>
+                  </div>
+                </div>
+                <div id={`acc-${cat.id}`} className="acc-body is-open" role="region" aria-label={cat.title}>
+                  <div className="tile-grid">
+                    {cat.tiles.map((t) => (
+                      <article className="tile" key={t.title}>
+                        <header className="tile-head">
+                          <div className="tile-icon" aria-hidden>
+                            {techIcon(t.title)}
+                          </div>
+                          <div className="tile-titles">
+                            <h4 className="tile-title">{t.title}</h4>
+                          </div>
+                          <span className={`tile-badge ${t.level === 'Forte' ? 'lvl-strong' : 'lvl-good'}`}>{t.level}</span>
+                        </header>
+                        <div className="tile-meter" aria-label={`Proficiência: ${t.level}`} role="img">
+                          <span className="tile-meter-bar" style={{ width: meterPercent(t.level) + '%' }} />
+                        </div>
+                        <ul className="tile-chips" role="list">
+                          {t.chips.map((c) => (<li key={c} className="chip" title={c}>{c}</li>))}
+                        </ul>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ))}
           </div>
         </div>
       </div>
