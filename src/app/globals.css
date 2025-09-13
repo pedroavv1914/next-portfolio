@@ -31,7 +31,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: 'Poppins', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
 /* Links básicos */
@@ -42,12 +42,17 @@ a { text-decoration: none; color: inherit; }
 /* Full-bleed variant */
 .interface.interface--full { max-width: none !important; width: 100% !important; padding-left: clamp(16px, 5vw, 64px) !important; padding-right: clamp(16px, 5vw, 64px) !important; }
 
-/* Títulos de seção */
-.titulo { @apply text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[0.85] mb-8; 
+/* Títulos de seção - Padronizados */
+.titulo { @apply text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[0.85] mb-8; 
   font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   letter-spacing: -0.02em; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .titulo span { @apply text-green-600 dark:text-green-400; }
+
+/* Subtítulos de seção - Padronizados */
+.subtitulo { @apply text-lg md:text-xl lg:text-2xl font-medium leading-relaxed; 
+  color: #d1d5db;
+}
 
 /* Botões modernos com paleta verde */
 .btn-primary { 
@@ -83,7 +88,7 @@ a { text-decoration: none; color: inherit; }
   .navbar-shell:hover { @apply shadow-2xl; background: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.4); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px color-mix(in srgb, var(--brand) 20%, transparent); } @media (prefers-color-scheme: dark) { .navbar-shell:hover { background: rgba(24, 24, 27, 0.6); border-color: rgba(255, 255, 255, 0.25); } }
   .brand { @apply inline-flex items-center gap-4 pl-3 pr-4 py-2 rounded-2xl transition-all duration-300; } .brand:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); } @media (prefers-color-scheme: dark) { .brand:hover { background: rgba(255, 255, 255, 0.1); } }
   .brand-icon { @apply inline-flex items-center justify-center size-10 rounded-xl text-white shadow-lg; background: linear-gradient(135deg, var(--brand), #059669); }
-  .brand-text h1 { @apply text-base font-bold leading-tight text-zinc-900 dark:text-white; background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .brand-text h1 { @apply text-base font-bold leading-tight text-zinc-900 dark:text-white; font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .brand-text span { @apply block text-xs font-medium text-zinc-600 dark:text-zinc-400 tracking-wide; }
   .pill-nav ul { @apply flex items-center gap-6; }
   .pill-nav a { @apply text-sm font-semibold text-zinc-700 dark:text-zinc-200 rounded-xl px-4 py-2.5 transition-all duration-300 relative; color: inherit; } .pill-nav a:hover { color: var(--brand); }
@@ -169,7 +174,7 @@ a { text-decoration: none; color: inherit; }
 .hero-scroll { @apply absolute left-1/2 -translate-x-1/2 bottom-4 text-xs text-green-600/80 dark:text-green-400/80 flex items-center gap-2; }
 
 /* Hero V2 - Melhorado */
-  .hero-v2 { @apply relative min-h-[100svh] grid place-items-center pt-32 md:pt-40 lg:pt-48 pb-20; overflow: visible; }
+  .hero-v2 { @apply relative min-h-[100svh] grid place-items-center pt-20 md:pt-24 lg:pt-28 pb-20; overflow: visible; }
   .hero-v2 .interface { @apply relative z-10; }
 .hero-v2-bg { 
     position: absolute; 
@@ -252,7 +257,8 @@ a { text-decoration: none; color: inherit; }
   }
 
   .v2-title { 
-    @apply text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold leading-[0.9] mt-8 mb-2; 
+    @apply text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold leading-[0.9] mt-8 mb-2;
+    font-size: 120px;
     font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, #ffffff 0%, rgba(16, 185, 129, 0.9) 50%, #ffffff 100%);
@@ -544,7 +550,7 @@ a { text-decoration: none; color: inherit; }
     animation: gridFloat 30s ease-in-out infinite;
   }
 
-  .about-title { @apply text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[0.85]; 
+  .about-title { @apply text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[0.85]; 
     font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     letter-spacing: -0.02em; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
@@ -675,9 +681,9 @@ a { text-decoration: none; color: inherit; }
   }
   .skills-title { @apply font-semibold text-5xl md:text-6xl tracking-tight text-white mt-2; font-family: 'Bebas Neue', system-ui, sans-serif; line-height: 0.95; }
   .skills-title .line { display:block; }
-  /* Override title scale locally to fill space like Hero/Sobre */
+  /* Título padronizado para Especialidades */
   .skills-v2 .about-title { 
-    font-size: 7rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
     line-height: .85; 
     letter-spacing: -0.02em;
     text-align: center;
@@ -723,7 +729,7 @@ a { text-decoration: none; color: inherit; }
   }
   
   .skills-lead { 
-    @apply mt-8 text-zinc-300 text-xl md:text-2xl lg:text-3xl max-w-6xl mx-auto; 
+    @apply mt-8 text-zinc-300 text-lg md:text-xl lg:text-2xl max-w-6xl mx-auto; 
     font-weight: 300;
     line-height: 1.4;
     text-align: center;
@@ -764,7 +770,7 @@ a { text-decoration: none; color: inherit; }
 
   .skill-head { @apply flex items-start gap-3; }
   .skill-icon { @apply text-emerald-400; flex-shrink:0; width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center; }
-  .skill-head h3 { @apply text-2xl font-semibold text-white; line-height:1; }
+  .skill-head h3 { @apply text-2xl font-semibold text-white; font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height:1; }
   .skill-meta { @apply block text-base text-zinc-400; margin-top: 2px; }
 
   .skill-points { @apply mt-5 space-y-3 text-lg text-zinc-300; list-style: none; padding-left: 0; }
@@ -782,7 +788,7 @@ a { text-decoration: none; color: inherit; }
     background: linear-gradient(180deg, rgba(16,185,129,.12), rgba(16,185,129,.08)); border: 1px solid rgba(16,185,129,.35); box-shadow: inset 0 0 24px rgba(16,185,129,.08); }
   .row-content { display: flex; flex-direction: column; }
   .row-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .row-head h3 { @apply text-2xl font-semibold text-white; line-height: 1; }
+  .row-head h3 { @apply text-2xl font-semibold text-white; font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1; }
   .row-meta { @apply text-sm md:text-base text-zinc-400; }
   .row-desc { @apply mt-2 md:mt-3 text-zinc-300 text-base md:text-lg; }
   .row-chips { @apply mt-3 flex flex-wrap gap-2; list-style: none; padding-left: 0; }
@@ -929,7 +935,7 @@ a { text-decoration: none; color: inherit; }
   .tile-head { 
     display: grid; 
     grid-template-columns: 32px 1fr auto; 
-    gap: 16px; 
+    gap: 24px; 
     align-items: center; 
     margin-bottom: 12px; 
   }
@@ -1451,10 +1457,10 @@ a { text-decoration: none; color: inherit; }
     animation: gridFloat 30s ease-in-out infinite;
   }
   .projects-head { @apply flex items-end justify-between gap-6; }
-  /* Match Especialidades title scale */
-  .projects-head .about-title { @apply text-5xl md:text-6xl lg:text-7xl font-extrabold; line-height: .85; letter-spacing: -0.02em; }
-  /* Match Especialidades subtitle scale */
-  .projects-lead { @apply mt-5 text-zinc-300 text-xl md:text-2xl max-w-5xl; }
+  /* Título padronizado para Projetos */
+  .projects-head .about-title { @apply text-4xl md:text-5xl lg:text-6xl font-extrabold; font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: .85; letter-spacing: -0.02em; }
+  /* Subtítulo padronizado para Projetos */
+  .projects-lead { @apply mt-5 text-zinc-300 text-lg md:text-xl lg:text-2xl max-w-5xl; }
   .projects-head { @apply flex flex-col md:flex-row md:items-end md:justify-between gap-4; }
 
 
@@ -2151,12 +2157,13 @@ a { text-decoration: none; color: inherit; }
 .portfolio-v3 .about-title {
   text-align: center;
   margin-bottom: 1rem;
-  font-size: 7rem!important;
+  font-size: 80px;
+  font-family: 'Bebas Neue', var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 .portfolio-v3 .lead {
   text-align: center;
-  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-size: 30px;
   color: #d1d5db;
   margin: 1.25rem auto 4rem;
   max-width: 80rem;
@@ -2247,7 +2254,7 @@ a { text-decoration: none; color: inherit; }
 .tile-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: rgba(255, 255, 255, .08);
   border-radius: 12px;
   display: flex;
   align-items: center;
