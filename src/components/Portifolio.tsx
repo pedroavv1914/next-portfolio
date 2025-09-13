@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Portifolio() {
-  type Tipo = "front" | "back" | "full";  
+  type Tipo = "front" | "back" | "full";
   type Projeto = {
     id: string;
     title: string;
@@ -12,8 +12,8 @@ export default function Portifolio() {
     tags: string[];
     codeUrl?: string;
     demoUrl?: string;
-    frontUrl?: string; 
-    backUrl?: string;  
+    frontUrl?: string;
+    backUrl?: string;
   };
 
   const projetos: Projeto[] = [
@@ -25,9 +25,9 @@ export default function Portifolio() {
       imgSrc: "/api-petshop.png",
       type: "full",
       tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
-      codeUrl: "https://github.com/pedroavv1914", 
-      frontUrl: "https://github.com/pedroavv1914", 
-      backUrl: "https://github.com/pedroavv1914", 
+      codeUrl: "https://github.com/pedroavv1914",
+      frontUrl: "https://github.com/pedroavv1914",
+      backUrl: "https://github.com/pedroavv1914",
     },
     // 2) Palazzo Travel — Front-end
     {
@@ -60,8 +60,8 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
       codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914", 
-      backUrl: "https://github.com/pedroavv1914", 
+      frontUrl: "https://github.com/pedroavv1914",
+      backUrl: "https://github.com/pedroavv1914",
     },
     // 5) SHOPSPHERE – E-commerce Platform — Full stack
     {
@@ -72,8 +72,8 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
       codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914",      
-      backUrl: "https://github.com/pedroavv1914", 
+      frontUrl: "https://github.com/pedroavv1914",
+      backUrl: "https://github.com/pedroavv1914",
     },
   ];
 
@@ -99,7 +99,7 @@ export default function Portifolio() {
         }
       }
     }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
-    
+
     requestAnimationFrame(() => {
       const vh = window.innerHeight || 0;
       items.forEach((n) => {
@@ -118,7 +118,7 @@ export default function Portifolio() {
   const projetosFiltrados = useMemo(() => {
     return projetos.filter(projeto => {
       const passaTipoFiltro = filtroTipo === 'all' || projeto.type === filtroTipo;
-      const passaTecnologiaFiltro = filtroTecnologia === 'all' || projeto.tags.some(tag => 
+      const passaTecnologiaFiltro = filtroTecnologia === 'all' || projeto.tags.some(tag =>
         tag.toLowerCase().includes(filtroTecnologia.toLowerCase())
       );
       return passaTipoFiltro && passaTecnologiaFiltro;
@@ -162,7 +162,7 @@ export default function Portifolio() {
 
   return (
     <section ref={sectionRef} className="portfolio-v3" id="portifolio">
-      <div className="portfolio-bg" aria-hidden="true" />
+
       <div className="interface interface--full">
         <div className="portfolio-wrap">
           <div className="v2-flag" aria-hidden="true">
@@ -184,25 +184,25 @@ export default function Portifolio() {
             <div className="filter-group">
               <label className="filter-label">Tipo:</label>
               <div className="filter-buttons">
-                <button 
+                <button
                   className={`filter-btn ${filtroTipo === 'all' ? 'active' : ''}`}
                   onClick={() => setFiltroTipo('all')}
                 >
                   Todos
                 </button>
-                <button 
+                <button
                   className={`filter-btn ${filtroTipo === 'front' ? 'active' : ''}`}
                   onClick={() => setFiltroTipo('front')}
                 >
                   Frontend
                 </button>
-                <button 
+                <button
                   className={`filter-btn ${filtroTipo === 'back' ? 'active' : ''}`}
                   onClick={() => setFiltroTipo('back')}
                 >
                   Backend
                 </button>
-                <button 
+                <button
                   className={`filter-btn ${filtroTipo === 'full' ? 'active' : ''}`}
                   onClick={() => setFiltroTipo('full')}
                 >
@@ -210,10 +210,10 @@ export default function Portifolio() {
                 </button>
               </div>
             </div>
-            
+
             <div className="filter-group">
               <label className="filter-label">Tecnologia:</label>
-              <select 
+              <select
                 className="filter-select"
                 value={filtroTecnologia}
                 onChange={(e) => setFiltroTecnologia(e.target.value)}
@@ -243,16 +243,16 @@ export default function Portifolio() {
                   <h4 className="tile-title">{p.title}</h4>
                   <p className="tile-description">{p.desc}</p>
                   <div className="tile-chips">
-                  {p.tags.map((tag) => (
-                    <span key={tag} className="chip">{tag}</span>
-                  ))}
-                </div>
+                    {p.tags.map((tag) => (
+                      <span key={tag} className="chip">{tag}</span>
+                    ))}
+                  </div>
                 </div>
                 <div className="tile-actions">
                   {p.demoUrl && (
                     <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="action-btn primary">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polygon points="5,3 19,12 5,21 5,3"/>
+                        <polygon points="5,3 19,12 5,21 5,3" />
                       </svg>
                       <span>Demo</span>
                     </a>
@@ -260,8 +260,8 @@ export default function Portifolio() {
                   {p.codeUrl && !p.frontUrl && !p.backUrl && (
                     <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="16,18 22,12 16,6"/>
-                        <polyline points="8,6 2,12 8,18"/>
+                        <polyline points="16,18 22,12 16,6" />
+                        <polyline points="8,6 2,12 8,18" />
                       </svg>
                       <span>Código</span>
                     </a>
@@ -269,9 +269,9 @@ export default function Portifolio() {
                   {p.frontUrl && (
                     <a href={p.frontUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                        <line x1="8" y1="21" x2="16" y2="21"/>
-                        <line x1="12" y1="17" x2="12" y2="21"/>
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
                       </svg>
                       <span>Frontend</span>
                     </a>
@@ -279,14 +279,14 @@ export default function Portifolio() {
                   {p.backUrl && (
                     <a href={p.backUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                        <line x1="7" y1="2" x2="7" y2="22"/>
-                        <line x1="17" y1="2" x2="17" y2="22"/>
-                        <line x1="2" y1="12" x2="22" y2="12"/>
-                        <line x1="2" y1="7" x2="7" y2="7"/>
-                        <line x1="2" y1="17" x2="7" y2="17"/>
-                        <line x1="17" y1="17" x2="22" y2="17"/>
-                        <line x1="17" y1="7" x2="22" y2="7"/>
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
+                        <line x1="7" y1="2" x2="7" y2="22" />
+                        <line x1="17" y1="2" x2="17" y2="22" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <line x1="2" y1="7" x2="7" y2="7" />
+                        <line x1="2" y1="17" x2="7" y2="17" />
+                        <line x1="17" y1="17" x2="22" y2="17" />
+                        <line x1="17" y1="7" x2="22" y2="7" />
                       </svg>
                       <span>Backend</span>
                     </a>
