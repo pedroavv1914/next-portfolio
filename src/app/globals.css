@@ -49,6 +49,24 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Enhanced smooth scrolling with reduced motion support */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    scroll-behavior: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -797,6 +815,33 @@ canvas.constellation {
   margin-left: 0;
   background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
   overflow: visible;
+  --parallax: 0px;
+}
+
+/* Parallax effects for Sobre */
+.sobre-v2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.08), transparent 60%),
+    radial-gradient(circle at 75% 75%, rgba(6, 182, 212, 0.06), transparent 60%);
+  transform: translateY(calc(var(--parallax) * 0.3));
+  will-change: transform;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sobre-v2 .sobre-wrap {
+  transform: translateY(calc(var(--parallax) * -0.1));
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sobre-v2::before,
+  .sobre-v2 .sobre-wrap {
+    transform: none;
+  }
 }
 
 .sobre-v2 .interface {
@@ -1713,15 +1758,17 @@ canvas.constellation {
 /* Proficiency meter */
 .tile-meter {
   position: relative;
-  height: 8px;
+  height: 10px;
   border-radius: 9999px;
   background:
     linear-gradient(90deg, rgba(16, 185, 129, .08), rgba(16, 185, 129, .12));
-  border: 1px solid rgba(16, 185, 129, .2);
+  border: 1px solid rgba(16, 185, 129, .25);
   overflow: hidden;
   box-shadow:
-    inset 0 1px 2px rgba(0, 0, 0, .2),
-    0 1px 0 rgba(255, 255, 255, .1);
+    inset 0 2px 4px rgba(0, 0, 0, .25),
+    0 1px 0 rgba(255, 255, 255, .15),
+    0 0 10px rgba(16, 185, 129, .1);
+  transition: all 0.3s ease;
 }
 
 .tile-meter::before {
@@ -1752,14 +1799,15 @@ canvas.constellation {
   width: 0;
   background:
     linear-gradient(90deg,
-      rgba(16, 185, 129, .4) 0%,
-      rgba(16, 185, 129, .7) 50%,
-      rgba(16, 185, 129, .9) 100%);
+      rgba(16, 185, 129, .5) 0%,
+      rgba(16, 185, 129, .8) 50%,
+      rgba(16, 185, 129, 1) 100%);
   box-shadow:
-    0 0 20px rgba(16, 185, 129, .5),
-    inset 0 1px 0 rgba(255, 255, 255, .3);
+    0 0 25px rgba(16, 185, 129, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .4),
+    0 0 15px rgba(16, 185, 129, .3);
   border-radius: inherit;
-  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
@@ -1776,10 +1824,19 @@ canvas.constellation {
   box-shadow: 0 0 8px rgba(16, 185, 129, .8);
 }
 
+.tile:hover .tile-meter {
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, .25),
+    0 1px 0 rgba(255, 255, 255, .15),
+    0 0 20px rgba(16, 185, 129, .2);
+  border-color: rgba(16, 185, 129, .4);
+}
+
 .tile:hover .tile-meter-bar {
   box-shadow:
-    0 0 30px rgba(16, 185, 129, .7),
-    inset 0 1px 0 rgba(255, 255, 255, .4);
+    0 0 35px rgba(16, 185, 129, .8),
+    inset 0 1px 0 rgba(255, 255, 255, .5),
+    0 0 20px rgba(16, 185, 129, .4);
 }
 
 /* Hover glow + shine + tilt */
@@ -1994,6 +2051,37 @@ canvas.constellation {
 /* Especialidades */
 .especialidades {
   @apply py-24 md:py-32 bg-zinc-50 dark:bg-zinc-950/40;
+  position: relative;
+  overflow: hidden;
+  --parallax: 0px;
+}
+
+/* Parallax effects for Especialidades */
+.especialidades::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.05), transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(34, 197, 94, 0.04), transparent 50%);
+  transform: translateY(calc(var(--parallax) * 0.2));
+  will-change: transform;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.especialidades .interface {
+  transform: translateY(calc(var(--parallax) * -0.08));
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .especialidades::before,
+  .especialidades .interface {
+    transform: none;
+  }
 }
 
 .habilidades-paineis {
@@ -2055,6 +2143,38 @@ canvas.constellation {
 /* Portifolio */
 .portifolio {
   @apply py-16 md:py-24;
+  position: relative;
+  overflow: hidden;
+  --parallax: 0px;
+}
+
+/* Parallax effects for Portifolio */
+.portifolio::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 15% 30%, rgba(16, 185, 129, 0.06), transparent 55%),
+    radial-gradient(circle at 85% 70%, rgba(6, 182, 212, 0.05), transparent 55%),
+    linear-gradient(45deg, transparent 40%, rgba(16, 185, 129, 0.02) 50%, transparent 60%);
+  transform: translateY(calc(var(--parallax) * 0.25));
+  will-change: transform;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.portifolio .interface {
+  transform: translateY(calc(var(--parallax) * -0.12));
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portifolio::before,
+  .portifolio .interface {
+    transform: none;
+  }
 }
 
 .filtros-projetos {
@@ -2464,8 +2584,12 @@ canvas.constellation {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(15px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .contact-card::before {
@@ -2481,12 +2605,13 @@ canvas.constellation {
 }
 
 .contact-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateY(-12px) scale(1.03);
+  border-color: rgba(16, 185, 129, 0.4);
   box-shadow: 
-    0 20px 40px rgba(16, 185, 129, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 25px 50px rgba(16, 185, 129, 0.2),
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(16, 185, 129, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .contact-card:hover::before {
@@ -3396,8 +3521,12 @@ canvas.constellation {
   border: 1px solid rgba(148, 163, 184, 0.1);
   border-radius: 20px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .project-card::before {
@@ -3417,12 +3546,14 @@ canvas.constellation {
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateY(-12px) scale(1.02);
+  border-color: rgba(16, 185, 129, 0.4);
   box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(16, 185, 129, 0.1),
-    0 0 40px rgba(16, 185, 129, 0.1);
+    0 30px 60px rgba(0, 0, 0, 0.3),
+    0 15px 30px rgba(16, 185, 129, 0.15),
+    0 0 0 1px rgba(16, 185, 129, 0.2),
+    0 0 50px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Card Image */
