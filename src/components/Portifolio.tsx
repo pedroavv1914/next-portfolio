@@ -78,6 +78,8 @@ export default function Portifolio() {
   ];
 
   const [sel, setSel] = useState<Projeto | null>(null);
+  const [filtroTipo, setFiltroTipo] = useState<Tipo | 'all'>('all');
+  const [filtroTecnologia, setFiltroTecnologia] = useState<string>('all');
 
   const sectionRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -112,7 +114,24 @@ export default function Portifolio() {
     return () => io.disconnect();
   }, []);
 
-  const list = projetos;
+  // Filtrar projetos
+  const projetosFiltrados = useMemo(() => {
+    return projetos.filter(projeto => {
+      const passaTipoFiltro = filtroTipo === 'all' || projeto.type === filtroTipo;
+      const passaTecnologiaFiltro = filtroTecnologia === 'all' || projeto.tags.some(tag => 
+        tag.toLowerCase().includes(filtroTecnologia.toLowerCase())
+      );
+      return passaTipoFiltro && passaTecnologiaFiltro;
+    });
+  }, [filtroTipo, filtroTecnologia]);
+
+  const list = projetosFiltrados;
+
+  // Obter todas as tecnologias únicas
+  const tecnologiasUnicas = useMemo(() => {
+    const todasTecnologias = projetos.flatMap(p => p.tags);
+    return Array.from(new Set(todasTecnologias)).sort();
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSel(null); };
@@ -160,27 +179,74 @@ export default function Portifolio() {
             Confira meus principais projetos desenvolvidos com tecnologias modernas.
           </p>
 
+          {/* Filtros */}
+          <div className="portfolio-filters" data-reveal style={{ ['--d' as any]: '140ms' }}>
+            <div className="filter-group">
+              <label className="filter-label">Tipo:</label>
+              <div className="filter-buttons">
+                <button 
+                  className={`filter-btn ${filtroTipo === 'all' ? 'active' : ''}`}
+                  onClick={() => setFiltroTipo('all')}
+                >
+                  Todos
+                </button>
+                <button 
+                  className={`filter-btn ${filtroTipo === 'front' ? 'active' : ''}`}
+                  onClick={() => setFiltroTipo('front')}
+                >
+                  Frontend
+                </button>
+                <button 
+                  className={`filter-btn ${filtroTipo === 'back' ? 'active' : ''}`}
+                  onClick={() => setFiltroTipo('back')}
+                >
+                  Backend
+                </button>
+                <button 
+                  className={`filter-btn ${filtroTipo === 'full' ? 'active' : ''}`}
+                  onClick={() => setFiltroTipo('full')}
+                >
+                  Full Stack
+                </button>
+              </div>
+            </div>
+            
+            <div className="filter-group">
+              <label className="filter-label">Tecnologia:</label>
+              <select 
+                className="filter-select"
+                value={filtroTecnologia}
+                onChange={(e) => setFiltroTecnologia(e.target.value)}
+              >
+                <option value="all">Todas</option>
+                {tecnologiasUnicas.map(tech => (
+                  <option key={tech} value={tech}>{tech}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           <div className="tile-grid">
             {list.map((p, index) => (
-              <article key={p.id} className="project-tile" data-reveal style={{ ['--d' as any]: `${160 + index * 40}ms` }}>
-                <div className="tile-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
-                  </svg>
+              <article key={p.id} className="project-tile tile" data-reveal style={{ ['--d' as any]: `${160 + index * 40}ms` }}>
+                <div className="project-image">
+                  <img src={p.imgSrc} alt={p.title} loading="lazy" />
+                  <div className="project-overlay">
+                  </div>
                 </div>
-                <h4 className="tile-title">{p.title}</h4>
-                <p className="tile-description">{p.desc}</p>
-                <div className="tile-badges">
-                  <span className={`tile-badge project-type ${p.type}`}>
-                    {p.type === 'full' ? 'Full Stack' : p.type === 'front' ? 'Frontend' : 'Backend'}
-                  </span>
-                </div>
-                <div className="tile-chips">
+                <div className="project-content">
+                  <div className="tile-badges">
+                    <span className={`tile-badge project-type ${p.type}`}>
+                      {p.type === 'full' ? 'Full Stack' : p.type === 'front' ? 'Frontend' : 'Backend'}
+                    </span>
+                  </div>
+                  <h4 className="tile-title">{p.title}</h4>
+                  <p className="tile-description">{p.desc}</p>
+                  <div className="tile-chips">
                   {p.tags.map((tag) => (
-                    <span key={tag} className="chip" title={tag}>{tag}</span>
+                    <span key={tag} className="chip">{tag}</span>
                   ))}
+                </div>
                 </div>
                 <div className="tile-actions">
                   {p.demoUrl && (
@@ -191,7 +257,7 @@ export default function Portifolio() {
                       <span>Demo</span>
                     </a>
                   )}
-                  {p.codeUrl && (
+                  {p.codeUrl && !p.frontUrl && !p.backUrl && (
                     <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <polyline points="16,18 22,12 16,6"/>
