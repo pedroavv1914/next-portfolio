@@ -119,7 +119,7 @@ export default function Especialidades() {
   const techIcon = (name: string) => {
     const n = name.toLowerCase();
     const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8 } as const;
-    
+
     if (n.includes('react')) {
       return (
         <svg {...common} strokeWidth={1.5}>
@@ -130,7 +130,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('type') || n === 'ts' || n.includes('typescript')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -139,7 +139,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('next')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -149,7 +149,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('java') && !n.includes('javascript')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -157,7 +157,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('javascript')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -166,7 +166,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('node')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -175,7 +175,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('python')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -191,7 +191,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n === 'sql' || n.includes('mysql') || n.includes('postgres') || n.includes('sqlite')) {
       return (
         <svg {...common}>
@@ -201,7 +201,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('mongo')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -211,7 +211,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('docker')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -226,7 +226,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('git') && n.includes('github')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -234,7 +234,7 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     if (n.includes('git')) {
       return (
         <svg {...common} fill="currentColor" stroke="none">
@@ -242,16 +242,16 @@ export default function Especialidades() {
         </svg>
       );
     }
-    
+
     // Fallback generic square
     return (
-      <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2"/></svg>
+      <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2" /></svg>
     );
   };
 
   return (
     <section ref={sectionRef} className="skills-v2" id="especialidades">
-      <div className="skills-bg" aria-hidden="true" />
+
       <div className="interface interface--full">
         <div className="skills-wrap">
           <div className="v2-flag" aria-hidden="true">
