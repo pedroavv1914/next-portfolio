@@ -68,7 +68,7 @@ export default function Especialidades() {
   const categories: Category[] = useMemo(() => ([
     {
       id: "front",
-      title: "Front-end",
+      title: "Front-end  ",
       meta: "JavaScript, React, TypeScript, Next.js",
       tiles: [
         { title: "JavaScript", level: "Forte", chips: ["ES6+", "DOM", "APIs", "Fetch", "Async/Await", "Vite"] },
@@ -79,7 +79,7 @@ export default function Especialidades() {
     },
     {
       id: "back",
-      title: "Back-end",
+      title: "Back-end  ",
       meta: "Node.js, Python",
       tiles: [
         { title: "Node.js", level: "Forte", chips: ["Express", "API REST", "Prisma", "JWT", "Fastify", "WebSockets"] },
@@ -88,7 +88,7 @@ export default function Especialidades() {
     },
     {
       id: "db",
-      title: "Banco de Dados",
+      title: "Banco de Dados  ",
       meta: "SQL, MongoDB",
       tiles: [
         { title: "SQL", level: "Forte", chips: ["MySQL", "PostgreSQL", "SQLite", "Migrations", "Joins", "Indexes"] },
@@ -97,7 +97,7 @@ export default function Especialidades() {
     },
     {
       id: "devops",
-      title: "DevOps",
+      title: "DevOps  ",
       meta: "Docker",
       tiles: [
         { title: "Docker", level: "Bom", chips: ["Docker Compose", "Images", "Volumes", "Multi-stage", "CI/CD", "Networking"] },
@@ -105,7 +105,7 @@ export default function Especialidades() {
     },
     {
       id: "tools",
-      title: "Ferramentas",
+      title: "Ferramentas  ",
       meta: "Git & GitHub",
       tiles: [
         { title: "Git & GitHub", level: "Forte", chips: ["Branching", "Pull request", "Actions", "Rebase", "Conventional Commits", "Issues/Projects"] },
