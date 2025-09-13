@@ -1,6 +1,5 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const [progress, setProgress] = useState(0);
@@ -127,7 +126,7 @@ export default function Header() {
               </li>
             </ul>
           </nav>
-          <ThemeToggle />
+
         </div>
 
 
