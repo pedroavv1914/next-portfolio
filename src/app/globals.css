@@ -705,6 +705,20 @@ a { text-decoration: none; color: inherit; }
     transform: perspective(1000px) rotateX(5deg);
   }
   
+  /* Override data-reveal for skills title specifically */
+  .skills-v2 .about-title[data-reveal] {
+    opacity: 1 !important;
+    transform: perspective(1000px) rotateX(5deg) !important;
+    transition: none !important;
+    animation: titleGradient 12s ease-in-out infinite !important;
+  }
+  
+  .skills-v2 .about-title[data-reveal].is-in {
+    opacity: 1 !important;
+    transform: perspective(1000px) rotateX(5deg) !important;
+    animation: titleGradient 12s ease-in-out infinite !important;
+  }
+  
   @keyframes titleGradient {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
