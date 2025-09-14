@@ -468,6 +468,7 @@ a {
   }
 
   .close-icon span {
+    font-size: 60px;
     @apply absolute w-5 h-0.5 bg-red-500 transition-all duration-300;
     border-radius: 1px;
   }
@@ -715,6 +716,7 @@ canvas.constellation {
   }
 
   .v2-title::before {
+    font-size: 30px;
     animation: none;
   }
 
@@ -855,6 +857,15 @@ canvas.constellation {
   .v2-title::before {
     animation: none;
     opacity: 0.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .v2-title {
+    font-size: 86px;        
+    line-height: 0.9;         
+    margin: 2rem 0 1.5rem;    
+    letter-spacing: -0.015em; 
   }
 }
 
@@ -1237,6 +1248,16 @@ canvas.constellation {
   .about-title .line {
     animation: none;
     background-position: 100% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 74px !important;
+  }
+  
+  .especialidades-title {
+    font-size: 63px !important;
   }
 }
 
