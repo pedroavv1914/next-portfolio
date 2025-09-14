@@ -79,10 +79,10 @@ export default function Especialidades() {
       t.style.setProperty('--my', my + '%');
     };
     tiles.forEach(t => {
-      t.addEventListener('pointermove', onMove as any);
+      t.addEventListener('pointermove', onMove as EventListener);
     });
     return () => {
-      tiles.forEach(t => t.removeEventListener('pointermove', onMove as any));
+      tiles.forEach(t => t.removeEventListener('pointermove', onMove as EventListener));
     };
   }, []);
 
@@ -396,12 +396,12 @@ export default function Especialidades() {
             <span className="flag-red" />
           </div>
 
-          <h2 className="about-title especialidades-title" data-reveal style={{ ['--d' as any]: '80ms' }}>
+          <h2 className="about-title especialidades-title" data-reveal style={{ '--d': '80ms' } as React.CSSProperties}>
             <span className="line">Minhas</span>
             <span className="line">Especialidades</span>
           </h2>
 
-          <p className="skills-lead" data-reveal style={{ ['--d' as any]: '120ms' }}>
+          <p className="skills-lead" data-reveal style={{ '--d': '120ms' } as React.CSSProperties}>
             Foco em entregar resultados com stack moderna, performance e boas práticas.
           </p>
           <div className="acc">
