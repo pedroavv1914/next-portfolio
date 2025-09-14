@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const [progress, setProgress] = useState(0);
@@ -53,7 +53,7 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     // Active link por seção (fallback com IO + re-registro)
-    let io: IntersectionObserver | null = new IntersectionObserver(
+    const io: IntersectionObserver | null = new IntersectionObserver(
       (entries) => {
         // Fallback leve: se alguma entrar, usa a mais visível
         const visible = entries
