@@ -396,7 +396,7 @@ export default function Especialidades() {
             <span className="flag-red" />
           </div>
 
-          <h2 className="about-title" data-reveal style={{ ['--d' as any]: '80ms' }}>
+          <h2 className="about-title especialidades-title" data-reveal style={{ ['--d' as any]: '80ms' }}>
             <span className="line">Minhas</span>
             <span className="line">Especialidades</span>
           </h2>
