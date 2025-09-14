@@ -170,34 +170,34 @@ export default function Hero() {
 
       <canvas ref={canvasRef} className="constellation" aria-hidden="true" />
       <div className="interface">
-        <div className="v2-wrap" data-reveal style={{ ['--d' as any]: '0ms' }}>
-          <div className="v2-availability" data-reveal style={{ ['--d' as any]: '20ms' }}>
+        <div className="v2-wrap" data-reveal style={{ '--d': '0ms' } as React.CSSProperties}>
+          <div className="v2-availability" data-reveal style={{ '--d': '20ms' } as React.CSSProperties}>
             <span className="dot" aria-hidden="true" />
             <span>Disponível para freelas</span>
           </div>
-          <div className="v2-flag" data-reveal style={{ ['--d' as any]: '50ms' }}>
+          <div className="v2-flag" data-reveal style={{ '--d': '50ms' } as React.CSSProperties}>
             <span className="flag-green" />
             <span className="flag-white" />
             <span className="flag-red" />
           </div>
-          <h1 className="v2-title" data-reveal style={{ ['--d' as any]: '120ms' }}>
+          <h1 className="v2-title" data-reveal style={{ '--d': '120ms' } as React.CSSProperties}>
             <span className="line">Pedro</span>
             <span className="line">Ribeiro</span>
           </h1>
-          <p className="v2-sub" data-reveal style={{ ['--d' as any]: '240ms' }}>Full‑Stack Developer • React • Node • SQL</p>
-          <p className="v2-desc" data-reveal style={{ ['--d' as any]: '320ms' }}>Crio experiências digitais rápidas, acessíveis e bem projetadas. Transformo ideias em produtos entregáveis, com foco em valor e qualidade.</p>
-          <div className="v2-ctas" data-reveal style={{ ['--d' as any]: '420ms' }}>
+          <p className="v2-sub" data-reveal style={{ '--d': '240ms' } as React.CSSProperties}>Full‑Stack Developer • React • Node • SQL</p>
+          <p className="v2-desc" data-reveal style={{ '--d': '320ms' } as React.CSSProperties}>Crio experiências digitais rápidas, acessíveis e bem projetadas. Transformo ideias em produtos entregáveis, com foco em valor e qualidade.</p>
+          <div className="v2-ctas" data-reveal style={{ '--d': '420ms' } as React.CSSProperties}>
             <a href="#portifolio" className="btn-primary v2-primary"><i className="bi bi-rocket-takeoff" /> Ver Projetos</a>
             <a href="#formulario" className="btn-secondary v2-secondary"><i className="bi bi-chat-dots" /> Iniciar Conversa</a>
             <a href="/cv.pdf" className="btn-tertiary v2-tertiary" download><i className="bi bi-file-earmark-arrow-down" /> Baixar CV</a>
           </div>
           {/* Contact shortcuts */}
-          <div className="v2-contacts" data-reveal style={{ ['--d' as any]: '480ms' }}>
+          <div className="v2-contacts" data-reveal style={{ '--d': '480ms' } as React.CSSProperties}>
             <a href="#formulario" aria-label="WhatsApp"><i className="bi bi-whatsapp" /></a>
             <a href="mailto:" aria-label="Email"><i className="bi bi-envelope" /></a>
             <a href="https://www.linkedin.com/in/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="bi bi-linkedin" /></a>
           </div>
-          <ul className="v2-strip" aria-label="Tecnologias" data-reveal style={{ ['--d' as any]: '520ms' }}>
+          <ul className="v2-strip" aria-label="Tecnologias" data-reveal style={{ '--d': '520ms' } as React.CSSProperties}>
             <li>React</li>
             <li>Next.js</li>
             <li>Node</li>
@@ -206,12 +206,12 @@ export default function Hero() {
             <li>Tailwind</li>
           </ul>
           {/* Client logos */}
-          <div className="v2-logos" data-reveal style={{ ['--d' as any]: '560ms' }} aria-label="Clientes">
+          <div className="v2-logos" data-reveal style={{ '--d': '560ms' } as React.CSSProperties} aria-label="Clientes">
             <img src="/api-stratix.png" alt="Stratix" loading="lazy" />
             <img src="/api-shopsphere.png" alt="ShopSphere" loading="lazy" />
             <img src="/api-petshop.png" alt="Petshop" loading="lazy" />
           </div>
-          <div className="v2-highlights" aria-label="Destaques" data-reveal style={{ ['--d' as any]: '620ms' }}>
+          <div className="v2-highlights" aria-label="Destaques" data-reveal style={{ '--d': '620ms' } as React.CSSProperties}>
             <span className="pill"><i className="bi bi-speedometer2" /> 90+ no Lighthouse</span>
             <span className="pill"><i className="bi bi-rocket" /> Entrega ágil</span>
             <span className="pill"><i className="bi bi-code-slash" /> Código limpo</span>
