@@ -81,14 +81,14 @@ export default function Sobre() {
           </div>
 
           {/* Title with animated sweep akin to Hero */}
-          <h2 className="about-title" data-reveal style={{ ['--d' as any]: '80ms' }}>
+          <h2 className="about-title" data-reveal style={{ '--d': '80ms' } as React.CSSProperties}>
             <span className="line">Muito prazer, sou</span>
             <span className="line">Pedro Ribeiro</span>
           </h2>
 
           <div className="about-grid">
             {/* Left: Glass avatar card */}
-            <aside className="about-card" data-reveal style={{ ['--d' as any]: '160ms' }}>
+            <aside className="about-card" data-reveal style={{ '--d': '160ms' } as React.CSSProperties}>
               <figure className="about-portrait" role="img" aria-label="Foto de Pedro Ribeiro">
                 <div className="portrait-frame">
                   <img src="/foto-profissoianal.jpg" alt="Pedro Ribeiro" loading="lazy" decoding="async" />
@@ -98,7 +98,7 @@ export default function Sobre() {
             </aside>
 
             {/* Right: Copy, values, stack and actions */}
-            <div className="about-copy" data-reveal style={{ ['--d' as any]: '220ms' }}>
+            <div className="about-copy" data-reveal style={{ '--d': '220ms' } as React.CSSProperties}>
               <p className="about-lead2">
                 Desenvolvedor <strong>Full Stack</strong> focado em experiências de alto impacto.
                 Transformo ideias em produtos com <strong>código limpo</strong>, <strong>performance</strong> e atenção obsessiva aos detalhes.
@@ -131,7 +131,7 @@ export default function Sobre() {
               </div>
 
               {/* Social buttons */}
-              <div className="about-socials" aria-label="Minhas redes" data-reveal style={{ ['--d' as any]: '260ms' }}>
+              <div className="about-socials" aria-label="Minhas redes" data-reveal style={{ '--d': '260ms' } as React.CSSProperties}>
                 <a className="social-btn" href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.85 9.68.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06 .9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 7.3c.85 0 1.71.12 2.51.34 1.9-1.33 2.74-1.05 2.74-1.05.56 1.4.21 2.44.11 2.7.64.72 1.02 1.63 1.02 2.75 0 3.96-2.34 4.82-4.57 5.08.36.32.67.95.67 1.92 0 1.39-.01 2.5-.01 2.84 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2z" /></svg>
                 </a>
