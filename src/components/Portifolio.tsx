@@ -77,7 +77,7 @@ export default function Portifolio() {
     },
   ];
 
-  const [sel, setSel] = useState<Projeto | null>(null);
+
   const [filtroTipo, setFiltroTipo] = useState<Tipo | 'all'>('all');
   const [filtroTecnologia, setFiltroTecnologia] = useState<string>('all');
 
@@ -150,7 +150,7 @@ export default function Portifolio() {
       );
       return passaTipoFiltro && passaTecnologiaFiltro;
     });
-  }, [filtroTipo, filtroTecnologia]);
+  }, [projetos, filtroTipo, filtroTecnologia]);
 
   const list = projetosFiltrados;
 
@@ -158,13 +158,9 @@ export default function Portifolio() {
   const tecnologiasUnicas = useMemo(() => {
     const todasTecnologias = projetos.flatMap(p => p.tags);
     return Array.from(new Set(todasTecnologias)).sort();
-  }, []);
+  }, [projetos]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSel(null); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
+
 
   // Hover glow: track pointer within each tile and set CSS vars
   useEffect(() => {
@@ -180,10 +176,10 @@ export default function Portifolio() {
       t.style.setProperty('--my', my + '%');
     };
     tiles.forEach(t => {
-      t.addEventListener('pointermove', onMove as any);
+      t.addEventListener('pointermove', onMove as EventListener);
     });
     return () => {
-      tiles.forEach(t => t.removeEventListener('pointermove', onMove as any));
+      tiles.forEach(t => t.removeEventListener('pointermove', onMove as EventListener));
     };
   }, []);
 
@@ -197,17 +193,17 @@ export default function Portifolio() {
             <span className="flag-white" />
           </div>
 
-          <h2 className="about-title" data-reveal style={{ ['--d' as any]: '80ms' }}>
+          <h2 className="about-title" data-reveal style={{ '--d': '80ms' } as React.CSSProperties}>
             <span className="line">Meus</span>
             <span className="line">Projetos</span>
           </h2>
 
-          <p className="lead" data-reveal style={{ ['--d' as any]: '120ms' }}>
+          <p className="lead" data-reveal style={{ '--d': '120ms' } as React.CSSProperties}>
             Confira meus principais projetos desenvolvidos com tecnologias modernas.
           </p>
 
           {/* Filtros */}
-          <div className="portfolio-filters" data-reveal style={{ ['--d' as any]: '140ms' }}>
+          <div className="portfolio-filters" data-reveal style={{ '--d': '140ms' } as React.CSSProperties}>
             <div className="filter-group">
               <label className="filter-label">Tipo:</label>
               <div className="filter-buttons">
@@ -255,7 +251,7 @@ export default function Portifolio() {
 
           <div className="tile-grid">
             {list.map((p, index) => (
-              <article key={p.id} className="project-tile tile" data-reveal style={{ ['--d' as any]: `${160 + index * 40}ms` }}>
+              <article key={p.id} className="project-tile tile" data-reveal style={{ '--d': `${160 + index * 40}ms` } as React.CSSProperties}>
                 <div className="project-image">
                   <img src={p.imgSrc} alt={p.title} loading="lazy" />
                   <div className="project-overlay">
