@@ -5,6 +5,7 @@ export default function Header() {
   const [progress, setProgress] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string>("inicio");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
 
@@ -100,6 +101,11 @@ export default function Header() {
     };
   }, []);
 
+  const handleMobileMenuClick = (section: string) => {
+    setActive(section);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className={`nav-magic ${scrolled ? "is-scrolled" : ""}`} id="topo">
       <div className="nav-progress" aria-hidden="true" style={{ width: `${progress}%` }} />
@@ -129,10 +135,62 @@ export default function Header() {
               </li>
             </ul>
           </nav>
-
         </div>
 
+        {/* Mobile Navigation */}
+        <div className="mobile-nav md:hidden">
+          <a href="#inicio" className="mobile-brand">
+            <span className="brand-icon" aria-hidden>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </span>
+            <div className="brand-text">
+              <h1>PEDRO</h1>
+            </div>
+          </a>
+          
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <span className={`hamburger ${mobileMenuOpen ? 'is-open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+        </div>
 
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <div className="mobile-menu-overlay md:hidden">
+            <nav className="mobile-menu" aria-label="Mobile Navigation">
+              <div className="mobile-menu-header">
+                <button 
+                  className="mobile-menu-close"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Fechar menu"
+                >
+                  <span className="close-icon">
+                    <span></span>
+                    <span></span>
+                  </span>
+                </button>
+              </div>
+              <ul>
+                <li><a href="#inicio" onClick={() => handleMobileMenuClick("inicio")} className={active === "inicio" ? "is-active" : ""}>Início</a></li>
+                <li><a href="#sobre" onClick={() => handleMobileMenuClick("sobre")} className={active === "sobre" ? "is-active" : ""}>Sobre</a></li>
+                <li><a href="#especialidades" onClick={() => handleMobileMenuClick("especialidades")} className={active === "especialidades" ? "is-active" : ""}>Especialidades</a></li>
+                <li><a href="#portifolio" onClick={() => handleMobileMenuClick("portifolio")} className={active === "portifolio" ? "is-active" : ""}>Projetos</a></li>
+                <li><a href="#formulario" onClick={() => handleMobileMenuClick("formulario")} className="mobile-cta">Contato</a></li>
+              </ul>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );
