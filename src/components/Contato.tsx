@@ -1,4 +1,79 @@
+"use client";
+
+import React, { useState } from 'react';
+
 export default function Contato() {
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    assunto: '',
+    mensagem: ''
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+    
+    if (!formData.nome.trim()) newErrors.nome = 'Nome é obrigatório';
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'E-mail é obrigatório';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'E-mail inválido';
+    }
+    
+    if (!formData.assunto) newErrors.assunto = 'Por favor, selecione um assunto';
+    if (!formData.mensagem.trim()) newErrors.mensagem = 'Mensagem é obrigatória';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSubmitStatus('success');
+      setFormData({
+        nome: '',
+        email: '',
+        telefone: '',
+        assunto: '',
+        mensagem: ''
+      });
+      // Reset success status after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className="contact-section" id="formulario">
 
@@ -73,7 +148,7 @@ export default function Contato() {
               <p>Preencha o formulário abaixo e entrarei em contato o mais breve possível.</p>
             </div>
 
-            <form className="contact-form" noValidate>
+            <form className="contact-form" noValidate onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="nome">Nome completo</label>
@@ -81,11 +156,14 @@ export default function Contato() {
                     id="nome"
                     name="nome"
                     type="text"
+                    value={formData.nome}
+                    onChange={handleChange}
+                    className={errors.nome ? 'error' : ''}
                     placeholder="Seu nome completo"
                     required
                     aria-required="true"
                   />
-                  <span className="form-error" role="alert" aria-live="polite"></span>
+                  {errors.nome && <span className="form-error" role="alert" aria-live="polite">{errors.nome}</span>}
                 </div>
 
                 <div className="form-group">
@@ -94,11 +172,14 @@ export default function Contato() {
                     id="email"
                     name="email"
                     type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={errors.email ? 'error' : ''}
                     placeholder="seu@email.com"
                     required
                     aria-required="true"
                   />
-                  <span className="form-error" role="alert" aria-live="polite"></span>
+                  {errors.email && <span className="form-error" role="alert" aria-live="polite">{errors.email}</span>}
                 </div>
               </div>
 
@@ -109,21 +190,28 @@ export default function Contato() {
                     id="telefone"
                     name="telefone"
                     type="tel"
+                    value={formData.telefone}
+                    onChange={handleChange}
                     placeholder="(11) 99999-9999"
                   />
-                  <span className="form-error" role="alert" aria-live="polite"></span>
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="assunto">Assunto</label>
-                  <select id="assunto" name="assunto">
+                  <select 
+                    id="assunto" 
+                    name="assunto"
+                    value={formData.assunto}
+                    onChange={handleChange}
+                    className={errors.assunto ? 'error' : ''}
+                  >
                     <option value="">Selecione um assunto</option>
                     <option value="projeto">Novo Projeto</option>
                     <option value="consultoria">Consultoria</option>
                     <option value="manutencao">Manutenção</option>
                     <option value="outros">Outros</option>
                   </select>
-                  <span className="form-error" role="alert" aria-live="polite"></span>
+                  {errors.assunto && <span className="form-error" role="alert" aria-live="polite">{errors.assunto}</span>}
                 </div>
               </div>
 
@@ -132,26 +220,47 @@ export default function Contato() {
                 <textarea
                   id="mensagem"
                   name="mensagem"
+                  value={formData.mensagem}
+                  onChange={handleChange}
+                  className={errors.mensagem ? 'error' : ''}
                   placeholder="Conte-me sobre seu projeto ou como posso ajudá-lo..."
                   rows={6}
                   required
                   aria-required="true"
                 ></textarea>
-                <span className="form-error" role="alert" aria-live="polite"></span>
+                {errors.mensagem && <span className="form-error" role="alert" aria-live="polite">{errors.mensagem}</span>}
               </div>
 
               <div className="form-actions">
-                <button type="submit" className="contact-submit-btn">
+                <button 
+                  type="submit" 
+                  className={`contact-submit-btn ${isSubmitting ? 'loading' : ''} ${submitStatus === 'success' ? 'success' : ''}`}
+                  disabled={isSubmitting || submitStatus === 'success'}
+                >
                   <span className="btn-content">
-                    <svg className="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    <span>Enviar Mensagem</span>
+                    {isSubmitting ? (
+                      <span>Enviando...</span>
+                    ) : submitStatus === 'success' ? (
+                      <span>Mensagem Enviada!</span>
+                    ) : (
+                      <>
+                        <svg className="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span>Enviar Mensagem</span>
+                      </>
+                    )}
                   </span>
                   <div className="btn-glow"></div>
                 </button>
               </div>
+
+              {submitStatus === 'error' && (
+                <div style={{ color: '#ef4444', marginTop: '1rem', textAlign: 'center' }}>
+                  Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.
+                </div>
+              )}
             </form>
           </div>
         </div>
