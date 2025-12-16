@@ -33,7 +33,7 @@ export default function Contato() {
               </div>
               <div className="contact-card-content">
                 <h3>Email</h3>
-                <p>pedro@exemplo.com</p>
+                <p>pedroribeiro1136@gmail.com</p>
                 <span className="contact-card-label">Resposta em até 24h</span>
               </div>
             </div>
@@ -46,7 +46,7 @@ export default function Contato() {
               </div>
               <div className="contact-card-content">
                 <h3>Telefone</h3>
-                <p>+55 (11) 99999-9999</p>
+                <p>+55 (11) 97424 - 4619</p>
                 <span className="contact-card-label">WhatsApp disponível</span>
               </div>
             </div>
@@ -60,7 +60,7 @@ export default function Contato() {
               </div>
               <div className="contact-card-content">
                 <h3>Localização</h3>
-                <p>São Paulo, SP</p>
+                <p>São Paulo, Brasil</p>
                 <span className="contact-card-label">Atendimento remoto</span>
               </div>
             </div>
