@@ -108,7 +108,7 @@ export default function Contato() {
               </div>
               <div className="contact-card-content">
                 <h3>Email</h3>
-                <p>pedroribeiro1136@gmail.com</p>
+                <p>pedroribeiro.contato1914@gmail.com</p>
                 <span className="contact-card-label">Resposta em até 24h</span>
               </div>
             </div>
