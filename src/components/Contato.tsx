@@ -67,7 +67,7 @@ export default function Contato() {
       });
       // Reset success status after 5 seconds
       setTimeout(() => setSubmitStatus('idle'), 5000);
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

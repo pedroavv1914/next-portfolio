@@ -2,6 +2,24 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+const faviconSvg = `<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="neonGreen" x1="0" y1="0" x2="128" y2="128">
+      <stop offset="0%" stop-color="#00FF9C"/>
+      <stop offset="100%" stop-color="#00C16A"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="22" fill="#0B0F0E"/>
+  <text x="50%" y="56%" text-anchor="middle" dominant-baseline="middle" font-size="64" font-family="Montserrat, Arial, sans-serif" font-weight="800" fill="url(#neonGreen)" filter="url(#glow)">PR</text>
+</svg>`;
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +57,8 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
         {/* Favicon */}
-        <link rel="icon" href="/code.png" type="image/png" />
+        <link rel="icon" type="image/svg+xml" href={`data:image/svg+xml,${encodeURIComponent(faviconSvg)}`} />
+
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
