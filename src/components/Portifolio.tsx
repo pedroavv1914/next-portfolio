@@ -69,9 +69,8 @@ export default function Portifolio() {
       imgSrc: "/api-shopsphere.png",
       type: "full",
       tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
-      codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914",
-      backUrl: "https://github.com/pedroavv1914",
+      frontUrl: "https://github.com/pedroavv1914/frontend-api-shopSphere",
+      backUrl: "https://github.com/pedroavv1914/backend-api-shopSphere",
     },
   ];
 
