@@ -29,16 +29,16 @@ export default function Portifolio() {
       frontUrl: "https://github.com/pedroavv1914",
       backUrl: "https://github.com/pedroavv1914",
     },
-    // 2) Palazzo Travel — Front-end
+    // 2) Palazzo Travel — Full Stack
     {
       id: "palazzo-travel",
       title: "Palazzo Travel",
-      desc: "Site moderno e responsivo para agência de viagens, com menu lateral animado, carrossel de pacotes e navegação intuitiva.",
+      desc: "Sistema gerenciador de pacotes de viagens, permitindo cadastrar, consultar e atualizar pacotes e usuários.",
       imgSrc: "/palazzotravel.png",
-      type: "front",
-      tags: ["React", "CSS", "TypeScript", "Vite", "React Router DOM"],
-      codeUrl: "https://github.com/pedroavv1914",
-      demoUrl: "https://agencia-viagens-iota.vercel.app/"
+      type: "full",
+      tags: ["React", "TypeScript", "Vite", "React Router DOM", "Styled Components", "CSS", "Node.js", "Express", "TypeORM", "PostgreSQL", "JWT"],
+      codeUrl: "https://github.com/pedroavv1914/agencia-viagens",
+      demoUrl: "https://agencia-viagens-mu.vercel.app/"
     },
     // 3) GitHub Finder — Front-end
     {
