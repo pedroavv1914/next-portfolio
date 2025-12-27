@@ -58,9 +58,8 @@ export default function Portifolio() {
       imgSrc: "/api-stratix.png",
       type: "full",
       tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
-      codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914",
-      backUrl: "https://github.com/pedroavv1914",
+      frontUrl: "https://github.com/pedroavv1914/frontend-task-manager",
+      backUrl: "https://github.com/pedroavv1914/backend-task-manager",
     },
     // 5) SHOPSPHERE – E-commerce Platform — Full stack
     {
