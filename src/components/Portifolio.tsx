@@ -72,6 +72,17 @@ export default function Portifolio() {
       frontUrl: "https://github.com/pedroavv1914/frontend-api-shopSphere",
       backUrl: "https://github.com/pedroavv1914/backend-api-shopSphere",
     },
+    // 6) BABILON — Full stack  
+    {
+      id: "projeto-babilon",
+      title: "BABILON — Controle Financeiro Pessoal",
+      desc: "Sistema para controle financeiro pessoal, inspirado nos princípios do livro 'O Homem mais rico da Babilônia'.",
+      imgSrc: "/projeto-babilon.png",
+      type: "full",
+      tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "RLS", "Realtime", "Recharts", "Node.js", "Express"],
+      frontUrl: "https://github.com/pedroavv1914/Babilon",
+      demoUrl: "https://babiloncontrole.vercel.app/"
+    },
   ];
 
 
@@ -117,7 +128,7 @@ export default function Portifolio() {
     const el = sectionRef.current;
     if (!el) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    
+
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
