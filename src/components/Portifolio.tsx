@@ -25,9 +25,8 @@ export default function Portifolio() {
       imgSrc: "/api-petshop.png",
       type: "full",
       tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
-      codeUrl: "https://github.com/pedroavv1914",
-      frontUrl: "https://github.com/pedroavv1914",
-      backUrl: "https://github.com/pedroavv1914",
+      frontUrl: "https://github.com/pedroavv1914/frontend-agendamento-petshop",
+      backUrl: "https://github.com/pedroavv1914/backend-agendamento-petshop",
     },
     // 2) Palazzo Travel — Full Stack
     {
