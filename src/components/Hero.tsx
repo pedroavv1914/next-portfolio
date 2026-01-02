@@ -194,8 +194,8 @@ export default function Hero() {
           {/* Contact shortcuts */}
           <div className="v2-contacts" data-reveal style={{ '--d': '480ms' } as React.CSSProperties}>
             <a href="#formulario" aria-label="WhatsApp"><i className="bi bi-whatsapp" /></a>
-            <a href="mailto:" aria-label="Email"><i className="bi bi-envelope" /></a>
-            <a href="https://www.linkedin.com/in/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="bi bi-linkedin" /></a>
+            <a href="mailto:pedroribeiro.contato1914@gmail.com" aria-label="Email"><i className="bi bi-envelope" /></a>
+            <a href="https://www.linkedin.com/in/pedro-ribeiro-a71300230/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i className="bi bi-linkedin" /></a>
           </div>
           <ul className="v2-strip" aria-label="Tecnologias" data-reveal style={{ '--d': '520ms' } as React.CSSProperties}>
             <li>React</li>
