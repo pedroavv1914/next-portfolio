@@ -112,7 +112,6 @@ export default function Especialidades() {
         { title: "Node.js", level: "Forte", chips: ["Express", "API REST", "Prisma", "JWT", "Fastify", "WebSockets"] },
         { title: "Python", level: "Bom", chips: ["Django", "Flask", "Automação", "Scripts", "Bots", "Pandas"] },
         { title: "C#", level: "Bom", chips: [".NET Core", "ASP.NET", "Entity Framework", "LINQ", "Web API", "Blazor"] },
-        { title: "Java", level: "Bom", chips: ["Spring Boot", "Maven", "JPA", "REST APIs", "Microservices", "JUnit"] },
       ],
     },
     {
@@ -143,7 +142,6 @@ export default function Especialidades() {
         { title: "Git & GitHub", level: "Forte", chips: ["Branching", "Pull request", "Actions", "Rebase", "Conventional Commits", "Issues/Projects"] },
         { title: "VS Code", level: "Forte", chips: ["Extensions", "Debugging", "IntelliSense", "Integrated Terminal", "Live Share", "Snippets"] },
         { title: "Postman", level: "Forte", chips: ["API Testing", "Collections", "Environments", "Automation", "Mock Servers", "Documentation"] },
-        { title: "Figma", level: "Bom", chips: ["UI Design", "Prototyping", "Components", "Auto Layout", "Design Systems", "Collaboration"] },
       ],
     },
   ]), []);
