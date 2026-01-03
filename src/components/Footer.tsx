@@ -53,10 +53,10 @@ export default function Footer() {
             <ul className="footer-nav-list">
               <li><span className="footer-skill">React & Next.js & Tailwind CSS</span></li>
               <li><span className="footer-skill">JavaScript & TypeScript & Node.js</span></li>
-              <li><span className="footer-skill">Python & C# & Java</span></li>
+              <li><span className="footer-skill">Python & C#</span></li>
               <li><span className="footer-skill">PostgreSQL & MongoDB</span></li>
               <li><span className="footer-skill">Docker & AWS & Vercel & Nginx</span></li>
-              <li><span className="footer-skill">Git & VS Code & Postman & Figma</span></li>
+              <li><span className="footer-skill">Git & VS Code & Postman</span></li>
             </ul>
           </div>
 
