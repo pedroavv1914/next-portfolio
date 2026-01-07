@@ -121,7 +121,7 @@ export default function Contato() {
               </div>
               <div className="contact-card-content">
                 <h3>Telefone</h3>
-                <p>+55 (11) 97424 - 4619</p>
+                <p>+55 (11) 94540 - 2503</p>
                 <span className="contact-card-label">WhatsApp disponível</span>
               </div>
             </div>
