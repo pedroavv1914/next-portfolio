@@ -37,7 +37,6 @@ export default function Portifolio() {
       type: "full",
       tags: ["React", "TypeScript", "Vite", "React Router DOM", "Styled Components", "CSS", "Node.js", "Express", "TypeORM", "PostgreSQL", "JWT"],
       codeUrl: "https://github.com/pedroavv1914/agencia-viagens",
-      demoUrl: "https://agencia-viagens-mu.vercel.app/"
     },
     // 3) GitHub Finder — Front-end
     {
