@@ -3297,47 +3297,77 @@ canvas.constellation {
  }
 
  /* Responsive Design */
- @media (max-width: 768px) {
-   .contact-container {
-     padding: 0 1rem;
-   }
-   
-   .contact-header {
-     margin-bottom: 3rem;
-   }
-   
-   .contact-title {
-     font-size: 2.5rem;
-   }
-   
-   .contact-subtitle {
-     font-size: 1.125rem;
-   }
-   
-   .contact-form-container {
-     padding: 2rem;
-   }
-   
-   .contact-card {
-     padding: 1.5rem;
-   }
- }
+@media (max-width: 768px) {
+  .contact-section {
+    padding-top: 10rem;
+    padding-bottom: 4rem;
+    min-height: auto;
+  }
 
- @media (max-width: 480px) {
-   .contact-title {
-     font-size: 2rem;
-   }
-   
-   .contact-form-container {
-     padding: 1.5rem;
-   }
-   
-   .contact-card {
-     flex-direction: column;
-     text-align: center;
-     gap: 1rem;
-   }
- }
+  .contact-container {
+    padding: 0 1.5rem;
+  }
+  
+  .contact-header {
+    margin-bottom: 2.5rem;
+  }
+  
+  .contact-title {
+    font-size: 2.25rem;
+  }
+  
+  .contact-subtitle {
+    font-size: 1rem;
+  }
+  
+  .contact-form-container {
+    padding: 2rem;
+  }
+  
+  .contact-card {
+    padding: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-title {
+    font-size: 1.75rem;
+  }
+  
+  .contact-form-container {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .contact-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+  
+  .contact-card-icon {
+    margin: 0 auto;
+  }
+  
+  .contact-content {
+    gap: 2rem;
+  }
+  
+  .contact-form-header h3 {
+    font-size: 1.5rem;
+  }
+  
+  .form-row {
+    margin-bottom: 1rem;
+  }
+}
 
 /* Modern Footer */
 .modern-footer {
@@ -5332,5 +5362,276 @@ canvas.constellation {
 
   .project-content {
     padding: 2rem;
+  }
+}
+
+/* =========================
+   MOBILE FIRST (ajustes)
+   Cole ao final do CSS
+   ========================= */
+
+/* Evita overflow horizontal em telas pequenas */
+.contact-section,
+.contact-container,
+.contact-content {
+  max-width: 100%;
+}
+
+.contact-container {
+  width: 100%;
+}
+
+/* Melhorias gerais de toque e legibilidade */
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+.contact-submit-btn {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================
+   <= 1024px (tablet)
+   ========================= */
+@media (max-width: 1024px) {
+  .contact-container {
+    padding: 1.5rem;
+  }
+
+  /* Se for grid/flex lado a lado no desktop, aqui vira 1 coluna */
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .contact-info {
+    order: 1;
+  }
+
+  .contact-form-container {
+    order: 2;
+  }
+
+  /* Linhas do formulário viram uma coluna */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* =========================
+   <= 640px (mobile)
+   ========================= */
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .contact-container {
+    padding: 1.25rem;
+    border-radius: 16px; /* se você usar radius alto no desktop */
+  }
+
+  .contact-header {
+    text-align: left;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-title {
+    font-size: 1.6rem;   /* ajuste fino para não quebrar feio */
+    line-height: 1.2;
+  }
+
+  .contact-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  /* Cards mais compactos e “tocáveis” */
+  .contact-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+
+  .contact-card-icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-card-content h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .contact-card-content p {
+    margin: 0.25rem 0 0;
+    word-break: break-word; /* evita email estourar */
+  }
+
+  /* Form mais “mobile-friendly” */
+  .contact-form-header h3 {
+    font-size: 1.15rem;
+  }
+
+  .contact-form {
+    gap: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    padding: 0.9rem 0.95rem;
+    font-size: 1rem;
+  }
+
+  .contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .form-actions {
+    margin-top: 0.25rem;
+  }
+
+  .contact-submit-btn {
+    height: 52px;
+    border-radius: 14px;
+  }
+
+  .btn-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  /* Se a “flag” decorativa atrapalhar no mobile, pode esconder */
+  .v2-flag {
+    display: none;
+  }
+}
+
+/* =========================
+   <= 380px (muito pequeno)
+   ========================= */
+@media (max-width: 380px) {
+  .contact-title {
+    font-size: 1.4rem;
+  }
+
+  .contact-container {
+    padding: 1rem;
+  }
+
+  .contact-card {
+    padding: 0.9rem;
+  }
+}
+
+/* ===== Mobile: alinhamento geral dos blocos ===== */
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 2.5rem 1rem;
+  }
+
+  /* Garante que todo o conteúdo fique centralizado e com a mesma largura */
+  .contact-container {
+    width: 100%;
+    max-width: 430px;         /* “largura padrão” agradável no iPhone */
+    margin: 0 auto;
+    padding: 1.25rem;
+  }
+
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;      /* todos os blocos com a mesma largura */
+  }
+
+  .contact-info,
+  .contact-form-container {
+    width: 100%;
+  }
+
+  /* ===== Cards alinhados ===== */
+  .contact-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;    /* empilha ícone + texto */
+    align-items: center;       /* centraliza horizontalmente */
+    text-align: center;        /* centraliza texto */
+    gap: 0.75rem;
+    padding: 1.1rem;
+    box-sizing: border-box;
+  }
+
+  .contact-card-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    margin: 0;                 /* remove qualquer offset */
+  }
+
+  .contact-card-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .contact-card-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* Evita o e-mail quebrar de um jeito “torto” e parecer desalinhado */
+  .contact-card-content p {
+    margin: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;   /* quebra bem em telas pequenas */
+    word-break: break-word;
+  }
+
+  .contact-card-label {
+    display: inline-block;
+    text-align: center;
+  }
+
+  /* ===== Cabeçalhos alinhados ===== */
+  .contact-header,
+  .contact-form-header {
+    text-align: center;
+  }
+
+  /* ===== Form em 1 coluna ===== */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-group,
+  .form-group-full {
+    width: 100%;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea,
+  .contact-submit-btn {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
