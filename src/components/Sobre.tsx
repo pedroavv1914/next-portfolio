@@ -91,7 +91,7 @@ export default function Sobre() {
             <aside className="about-card" data-reveal style={{ '--d': '160ms' } as React.CSSProperties}>
               <figure className="about-portrait" role="img" aria-label="Foto de Pedro Ribeiro">
                 <div className="portrait-frame">
-                  <img src="/foto-profissoianal.jpg" alt="Pedro Ribeiro" loading="lazy" decoding="async" />
+                  <img src="/foto-prof.jpeg" alt="Pedro Ribeiro" loading="lazy" decoding="async" />
                 </div>
                 <figcaption className="portrait-caption">Full Stack • React • TS • Node</figcaption>
               </figure>
