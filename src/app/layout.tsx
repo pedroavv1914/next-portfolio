@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Inter, Syne } from "next/font/google";
 import GlobalEffects from "@/components/GlobalEffects";
 import "./globals.css";
 
 const faviconSvg = `<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" rx="22" fill="#0a0a0f"/><text x="50%" y="56%" text-anchor="middle" dominant-baseline="middle" font-size="64" font-family="Syne, Arial, sans-serif" font-weight="800" fill="#22c55e">PR</text></svg>`;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
+});
+
+const syne = Syne({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -16,6 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pedroribeiro.dev"),
   title: "Pedro Ribeiro - Full-Stack Developer",
   description: "Portfólio de Pedro Ribeiro, desenvolvedor full-stack focado em performance, arquitetura limpa e produtos memoráveis.",
   openGraph: {
@@ -48,19 +56,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap"
-          rel="stylesheet"
-        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
         <link rel="icon" type="image/svg+xml" href={`data:image/svg+xml,${encodeURIComponent(faviconSvg)}`} />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.variable} ${syne.variable} ${geistMono.variable} antialiased`}>
         <GlobalEffects />
         {children}
       </body>
