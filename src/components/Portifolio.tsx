@@ -1,333 +1,269 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+
+import { useMemo, useState } from "react";
+
+type Tipo = "front" | "back" | "full";
+type Filtro = "all" | "front" | "full" | "api";
+
+type Projeto = {
+  id: string;
+  title: string;
+  desc: string;
+  context: string;
+  impact: string;
+  imgSrc: string;
+  type: Tipo;
+  tags: string[];
+  codeUrl?: string;
+  demoUrl?: string;
+  frontUrl?: string;
+  backUrl?: string;
+};
+
+const projetos: Projeto[] = [
+  {
+    id: "api-petshop",
+    title: "API Petshop",
+    desc: "Página de gerenciamento de Petshop. Permite cadastrar, consultar e atualizar pets, clientes e serviços, integrando frontend e backend com foco em experiência do usuário.",
+    context: "Agenda, clientes e serviços em uma operação que precisa ser rápida de consultar no dia a dia.",
+    impact: "CRUD completo para reduzir fricção no atendimento",
+    imgSrc: "/api-petshop.png",
+    type: "full",
+    tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
+    frontUrl: "https://github.com/pedroavv1914/frontend-agendamento-petshop",
+    backUrl: "https://github.com/pedroavv1914/backend-agendamento-petshop",
+  },
+  {
+    id: "palazzo-travel",
+    title: "Palazzo Travel",
+    desc: "Sistema gerenciador de pacotes de viagens, permitindo cadastrar, consultar e atualizar pacotes e usuários.",
+    context: "Um painel para organizar pacotes de viagem e usuários sem depender de planilhas soltas.",
+    impact: "Gestão de pacotes com autenticação e banco relacional",
+    imgSrc: "/palazzotravel.png",
+    type: "full",
+    tags: ["React", "TypeScript", "Vite", "React Router DOM", "Styled Components", "CSS", "Node.js", "Express", "TypeORM", "PostgreSQL", "JWT"],
+    codeUrl: "https://github.com/pedroavv1914/agencia-viagens",
+  },
+  {
+    id: "github-finder",
+    title: "GitHub Finder",
+    desc: "Busque e visualize perfis do GitHub de forma simples e eficiente. App moderno, responsivo e com consulta à API pública do GitHub.",
+    context: "Uma busca direta para transformar dados públicos do GitHub em uma experiência simples de leitura.",
+    impact: "Consulta externa com interface responsiva",
+    imgSrc: "/githubfinder.png",
+    type: "front",
+    tags: ["CSS", "React", "TypeScript", "Vite", "API GitHub"],
+    codeUrl: "https://github.com/pedroavv1914",
+    demoUrl: "https://github-finder-pearl-mu.vercel.app/",
+  },
+  {
+    id: "api-stratix",
+    title: "STRATIX - Task Manager",
+    desc: "Sistema completo para gerenciamento de tarefas, permitindo criar, organizar e acompanhar atividades com integração entre frontend e backend.",
+    context: "Organização de tarefas com fluxo completo entre interface, API, autenticação e persistência.",
+    impact: "Task manager full-stack com JWT e Prisma",
+    imgSrc: "/api-stratix.png",
+    type: "full",
+    tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
+    frontUrl: "https://github.com/pedroavv1914/frontend-task-manager",
+    backUrl: "https://github.com/pedroavv1914/backend-task-manager",
+  },
+  {
+    id: "api-shopsphere",
+    title: "SHOPSPHERE - E-commerce Platform",
+    desc: "Plataforma completa de e-commerce para compra e venda de produtos online, com interface moderna, busca e filtragem, carrinho e processamento seguro de pagamentos.",
+    context: "Experiência de compra completa, do catálogo ao carrinho, com backend preparado para regras de negócio.",
+    impact: "E-commerce com busca, carrinho e base PostgreSQL",
+    imgSrc: "/api-shopsphere.png",
+    type: "full",
+    tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
+    frontUrl: "https://github.com/pedroavv1914/frontend-api-shopSphere",
+    backUrl: "https://github.com/pedroavv1914/backend-api-shopSphere",
+  },
+  {
+    id: "projeto-babilon",
+    title: "BABILON - Controle Financeiro Pessoal",
+    desc: "Sistema para controle financeiro pessoal, inspirado nos princípios do livro O Homem mais rico da Babilônia.",
+    context: "Projeto autoral para transformar disciplina financeira em rotina visual, acompanhável e menos intimidadora.",
+    impact: "Controle financeiro com Supabase, RLS, Realtime e gráficos",
+    imgSrc: "/projeto-babilon.png",
+    type: "full",
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "RLS", "Realtime", "Recharts", "Node.js", "Express"],
+    frontUrl: "https://github.com/pedroavv1914/Babilon",
+    demoUrl: "https://babiloncontrole.vercel.app/",
+  },
+];
+
+const featuredProjectId = "projeto-babilon";
+
+const filtros: Array<{ label: string; value: Filtro }> = [
+  { label: "Todos", value: "all" },
+  { label: "Frontend", value: "front" },
+  { label: "Full-Stack", value: "full" },
+  { label: "APIs", value: "api" },
+];
+
+function categoryLabel(type: Tipo) {
+  if (type === "front") return "Frontend";
+  if (type === "back") return "API";
+  return "Full-Stack";
+}
+
+function actionLinks(project: Projeto) {
+  const links: Array<{ href: string; label: string; variant: "primary" | "outline" }> = [];
+  if (project.demoUrl) links.push({ href: project.demoUrl, label: "Ver projeto", variant: "primary" });
+  if (project.codeUrl) links.push({ href: project.codeUrl, label: "GitHub", variant: project.demoUrl ? "outline" : "primary" });
+  if (project.frontUrl) links.push({ href: project.frontUrl, label: "Frontend", variant: project.demoUrl ? "outline" : "primary" });
+  if (project.backUrl) links.push({ href: project.backUrl, label: "Backend", variant: "outline" });
+  return links;
+}
+
+function isApiProject(project: Projeto) {
+  const searchable = [
+    project.title,
+    project.desc,
+    project.context,
+    project.impact,
+    ...project.tags,
+  ].join(" ").toLowerCase();
+
+  return Boolean(project.backUrl) || /\b(api|node|express|prisma|typeorm|postgresql|supabase|jwt|rls|realtime)\b/.test(searchable);
+}
+
+function matchesFilter(project: Projeto, filter: Filtro) {
+  if (filter === "all") return true;
+  if (filter === "api") return isApiProject(project);
+  return project.type === filter;
+}
 
 export default function Portifolio() {
-  type Tipo = "front" | "back" | "full";
-  type Projeto = {
-    id: string;
-    title: string;
-    desc: string;
-    imgSrc: string;
-    type: Tipo;
-    tags: string[];
-    codeUrl?: string;
-    demoUrl?: string;
-    frontUrl?: string;
-    backUrl?: string;
-  };
+  const [filter, setFilter] = useState<Filtro>("all");
 
-  const projetos: Projeto[] = [
-    // 1) API Petshop — Full stack
-    {
-      id: "api-petshop",
-      title: "API Petshop",
-      desc: "Página de gerenciamento de Petshop. Permite cadastrar, consultar e atualizar pets, clientes e serviços, integrando frontend e backend com foco em experiência do usuário.",
-      imgSrc: "/api-petshop.png",
-      type: "full",
-      tags: ["React", "CSS", "Node.js", "Express", "Prisma"],
-      frontUrl: "https://github.com/pedroavv1914/frontend-agendamento-petshop",
-      backUrl: "https://github.com/pedroavv1914/backend-agendamento-petshop",
-    },
-    // 2) Palazzo Travel — Full Stack
-    {
-      id: "palazzo-travel",
-      title: "Palazzo Travel",
-      desc: "Sistema gerenciador de pacotes de viagens, permitindo cadastrar, consultar e atualizar pacotes e usuários.",
-      imgSrc: "/palazzotravel.png",
-      type: "full",
-      tags: ["React", "TypeScript", "Vite", "React Router DOM", "Styled Components", "CSS", "Node.js", "Express", "TypeORM", "PostgreSQL", "JWT"],
-      codeUrl: "https://github.com/pedroavv1914/agencia-viagens",
-    },
-    // 3) GitHub Finder — Front-end
-    {
-      id: "github-finder",
-      title: "GitHub Finder",
-      desc: "Busque e visualize perfis do GitHub de forma simples e eficiente. App moderno, responsivo e com consulta à API pública do GitHub.",
-      imgSrc: "/githubfinder.png",
-      type: "front",
-      tags: ["CSS", "React", "TypeScript", "Vite", "API GitHub"],
-      codeUrl: "https://github.com/pedroavv1914",
-      demoUrl: "https://github-finder-pearl-mu.vercel.app/"
-    },
-    // 4) STRATIX – Task Manager — Full stack
-    {
-      id: "api-stratix",
-      title: "STRATIX – Task Manager",
-      desc: "Sistema completo para gerenciamento de tarefas, permitindo criar, organizar e acompanhar atividades com integração entre frontend e backend.",
-      imgSrc: "/api-stratix.png",
-      type: "full",
-      tags: ["React", "CSS", "TypeScript", "Vite", "Node.js", "Express", "Prisma", "JWT"],
-      frontUrl: "https://github.com/pedroavv1914/frontend-task-manager",
-      backUrl: "https://github.com/pedroavv1914/backend-task-manager",
-    },
-    // 5) SHOPSPHERE – E-commerce Platform — Full stack
-    {
-      id: "api-shopsphere",
-      title: "SHOPSPHERE – E-commerce Platform",
-      desc: "Plataforma completa de e‑commerce para compra e venda de produtos online, com interface moderna, busca e filtragem, carrinho e processamento seguro de pagamentos.",
-      imgSrc: "/api-shopsphere.png",
-      type: "full",
-      tags: ["React", "TypeScript", "PostgreSQL", "Node.js", "Express", "JWT", "Docker"],
-      frontUrl: "https://github.com/pedroavv1914/frontend-api-shopSphere",
-      backUrl: "https://github.com/pedroavv1914/backend-api-shopSphere",
-    },
-    // 6) BABILON — Full stack  
-    {
-      id: "projeto-babilon",
-      title: "BABILON — Controle Financeiro Pessoal",
-      desc: "Sistema para controle financeiro pessoal, inspirado nos princípios do livro 'O Homem mais rico da Babilônia'.",
-      imgSrc: "/projeto-babilon.png",
-      type: "full",
-      tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "RLS", "Realtime", "Recharts", "Node.js", "Express"],
-      frontUrl: "https://github.com/pedroavv1914/Babilon",
-      demoUrl: "https://babiloncontrole.vercel.app/"
-    },
-  ];
+  const filteredProjects = useMemo(() => {
+    const matches = projetos.filter((project) => matchesFilter(project, filter));
+    if (filter !== "all") return matches;
 
-
-  const [filtroTipo, setFiltroTipo] = useState<Tipo | 'all'>('all');
-  const [filtroTecnologia, setFiltroTecnologia] = useState<string>('all');
-
-  const sectionRef = useRef<HTMLElement | null>(null);
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-reveal]"));
-    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced || typeof IntersectionObserver === 'undefined') {
-      items.forEach((n) => n.classList.add('is-in'));
-      return;
-    }
-    const io = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-in");
-          io.unobserve(entry.target as Element);
-        }
-      }
-    }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
-
-    requestAnimationFrame(() => {
-      const vh = window.innerHeight || 0;
-      items.forEach((n) => {
-        const r = n.getBoundingClientRect();
-        if (r.top < vh * 0.95 && r.bottom > 0) {
-          n.classList.add('is-in');
-        } else {
-          io.observe(n);
-        }
-      });
+    return [...matches].sort((a, b) => {
+      if (a.id === featuredProjectId) return -1;
+      if (b.id === featuredProjectId) return 1;
+      return 0;
     });
+  }, [filter]);
 
-    return () => io.disconnect();
-  }, []);
-
-  // Parallax effect on scroll
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const r = el.getBoundingClientRect();
-        const delta = Math.max(-120, Math.min(120, r.top));
-        el.style.setProperty('--parallax', `${delta}px`);
-      });
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  // Filtrar projetos
-  const projetosFiltrados = useMemo(() => {
-    return projetos.filter(projeto => {
-      const passaTipoFiltro = filtroTipo === 'all' || projeto.type === filtroTipo;
-      const passaTecnologiaFiltro = filtroTecnologia === 'all' || projeto.tags.some(tag =>
-        tag.toLowerCase().includes(filtroTecnologia.toLowerCase())
-      );
-      return passaTipoFiltro && passaTecnologiaFiltro;
-    });
-  }, [projetos, filtroTipo, filtroTecnologia]);
-
-  const list = projetosFiltrados;
-
-  // Obter todas as tecnologias únicas
-  const tecnologiasUnicas = useMemo(() => {
-    const todasTecnologias = projetos.flatMap(p => p.tags);
-    return Array.from(new Set(todasTecnologias)).sort();
-  }, [projetos]);
-
-
-
-  // Hover glow: track pointer within each tile and set CSS vars
-  useEffect(() => {
-    const root = sectionRef.current;
-    if (!root) return;
-    const tiles = Array.from(root.querySelectorAll<HTMLElement>('.tile'));
-    const onMove = (e: PointerEvent) => {
-      const t = e.currentTarget as HTMLElement;
-      const rect = t.getBoundingClientRect();
-      const mx = ((e.clientX - rect.left) / rect.width) * 100;
-      const my = ((e.clientY - rect.top) / rect.height) * 100;
-      t.style.setProperty('--mx', mx + '%');
-      t.style.setProperty('--my', my + '%');
-    };
-    tiles.forEach(t => {
-      t.addEventListener('pointermove', onMove as EventListener);
-    });
-    return () => {
-      tiles.forEach(t => t.removeEventListener('pointermove', onMove as EventListener));
-    };
+  const filterCounts = useMemo(() => {
+    return filtros.reduce<Record<Filtro, number>>((acc, item) => {
+      acc[item.value] = projetos.filter((project) => matchesFilter(project, item.value)).length;
+      return acc;
+    }, { all: 0, front: 0, full: 0, api: 0 });
   }, []);
 
   return (
-    <section ref={sectionRef} className="portfolio-v3" id="portifolio">
-
-      <div className="interface interface--full">
-        <div className="portfolio-wrap">
-          <div className="v2-flag" aria-hidden="true">
-            <span className="flag-green" />
-            <span className="flag-white" />
-          </div>
-
-          <h2 className="about-title" data-reveal style={{ '--d': '80ms' } as React.CSSProperties}>
-            <span className="line">Meus</span>
-            <span className="line">Projetos</span>
-          </h2>
-
-          <p className="lead" data-reveal style={{ '--d': '120ms' } as React.CSSProperties}>
-            Confira meus principais projetos desenvolvidos com tecnologias modernas.
+    <section className="section-shell" id="portifolio">
+      <div className="interface">
+        <div className="reveal">
+          <p className="section-kicker">{"// projetos"}</p>
+          <h2 className="section-title">Produtos, não vitrines</h2>
+          <p className="section-lead">
+            Eu gosto de projeto que explica sua própria razão de existir: o problema, a decisão técnica e o ganho de uso.
           </p>
 
-          {/* Filtros */}
-          <div className="portfolio-filters" data-reveal style={{ '--d': '140ms' } as React.CSSProperties}>
-            <div className="filter-group">
-              <label className="filter-label">Tipo:</label>
-              <div className="filter-buttons">
-                <button
-                  className={`filter-btn ${filtroTipo === 'all' ? 'active' : ''}`}
-                  onClick={() => setFiltroTipo('all')}
-                >
-                  Todos
-                </button>
-                <button
-                  className={`filter-btn ${filtroTipo === 'front' ? 'active' : ''}`}
-                  onClick={() => setFiltroTipo('front')}
-                >
-                  Frontend
-                </button>
-                <button
-                  className={`filter-btn ${filtroTipo === 'back' ? 'active' : ''}`}
-                  onClick={() => setFiltroTipo('back')}
-                >
-                  Backend
-                </button>
-                <button
-                  className={`filter-btn ${filtroTipo === 'full' ? 'active' : ''}`}
-                  onClick={() => setFiltroTipo('full')}
-                >
-                  Full Stack
-                </button>
-              </div>
-            </div>
-
-            <div className="filter-group">
-              <label className="filter-label">Tecnologia:</label>
-              <select
-                className="filter-select"
-                value={filtroTecnologia}
-                onChange={(e) => setFiltroTecnologia(e.target.value)}
+          <div className="portfolio-filters" aria-label="Filtrar projetos">
+            {filtros.map((item) => (
+              <button
+                className={`filter-btn ${filter === item.value ? "active" : ""}`}
+                key={item.value}
+                type="button"
+                onClick={() => setFilter(item.value)}
               >
-                <option value="all">Todas</option>
-                {tecnologiasUnicas.map(tech => (
-                  <option key={tech} value={tech}>{tech}</option>
-                ))}
-              </select>
-            </div>
+                <span>{item.label}</span>
+                <small>{filterCounts[item.value]}</small>
+              </button>
+            ))}
           </div>
 
-          <div className="tile-grid">
-            {list.map((p, index) => (
-              <article key={p.id} className="project-tile tile" data-reveal style={{ '--d': `${160 + index * 40}ms` } as React.CSSProperties}>
-                <div className="project-image">
-                  <img src={p.imgSrc} alt={p.title} loading="lazy" />
-                  <div className="project-overlay">
+          <div className="project-showcase">
+            {filteredProjects.map((project, index) => {
+              const isFeatured = project.id === featuredProjectId && filter === "all";
+              return (
+                <article className={`case-card reveal-child is-visible ${isFeatured ? "is-featured" : ""}`} key={project.id}>
+                  {isFeatured && (
+                    <div className="featured-orbit" aria-hidden="true">
+                      <span />
+                      <span />
+                    </div>
+                  )}
+                  <div className="case-index" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
                   </div>
-                </div>
-                <div className="project-content">
-                  <div className="tile-badges">
-                    <span className={`tile-badge project-type ${p.type}`}>
-                      {p.type === 'full' ? 'Full Stack' : p.type === 'front' ? 'Frontend' : 'Backend'}
+
+                  <div className="case-media">
+                    <img src={project.imgSrc} alt={`Screenshot do projeto ${project.title}`} loading="lazy" decoding="async" />
+                    <span className="case-category">
+                      {isFeatured && <span className="pulse-dot" aria-hidden="true" />}
+                      {isFeatured ? "Projeto em destaque" : categoryLabel(project.type)}
                     </span>
                   </div>
-                  <h4 className="tile-title">{p.title}</h4>
-                  <p className="tile-description">{p.desc}</p>
-                  <div className="tile-chips">
-                    {p.tags.map((tag) => (
-                      <span key={tag} className="chip">{tag}</span>
-                    ))}
+
+                  <div className="case-content">
+                    {isFeatured && (
+                      <div className="featured-eyebrow">
+                        <span className="pulse-dot" aria-hidden="true" />
+                        Case autoral escolhido
+                      </div>
+                    )}
+                    <div className="case-header">
+                      <div>
+                        <p className="case-impact">{project.impact}</p>
+                        <h3 className="case-title">{project.title}</h3>
+                      </div>
+                      <span className="case-arrow" aria-hidden="true">&rarr;</span>
+                    </div>
+
+                    <div className="case-body">
+                      <div>
+                        <span className="case-label">Problema</span>
+                        <p>{project.context}</p>
+                      </div>
+                      <div>
+                        <span className="case-label">Execução</span>
+                        <p>{project.desc}</p>
+                      </div>
+                    </div>
+
+                    <div className="case-stack" aria-label="Tecnologias usadas">
+                      {project.tags.slice(0, isFeatured ? 8 : 5).map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+
+                    {isFeatured && (
+                      <div className="featured-notes" aria-label="Destaques do projeto">
+                        <span>Finanças pessoais</span>
+                        <span>Realtime</span>
+                        <span>RLS</span>
+                      </div>
+                    )}
+
+                    <div className="case-actions">
+                      {actionLinks(project).map((link) => (
+                        <a
+                          className={`btn ${link.variant === "primary" ? "btn-primary" : "btn-outline"}`}
+                          href={link.href}
+                          key={`${project.id}-${link.label}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="tile-actions">
-                  {p.demoUrl && (
-                    <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="action-btn primary">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polygon points="5,3 19,12 5,21 5,3" />
-                      </svg>
-                      <span>Demo</span>
-                    </a>
-                  )}
-                  {p.codeUrl && !p.frontUrl && !p.backUrl && (
-                    <a href={p.codeUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="16,18 22,12 16,6" />
-                        <polyline points="8,6 2,12 8,18" />
-                      </svg>
-                      <span>Código</span>
-                    </a>
-                  )}
-                  {p.frontUrl && (
-                    <a href={p.frontUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                        <line x1="8" y1="21" x2="16" y2="21" />
-                        <line x1="12" y1="17" x2="12" y2="21" />
-                      </svg>
-                      <span>Frontend</span>
-                    </a>
-                  )}
-                  {p.backUrl && (
-                    <a href={p.backUrl} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
-                        <line x1="7" y1="2" x2="7" y2="22" />
-                        <line x1="17" y1="2" x2="17" y2="22" />
-                        <line x1="2" y1="12" x2="22" y2="12" />
-                        <line x1="2" y1="7" x2="7" y2="7" />
-                        <line x1="2" y1="17" x2="7" y2="17" />
-                        <line x1="17" y1="17" x2="22" y2="17" />
-                        <line x1="17" y1="7" x2="22" y2="7" />
-                      </svg>
-                      <span>Backend</span>
-                    </a>
-                  )}
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>
-
     </section>
   );
 }
