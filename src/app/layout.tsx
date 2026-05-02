@@ -1,25 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import GlobalEffects from "@/components/GlobalEffects";
 import "./globals.css";
 
-const faviconSvg = `<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="neonGreen" x1="0" y1="0" x2="128" y2="128">
-      <stop offset="0%" stop-color="#00FF9C"/>
-      <stop offset="100%" stop-color="#00C16A"/>
-    </linearGradient>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
-  <rect width="128" height="128" rx="22" fill="#0B0F0E"/>
-  <text x="50%" y="56%" text-anchor="middle" dominant-baseline="middle" font-size="64" font-family="Montserrat, Arial, sans-serif" font-weight="800" fill="url(#neonGreen)" filter="url(#glow)">PR</text>
-</svg>`;
-
+const faviconSvg = `<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" rx="22" fill="#0a0a0f"/><text x="50%" y="56%" text-anchor="middle" dominant-baseline="middle" font-size="64" font-family="Syne, Arial, sans-serif" font-weight="800" fill="#22c55e">PR</text></svg>`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +16,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfólio • Pedro Ribeiro",
-  description: "Desenvolvedor Full Stack • React • TypeScript • Node.js",
+  title: "Pedro Ribeiro - Full-Stack Developer",
+  description: "Portfólio de Pedro Ribeiro, desenvolvedor full-stack focado em performance, arquitetura limpa e produtos memoráveis.",
+  openGraph: {
+    title: "Pedro Ribeiro - Full-Stack Developer",
+    description: "Performance, arquitetura limpa e produtos que as pessoas amam usar.",
+    type: "website",
+    locale: "pt_BR",
+    images: [
+      {
+        url: "/api-stratix.png",
+        width: 1200,
+        height: 630,
+        alt: "Preview verde do portfólio de Pedro Ribeiro",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pedro Ribeiro - Full-Stack Developer",
+    description: "Performance, arquitetura limpa e produtos memoráveis.",
+    images: ["/api-stratix.png"],
+  },
 };
 
 export default function RootLayout({
@@ -44,26 +48,21 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rock+Salt&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap"
           rel="stylesheet"
         />
-        {/* Bootstrap Icons */}
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
-        {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href={`data:image/svg+xml,${encodeURIComponent(faviconSvg)}`} />
-
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-          {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <GlobalEffects />
+        {children}
       </body>
     </html>
   );
