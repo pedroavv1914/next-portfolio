@@ -1,21 +1,24 @@
-const specialties = [
+const deliveries = [
   {
-    title: "Frontend",
+    title: "Interfaces que parecem leves",
     icon: "bi-window-sidebar",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind", "CSS", "Styled Components"],
-    depth: 90,
+    description: "Telas responsivas, rápidas e com micro-interações que deixam o produto mais claro de usar.",
+    result: "Do layout ao comportamento final",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind", "CSS"],
   },
   {
-    title: "Backend",
+    title: "APIs que sustentam produto",
     icon: "bi-hdd-network",
-    tags: ["Node.js", "Express", "TypeScript", "Prisma", "PostgreSQL", "MongoDB"],
-    depth: 70,
+    description: "Backends com regras bem separadas, autenticação, persistência e integração com front sem improviso.",
+    result: "Fluxos seguros e previsíveis",
+    tags: ["Node.js", "Express", "Prisma", "PostgreSQL", "JWT"],
   },
   {
-    title: "DevOps & Cloud",
+    title: "Entrega pronta para evoluir",
     icon: "bi-cloud-check",
-    tags: ["Docker", "AWS", "Vercel", "CI/CD", "Git", "Nginx"],
-    depth: 50,
+    description: "Deploy, versionamento e estrutura para manter o projeto saudável depois da primeira entrega.",
+    result: "Menos retrabalho no crescimento",
+    tags: ["Docker", "Vercel", "AWS", "Git", "CI/CD"],
   },
 ];
 
@@ -27,26 +30,25 @@ export default function Especialidades() {
       <div className="interface">
         <div className="reveal">
           <p className="section-kicker">{"// skills"}</p>
-          <h2 className="section-title">Especialidades com profundidade</h2>
+          <h2 className="section-title">O que eu entrego na prática</h2>
           <p className="section-lead">
-            Menos lista infinita de tecnologias, mais clareza sobre onde consigo gerar impacto real.
+            Tecnologia é meio. O foco é criar produto rápido, organizado e confortável de manter.
           </p>
 
-          <div className="specialty-grid">
-            {specialties.map((specialty) => (
-              <article className="specialty-card reveal-child" key={specialty.title}>
-                <i className={`bi ${specialty.icon} specialty-icon`} aria-hidden="true" />
-                <h3>{specialty.title}</h3>
+          <div className="delivery-grid">
+            {deliveries.map((delivery, index) => (
+              <article className="delivery-card reveal-child" key={delivery.title}>
+                <div className="delivery-topline">
+                  <span className="delivery-number">{String(index + 1).padStart(2, "0")}</span>
+                  <i className={`bi ${delivery.icon} delivery-icon`} aria-hidden="true" />
+                </div>
+                <h3>{delivery.title}</h3>
+                <p>{delivery.description}</p>
+                <strong>{delivery.result}</strong>
                 <div className="skill-tags">
-                  {specialty.tags.map((tag) => (
+                  {delivery.tags.map((tag) => (
                     <span className="skill-tag" key={tag}>{tag}</span>
                   ))}
-                </div>
-                <div className="depth" aria-label={`${specialty.depth}% de profundidade em ${specialty.title}`}>
-                  <div className="depth-bar">
-                    <span className="depth-fill" style={{ width: `${specialty.depth}%` }} />
-                  </div>
-                  <span>{specialty.depth}% profundidade</span>
                 </div>
               </article>
             ))}
