@@ -38,13 +38,13 @@ export default function Footer() {
               <li><a href="mailto:pedroribeiro.contato1914@gmail.com">Email</a></li>
               <li><a href="https://github.com/pedroavv1914" target="_blank" rel="noreferrer">GitHub</a></li>
               <li><a href="https://www.linkedin.com/in/pedro-ribeiro-a71300230/" target="_blank" rel="noreferrer">LinkedIn</a></li>
-              <li>Franco da Rocha, SP</li>
+              <li>Jundiaí, SP</li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
-          © 2025 Pedro Ribeiro · Feito com <span>obsessão por detalhes</span> · Franco da Rocha, SP
+          © 2025 Pedro Ribeiro · Feito com <span>obsessão por detalhes</span> · Jundiaí, SP
         </div>
       </div>
     </footer>
