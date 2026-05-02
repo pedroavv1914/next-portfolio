@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+const helpTopics = ["MVPs", "Landing pages", "Sistemas internos", "APIs", "E-commerce"];
+
 export default function Contato() {
   const [formData, setFormData] = useState({ nome: "", email: "", mensagem: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -41,13 +43,19 @@ export default function Contato() {
             <p className="section-kicker">{"// vamos trabalhar juntos"}</p>
             <h2 className="section-title">Transforme sua ideia em realidade</h2>
             <p className="section-lead">
-              Conte o que você quer construir e eu te respondo com próximos passos claros.
+              Conte o que você quer construir e eu respondo com próximos passos claros, sem enrolar.
             </p>
 
             <p className="response-time">
               <i className="bi bi-clock" aria-hidden="true" />
               Tempo médio de resposta: menos de 24h
             </p>
+
+            <div className="help-topics" aria-label="Como posso ajudar">
+              {helpTopics.map((topic) => (
+                <span key={topic}>{topic}</span>
+              ))}
+            </div>
 
             <div className="contact-list">
               <a className="contact-item" href="mailto:pedroribeiro.contato1914@gmail.com">
@@ -71,6 +79,10 @@ export default function Contato() {
           </div>
 
           <form className="contact-form reveal-child" noValidate onSubmit={handleSubmit}>
+            <div className="contact-form-intro">
+              <strong>Me mande o contexto</strong>
+              <span>Ideia, prazo, objetivo ou só o problema que você quer resolver.</span>
+            </div>
             <div className="form-field">
               <label htmlFor="nome">Nome</label>
               <input id="nome" name="nome" value={formData.nome} onChange={handleChange} placeholder="Seu nome" />
