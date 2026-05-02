@@ -8,6 +8,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
+  overflow-x: hidden;
 }
 
 body {
@@ -19,6 +20,7 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -120,6 +122,7 @@ section {
   justify-content: center;
   min-height: 44px;
   padding: 0 18px;
+  text-align: center;
   transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
 }
 
@@ -1595,6 +1598,14 @@ section {
 }
 
 @media (max-width: 1024px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+
+  section {
+    scroll-margin-top: 82px;
+  }
+
   .nav-shell .nav-links,
   .nav-shell-glow,
   .nav-cta-premium,
@@ -1622,6 +1633,10 @@ section {
     transform: none;
   }
 
+  .nav-inner {
+    min-height: 72px;
+  }
+
   .mobile-menu-button {
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
@@ -1644,7 +1659,7 @@ section {
     padding: 12px;
     position: absolute;
     right: 20px;
-    top: 84px;
+    top: 76px;
     z-index: 60;
   }
 
@@ -1659,6 +1674,14 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .about-grid {
+    margin-top: 36px;
+  }
+
+  .portrait-card {
+    max-width: 520px;
+  }
+
   .portrait-card {
     position: static;
   }
@@ -1670,6 +1693,10 @@ section {
 
   .project-showcase {
     grid-template-columns: 1fr;
+  }
+
+  .case-card.is-featured {
+    grid-template-columns: 72px minmax(280px, 0.95fr) minmax(0, 1fr);
   }
 }
 
@@ -1683,24 +1710,71 @@ section {
   }
 
   .hero {
-    padding-top: 112px;
+    min-height: auto;
+    padding: 92px 0 72px;
   }
 
   .hero-inner {
-    min-height: calc(100svh - 160px);
+    min-height: 0;
   }
 
   .hero-layout {
+    gap: 34px;
     grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    min-width: 0;
+  }
+
+  .hero-name {
+    font-size: clamp(48px, 14vw, 72px);
+    line-height: 0.9;
+    max-width: 100%;
+  }
+
+  .hero-tagline {
+    font-size: clamp(20px, 5.6vw, 26px);
+    line-height: 1.34;
+    max-width: 94%;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 94%;
   }
 
   .hero-signal {
     max-width: 520px;
+    padding: 20px;
+  }
+
+  .hero-code-card {
+    margin: 18px 0;
+    padding: 18px 0;
+  }
+
+  .hero-code-card strong {
+    font-size: 15px;
+  }
+
+  .hero-code-card p {
+    font-size: 13px;
+    margin-top: 12px;
   }
 
   .hero-actions {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .scroll-indicator,
@@ -1734,11 +1808,39 @@ section {
 
   .case-media,
   .case-card.is-featured .case-media {
+    grid-column: auto;
     min-height: 190px;
   }
 
   .case-title {
     font-size: 28px;
+  }
+
+  .case-header {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .case-impact {
+    font-size: 11px;
+  }
+
+  .case-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .case-actions .btn {
+    width: 100%;
+  }
+
+  .portfolio-filters {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: space-between;
   }
 
   .principles-list {
@@ -1770,12 +1872,246 @@ section {
     padding: 20px;
   }
 
+  .drawer-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: rgba(15, 15, 24, 0.96);
+    backdrop-filter: blur(14px);
+  }
+
   .drawer-screenshot {
     min-height: 210px;
   }
 
+  .drawer-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .contact-form {
     padding: 20px;
+  }
+
+  .contact-item {
+    align-items: flex-start;
+  }
+
+  .contact-item span {
+    overflow-wrap: anywhere;
+  }
+
+  .footer-grid {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 74px;
+  }
+
+  section {
+    scroll-margin-top: 74px;
+  }
+
+  .interface {
+    width: min(100% - 24px, 1120px);
+  }
+
+  .section-shell {
+    padding: 68px 0;
+  }
+
+  .section-kicker,
+  .hero-kicker {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 12vw, 44px);
+  }
+
+  .section-lead {
+    font-size: 14px;
+  }
+
+  .nav-inner {
+    min-height: 66px;
+  }
+
+  .brand-mark {
+    font-size: 23px;
+  }
+
+  .mobile-menu-button {
+    padding: 9px 11px;
+  }
+
+  .nav-links.is-open {
+    left: 12px;
+    right: 12px;
+    top: 70px;
+  }
+
+  .hero {
+    padding-top: 70px;
+  }
+
+  .hero-name {
+    font-size: clamp(42px, 14vw, 58px);
+    line-height: 0.92;
+  }
+
+  .hero-surname {
+    gap: 10px;
+  }
+
+  .hero-signature {
+    width: clamp(34px, 13vw, 46px);
+  }
+
+  .hero-signature::after {
+    right: -12px;
+  }
+
+  .hero-tagline {
+    font-size: clamp(19px, 5.5vw, 23px);
+    margin-top: 22px;
+    max-width: 100%;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .hero-signal {
+    padding: 16px;
+  }
+
+  .hero-signal::before {
+    height: 48px;
+    top: 20px;
+  }
+
+  .hero-signal-top {
+    font-size: 11px;
+  }
+
+  .hero-metrics {
+    gap: 10px;
+  }
+
+  .hero-metrics strong {
+    font-size: 22px;
+  }
+
+  .hero-metrics span {
+    font-size: 10px;
+  }
+
+  .hero-stack-strip {
+    margin-top: 18px;
+  }
+
+  .about-grid {
+    gap: 32px;
+  }
+
+  .about-stats {
+    gap: 10px;
+  }
+
+  .about-stats strong {
+    font-size: 24px;
+  }
+
+  .principles-list span,
+  .delivery-card,
+  .case-card,
+  .contact-form,
+  .contact-item {
+    border-radius: 7px;
+  }
+
+  .delivery-card {
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .delivery-number {
+    font-size: 40px;
+  }
+
+  .delivery-card h3 {
+    font-size: 22px;
+  }
+
+  .filter-btn {
+    flex-basis: 100%;
+  }
+
+  .case-media,
+  .case-card.is-featured .case-media {
+    min-height: 165px;
+  }
+
+  .case-title {
+    font-size: 24px;
+  }
+
+  .case-arrow {
+    height: 38px;
+    width: 38px;
+  }
+
+  .featured-eyebrow,
+  .case-category {
+    font-size: 11px;
+  }
+
+  .drawer-header h3 {
+    font-size: 30px;
+  }
+
+  .drawer-screenshot {
+    min-height: 180px;
+  }
+
+  .drawer-content p,
+  .drawer-content li {
+    font-size: 14px;
+  }
+
+  .help-topics span,
+  .case-stack span,
+  .skill-tag,
+  .tool-pill {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-signature {
+    display: none !important;
+  }
+
+  .hero-name {
+    font-size: clamp(40px, 14vw, 50px);
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
   }
 }
 
