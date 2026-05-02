@@ -68,7 +68,7 @@ export default function Contato() {
               </a>
               <div className="contact-item">
                 <i className="bi bi-geo-alt" aria-hidden="true" />
-                <span>Franco da Rocha, SP - Brasil</span>
+                <span>Jundiaí, SP - Brasil</span>
               </div>
             </div>
 
