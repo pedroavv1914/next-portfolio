@@ -1,196 +1,94 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
+const links = [
+  { href: "#sobre", label: "Sobre", id: "sobre" },
+  { href: "#especialidades", label: "Skills", id: "especialidades" },
+  { href: "#portifolio", label: "Projetos", id: "portifolio" },
+  { href: "#formulario", label: "Contato", id: "formulario" },
+];
+
 export default function Header() {
+  const [active, setActive] = useState("inicio");
   const [progress, setProgress] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("inicio");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-
-    const ids = ["inicio", "sobre", "especialidades", "portifolio", "formulario"]; // seções existentes
+    const ids = ["inicio", ...links.map((link) => link.id)];
 
     const onScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-      const total = Math.max(scrollHeight - clientHeight, 1);
-      setProgress(Math.min(100, Math.max(0, (scrollTop / total) * 100)));
-      setScrolled(window.scrollY > 8);
+      setProgress((scrollTop / Math.max(scrollHeight - clientHeight, 1)) * 100);
+      setScrolled(window.scrollY > 12);
 
-      // Ativo: última seção cujo topo passou a linha de pivô considerando a altura do header
-      const header = document.getElementById('topo');
-      const headerH = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
-      const mid = Math.round(headerH + 16 + window.innerHeight * 0.22); // 22% + header + margem
-      let candidate: { id: string; top: number } | null = null;
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.bottom <= 0) continue; // totalmente acima, ignora
-        if (rect.top <= mid) {
-          if (!candidate || rect.top > candidate.top) {
-            candidate = { id, top: rect.top };
-          }
-        }
-      }
-      if (candidate) {
-        setActive(candidate.id);
-      } else {
-        // fallback: pega a seção mais próxima da linha de pivô
-        let bestId = ids[0];
-        let bestDist = Number.POSITIVE_INFINITY;
-        for (const id of ids) {
-          const el = document.getElementById(id);
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          const dist = Math.abs(rect.top - mid);
-          if (dist < bestDist) { bestDist = dist; bestId = id; }
-        }
-        setActive(bestId);
-      }
+      const pivot = window.innerHeight * 0.28;
+      const current = ids.findLast((id) => {
+        const element = document.getElementById(id);
+        return element ? element.getBoundingClientRect().top <= pivot : false;
+      });
+      if (current) setActive(current);
     };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Active link por seção (fallback com IO + re-registro)
-    const io: IntersectionObserver | null = new IntersectionObserver(
-      (entries) => {
-        // Fallback leve: se alguma entrar, usa a mais visível
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target?.id) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -60% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-
-    const registerSections = () => {
-      if (!io) return;
-      // Limpa observações anteriores
-      io.disconnect();
-      ids.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) io!.observe(el);
-      });
-    };
-
-    // Registra já, e novamente após paint e quando a página carregar
-    registerSections();
-    const raf = requestAnimationFrame(registerSections);
-    const onLoad = () => registerSections();
-    window.addEventListener("load", onLoad, { once: true });
-
-    // Reage a mudanças no DOM (ex.: seções montam depois)
-    const mo = new MutationObserver(() => registerSections());
-    mo.observe(document.body, { childList: true, subtree: true });
-
-    // Sincroniza active com hash imediatamente ao navegar por âncora
-    const onHashActive = () => {
-      const h = location.hash.replace('#','');
-      if (ids.includes(h)) setActive(h);
-    };
-    window.addEventListener("hashchange", onHashActive);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll as EventListener);
-      window.removeEventListener("load", onLoad as EventListener);
-      window.removeEventListener("hashchange", onHashActive as EventListener);
-      mo.disconnect();
-      cancelAnimationFrame(raf);
-      io?.disconnect();
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleMobileMenuClick = (section: string) => {
-    setActive(section);
-    setMobileMenuOpen(false);
+  const handleNav = (id: string) => {
+    setActive(id);
+    setOpen(false);
   };
 
   return (
-    <header className={`nav-magic ${scrolled ? "is-scrolled" : ""}`} id="topo">
-      <div className="nav-progress" aria-hidden="true" style={{ width: `${progress}%` }} />
-      <div className="interface">
-        {/* Navbar estilo "pílula" para desktop */}
-        <div className="navbar-shell">
-          <a href="#inicio" className="brand">
-            <span className="brand-icon" aria-hidden>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="m9 12 2 2 4-4"/>
-              </svg>
-            </span>
-            <div className="brand-text">
-              <h1>PEDRO RIBEIRO</h1>
-              <span>Software Developer</span>
-            </div>
-          </a>
-          <nav className="pill-nav" aria-label="Principal">
-            <ul>
-              <li><a href="#inicio" onClick={() => setActive("inicio")} className={active === "inicio" ? "is-active" : ""} aria-current={active === "inicio" ? "page" : undefined}>Início</a></li>
-              <li><a href="#sobre" onClick={() => setActive("sobre")} className={active === "sobre" ? "is-active" : ""} aria-current={active === "sobre" ? "page" : undefined}>Sobre</a></li>
-              <li><a href="#especialidades" onClick={() => setActive("especialidades")} className={active === "especialidades" ? "is-active" : ""} aria-current={active === "especialidades" ? "page" : undefined}>Especialidades</a></li>
-              <li><a href="#portifolio" onClick={() => setActive("portifolio")} className={active === "portifolio" ? "is-active" : ""} aria-current={active === "portifolio" ? "page" : undefined}>Projetos</a></li>
-              <li className="only-desktop-cta">
-                <a href="#formulario" className="btn-primary nav-cta">Contato</a>
-              </li>
-            </ul>
+    <header className={`site-header ${scrolled ? "is-scrolled" : ""}`} id="topo">
+      <span className="nav-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
+      <div className="interface nav-inner">
+        <a href="#inicio" className="brand" onClick={() => handleNav("inicio")}>
+          <span className="brand-mark" aria-hidden="true">
+            <span className="brand-initials">PR</span>
+            <span className="brand-dot">.</span>
+          </span>
+          <span className="brand-caption">Pedro Ribeiro</span>
+        </a>
+
+        <div className="nav-shell">
+          <span className="nav-shell-glow" aria-hidden="true" />
+          <span className="availability-badge">
+            <span className="pulse-dot" aria-hidden="true" />
+            Disponível
+          </span>
+
+          <nav className={`nav-links ${open ? "is-open" : ""}`} aria-label="Navegação principal">
+            {links.map((link) => (
+              <a
+                key={link.id}
+                href={link.href}
+                onClick={() => handleNav(link.id)}
+                className={active === link.id ? "is-active" : ""}
+                aria-current={active === link.id ? "page" : undefined}
+              >
+                <span>{link.label}</span>
+              </a>
+            ))}
           </nav>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="mobile-nav md:hidden">
-          <a href="#inicio" className="mobile-brand">
-            <span className="brand-icon" aria-hidden>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="m9 12 2 2 4-4"/>
-              </svg>
-            </span>
-            <div className="brand-text">
-              <h1>PEDRO</h1>
-            </div>
-          </a>
-          
-          <button 
-            className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-            aria-expanded={mobileMenuOpen}
-          >
-            <span className={`hamburger ${mobileMenuOpen ? 'is-open' : ''}`}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-        </div>
+        <a href="#formulario" className="nav-cta-premium">
+          Conversar
+          <i className="bi bi-arrow-up-right" aria-hidden="true" />
+        </a>
 
-        {/* Mobile Menu Overlay */}
-        {mobileMenuOpen && (
-          <div className="mobile-menu-overlay md:hidden">
-            <nav className="mobile-menu" aria-label="Mobile Navigation">
-              <div className="mobile-menu-header">
-                <button 
-                  className="mobile-menu-close"
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label="Fechar menu"
-                >
-                  <span className="close-icon">
-                    <span></span>
-                    <span></span>
-                  </span>
-                </button>
-              </div>
-              <ul>
-                <li><a href="#inicio" onClick={() => handleMobileMenuClick("inicio")} className={active === "inicio" ? "is-active" : ""}>Início</a></li>
-                <li><a href="#sobre" onClick={() => handleMobileMenuClick("sobre")} className={active === "sobre" ? "is-active" : ""}>Sobre</a></li>
-                <li><a href="#especialidades" onClick={() => handleMobileMenuClick("especialidades")} className={active === "especialidades" ? "is-active" : ""}>Especialidades</a></li>
-                <li><a href="#portifolio" onClick={() => handleMobileMenuClick("portifolio")} className={active === "portifolio" ? "is-active" : ""}>Projetos</a></li>
-                <li><a href="#formulario" onClick={() => handleMobileMenuClick("formulario")} className="mobile-cta">Contato</a></li>
-              </ul>
-            </nav>
-          </div>
-        )}
+        <button
+          className="mobile-menu-button"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded={open}
+          onClick={() => setOpen((value) => !value)}
+        >
+          <i className={open ? "bi bi-x-lg" : "bi bi-list"} aria-hidden="true" />
+        </button>
       </div>
     </header>
   );
