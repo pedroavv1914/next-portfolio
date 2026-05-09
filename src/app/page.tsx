@@ -17,6 +17,58 @@ const LogoMark = () => (
   </span>
 );
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Pedro Ribeiro",
+  url: "https://pedroribeiro.dev",
+  image: "https://pedroribeiro.dev/foto-prof.jpeg",
+  jobTitle: "Desenvolvedor Full Stack",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Jundiai",
+    addressRegion: "SP",
+    addressCountry: "BR",
+  },
+  email: "mailto:pedroribeiro.contato1914@gmail.com",
+  sameAs: [
+    "https://github.com/pedroavv1914",
+    "https://www.linkedin.com/in/pedro-ribeiro-a71300230/",
+    "https://www.instagram.com/_pedroavv/",
+  ],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "Prisma",
+    "PostgreSQL",
+    "Supabase",
+    "Docker",
+    "Vercel",
+  ],
+  hasOccupation: {
+    "@type": "Occupation",
+    name: "Desenvolvedor Full Stack",
+    skills: "React, Next.js, TypeScript, Node.js, Express, Prisma, PostgreSQL",
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Pedro Ribeiro Portfolio",
+  url: "https://pedroribeiro.dev",
+  inLanguage: "pt-BR",
+  description:
+    "Portfolio de Pedro Ribeiro, desenvolvedor full stack especializado em React, Next.js, Node.js, TypeScript e produtos digitais.",
+  author: {
+    "@type": "Person",
+    name: "Pedro Ribeiro",
+  },
+};
+
 export default function Home() {
   const [filter, setFilter] = useState<"all" | "full" | "front" | "api">("all");
   const [submitLabel, setSubmitLabel] = useState("Enviar mensagem");
@@ -130,6 +182,12 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([personJsonLd, websiteJsonLd]),
+        }}
+      />
       <div className="ambient" aria-hidden="true">
         <div className="grid"></div>
         <div className="glow-a"></div>
@@ -140,14 +198,14 @@ export default function Home() {
       {/* NAV */}
       <header className="nav">
         <div className="wrap nav-inner">
-          <a href="#topo" className="brand">
+          <a href="#conteudo" className="brand" aria-label="Ir para o conteudo principal">
             <LogoMark />
             <span>
               pedro<span style={{ color: "var(--green)" }}>.</span>ribeiro
             </span>
             <span className="brand-meta">— eng. de produto</span>
           </a>
-          <nav className="nav-links">
+          <nav className="nav-links" aria-label="Navegacao principal">
             <a href="#sobre"><span className="num">01</span><span>sobre</span></a>
             <a href="#skills"><span className="num">02</span><span>skills</span></a>
             <a href="#projetos"><span className="num">03</span><span>projetos</span></a>
@@ -161,17 +219,18 @@ export default function Home() {
         </div>
       </header>
 
+      <main id="conteudo">
       {/* HERO */}
-      <section className="hero" id="topo">
+      <section className="hero" id="topo" aria-labelledby="hero-title">
         <div className="wrap">
           <div className="hero-eyebrow">
             <span className="live">
               <span className="dot"></span>Disponível · Q2 / 2026
             </span>
-            <span>// jundiaí, sp · brasil · UTC−3</span>
+            <span>{"//"} jundiaí, sp · brasil · UTC−3</span>
           </div>
 
-          <h1 className="hero-name">
+          <h1 className="hero-name" id="hero-title">
             <span className="first" data-letters>Pedro</span>
             <span className="last">
               <span data-letters>Ribeiro</span>
@@ -212,7 +271,7 @@ export default function Home() {
                 <span style={{ marginLeft: "auto", color: "var(--green)" }}>●</span>
               </div>
               <div className="panel-body">
-                <div className="term-line"><span className="c">// princípio operacional</span></div>
+                <div className="term-line"><span className="c">{"//"} princípio operacional</span></div>
                 <div className="term-line"><span className="k">const</span> <span className="v">missao</span> = {"{"}</div>
                 <div className="term-line">&nbsp;&nbsp;<span className="v">desenhar</span>: <span className="s">&quot;interface que parece leve&quot;</span>,</div>
                 <div className="term-line">&nbsp;&nbsp;<span className="v">construir</span>: <span className="s">&quot;backend que sustenta produto&quot;</span>,</div>
@@ -223,7 +282,7 @@ export default function Home() {
               </div>
 
               <div className="panel-section">
-                <h4>Sinais</h4>
+                <div className="panel-heading">Sinais</div>
                 <div className="metrics">
                   <div className="metric"><div className="n">3+</div><div className="l">anos<br />criando produto</div></div>
                   <div className="metric"><div className="n">12+</div><div className="l">projetos<br />no portfólio</div></div>
@@ -232,7 +291,7 @@ export default function Home() {
               </div>
 
               <div className="panel-section">
-                <h4>Stack núcleo</h4>
+                <div className="panel-heading">Stack núcleo</div>
                 <div className="stack-strip">
                   <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span>
                   <span>Express</span><span>Prisma</span><span>PostgreSQL</span><span>Tailwind</span>
@@ -252,7 +311,7 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section className="sec" id="sobre">
+      <section className="sec" id="sobre" aria-labelledby="sobre-title">
         <div className="wrap">
           <div className="sec-head reveal">
             <div>
@@ -260,7 +319,7 @@ export default function Home() {
               <div className="sec-num">Capítulo 01 / 05</div>
             </div>
             <div>
-              <h2 className="sec-title">Construo produto, <em>não vitrine</em>.</h2>
+              <h2 className="sec-title" id="sobre-title">Construo produto, <em>não vitrine</em>.</h2>
             </div>
           </div>
 
@@ -287,17 +346,17 @@ export default function Home() {
               <div className="principles stagger">
                 <div className="principle">
                   <div className="ix">/ 01</div>
-                  <h5>Pensar antes de codar</h5>
+                  <h3>Pensar antes de codar</h3>
                   <p>Modelar o problema com clareza vale mais do que qualquer linha bonita.</p>
                 </div>
                 <div className="principle">
                   <div className="ix">/ 02</div>
-                  <h5>Remover fricção</h5>
+                  <h3>Remover fricção</h3>
                   <p>Cada clique a menos é um detalhe que o usuário sente sem perceber.</p>
                 </div>
                 <div className="principle">
                   <div className="ix">/ 03</div>
-                  <h5>Entregar com orgulho</h5>
+                  <h3>Entregar com orgulho</h3>
                   <p>Código que dá orgulho de manter daqui a um ano, não só de mostrar hoje.</p>
                 </div>
               </div>
@@ -314,7 +373,7 @@ export default function Home() {
       </section>
 
       {/* SKILLS */}
-      <section className="sec skills" id="skills">
+      <section className="sec skills" id="skills" aria-labelledby="skills-title">
         <div className="wrap">
           <div className="sec-head reveal">
             <div>
@@ -322,7 +381,7 @@ export default function Home() {
               <div className="sec-num">Capítulo 02 / 05</div>
             </div>
             <div>
-              <h2 className="sec-title">O que entrego <em>na prática</em>.</h2>
+              <h2 className="sec-title" id="skills-title">O que entrego <em>na prática</em>.</h2>
               <p className="sec-lead">Tecnologia é meio. O foco é criar produto rápido, organizado e confortável de manter.</p>
             </div>
           </div>
@@ -365,7 +424,7 @@ export default function Home() {
       </section>
 
       {/* PROJECTS */}
-      <section className="sec" id="projetos">
+      <section className="sec" id="projetos" aria-labelledby="projetos-title">
         <div className="wrap">
           <div className="sec-head reveal">
             <div>
@@ -373,7 +432,7 @@ export default function Home() {
               <div className="sec-num">Capítulo 03 / 05</div>
             </div>
             <div>
-              <h2 className="sec-title">Casos que <em>explicam</em> a própria razão de existir.</h2>
+              <h2 className="sec-title" id="projetos-title">Casos que <em>explicam</em> a própria razão de existir.</h2>
               <p className="sec-lead">Cada projeto começa por um problema concreto. A decisão técnica vem depois — e o ganho de uso é o que fica.</p>
             </div>
           </div>
@@ -515,7 +574,7 @@ export default function Home() {
       </section>
 
       {/* PROCESS */}
-      <section className="sec process" id="processo">
+      <section className="sec process" id="processo" aria-labelledby="processo-title">
         <div className="wrap">
           <div className="sec-head reveal">
             <div>
@@ -523,7 +582,7 @@ export default function Home() {
               <div className="sec-num">Capítulo 04 / 05</div>
             </div>
             <div>
-              <h2 className="sec-title">Quatro etapas, <em>zero improviso</em>.</h2>
+              <h2 className="sec-title" id="processo-title">Quatro etapas, <em>zero improviso</em>.</h2>
               <p className="sec-lead">Do problema mal-formulado até o produto rodando na operação. Sem ruído, com checkpoint a cada passo.</p>
             </div>
           </div>
@@ -531,25 +590,25 @@ export default function Home() {
           <div className="steps stagger">
             <div className="step">
               <div className="ix">01</div>
-              <h4>Diagnóstico</h4>
+              <h3>Diagnóstico</h3>
               <p>Conversa pra entender o que dói, onde, e o que precisa parar de doer primeiro. Saio com escopo escrito.</p>
               <div className="meta"><span>≈ 1–2 dias</span><b>output: brief</b></div>
             </div>
             <div className="step">
               <div className="ix">02</div>
-              <h4>Arquitetura</h4>
+              <h3>Arquitetura</h3>
               <p>Modelagem de dados, fluxo, decisões técnicas justificadas. O que entra, o que fica fora, o que vem depois.</p>
               <div className="meta"><span>≈ 2–4 dias</span><b>output: blueprint</b></div>
             </div>
             <div className="step">
               <div className="ix">03</div>
-              <h4>Construção</h4>
+              <h3>Construção</h3>
               <p>Sprints curtas, deploy contínuo, demo a cada checkpoint. Você acompanha, não só recebe no final.</p>
               <div className="meta"><span>≈ 2–8 sem.</span><b>output: produto</b></div>
             </div>
             <div className="step">
               <div className="ix">04</div>
-              <h4>Operação</h4>
+              <h3>Operação</h3>
               <p>Documentação, monitoramento e estrutura pra evoluir sem retrabalho. Depois da entrega, o trabalho continua bem feito.</p>
               <div className="meta"><span>contínuo</span><b>output: confiança</b></div>
             </div>
@@ -558,7 +617,7 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section className="sec contact" id="contato">
+      <section className="sec contact" id="contato" aria-labelledby="contato-title">
         <div className="wrap">
           <div className="sec-head reveal">
             <div>
@@ -570,7 +629,7 @@ export default function Home() {
 
           <div className="contact-grid">
             <div className="contact-left reveal-x">
-              <h2>Transforme sua ideia em <em>realidade.</em></h2>
+              <h2 id="contato-title">Transforme sua ideia em <em>realidade.</em></h2>
               <p className="contact-lead">Conte o que você quer construir e eu respondo com próximos passos claros, sem enrolar.</p>
               <div className="response"><span className="dot"></span>Tempo médio de resposta · &lt; 24h</div>
 
@@ -626,19 +685,20 @@ export default function Home() {
               <button className="submit" type="submit">
                 {submitLabel} <span className="arrow">→</span>
               </button>
-              <div className="footer">// pgp opcional · resposta em até 24h</div>
+              <div className="footer">{"//"} pgp opcional · resposta em até 24h</div>
             </form>
           </div>
         </div>
       </section>
 
       {/* SIGNOFF */}
-      <section className="signoff reveal-zoom">
+      <section className="signoff reveal-zoom" aria-label="Assinatura de Pedro Ribeiro">
         <div className="wrap">
           <div className="label">— construído com obsessão por detalhes —</div>
           <div className="name">Pedro <em>Ribeiro</em></div>
         </div>
       </section>
+      </main>
 
       {/* FOOTER */}
       <footer className="site">
@@ -652,13 +712,13 @@ export default function Home() {
               <p>Full-stack developer focado em performance, arquitetura limpa e produtos memoráveis. Disponível para projetos a partir de Q2 / 2026.</p>
             </div>
             <div className="foot-col">
-              <h5>Navegação</h5>
+              <h2>Navegação</h2>
               <ul>
                 <li>Sobre</li><li>Skills</li><li>Projetos</li><li>Processo</li><li>Contato</li>
               </ul>
             </div>
             <div className="foot-col">
-              <h5>Stack</h5>
+              <h2>Stack</h2>
               <ul>
                 <li>React · Next.js · TS</li>
                 <li>Node · Express · Prisma</li>
@@ -667,7 +727,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="foot-col">
-              <h5>Conexão</h5>
+              <h2>Conexão</h2>
               <ul>
                 <li>Email</li><li>GitHub</li><li>LinkedIn</li><li>Jundiaí, SP</li>
               </ul>
