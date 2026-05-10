@@ -390,7 +390,7 @@ export default function Home() {
               <article className="case featured">
                 <div className="case-inner">
                   <div className="media">
-                    <span className="index">★ 06 / em destaque</span>
+                    <span className="index">★ 01 / em destaque</span>
                     <span className="ribbon"><span className="dot"></span>Case autoral</span>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/projeto-babilon.png" alt="Projeto Babilon" />
@@ -415,7 +415,7 @@ export default function Home() {
             {showCase(["full", "api"]) && (
               <article className="case">
                 <div className="media">
-                  <span className="index">01</span>
+                  <span className="index">02</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/api-shopsphere.png" alt="ShopSphere" />
                 </div>
@@ -435,7 +435,7 @@ export default function Home() {
             {showCase(["full", "api"]) && (
               <article className="case">
                 <div className="media">
-                  <span className="index">02</span>
+                  <span className="index">03</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/api-stratix.png" alt="Stratix Task Manager" />
                 </div>
@@ -455,7 +455,7 @@ export default function Home() {
             {showCase(["full", "api"]) && (
               <article className="case">
                 <div className="media">
-                  <span className="index">03</span>
+                  <span className="index">04</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/palazzotravel.png" alt="Palazzo Travel" />
                 </div>
@@ -474,7 +474,7 @@ export default function Home() {
             {showCase(["full", "api"]) && (
               <article className="case">
                 <div className="media">
-                  <span className="index">04</span>
+                  <span className="index">05</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/api-petshop.png" alt="API Petshop" />
                 </div>
@@ -494,7 +494,7 @@ export default function Home() {
             {showCase(["front"]) && (
               <article className="case">
                 <div className="media">
-                  <span className="index">05</span>
+                  <span className="index">06</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/githubfinder.png" alt="GitHub Finder" />
                 </div>
