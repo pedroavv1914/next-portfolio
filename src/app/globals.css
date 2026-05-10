@@ -345,6 +345,11 @@ footer.site{padding:60px 0 40px;border-top:1px solid var(--line);background:rgba
 .signoff .name{font-family:var(--sans);font-weight:700;font-size:clamp(120px,22vw,360px);line-height:.85;letter-spacing:-.06em;background:linear-gradient(180deg,var(--ink) 0%,var(--ink) 50%,rgba(233,239,231,.08) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
 .signoff .name em{font-family:var(--display);font-style:italic;font-weight:400;background:linear-gradient(180deg,var(--green) 0%,var(--green-2) 50%,rgba(52,217,119,.08) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+/* ===== BACK TO TOP ===== */
+.back-to-top{position:fixed;bottom:32px;right:32px;z-index:50;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:var(--bg-2);color:var(--green);font-size:18px;cursor:pointer;display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,visibility .3s,transform .3s,border-color .2s,background .2s}
+.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{border-color:var(--green);background:var(--green-deep)}
+
 @media (max-width:1180px){
   .wrap{padding:0 32px}
   .hero-grid{grid-template-columns:1fr;gap:48px}
@@ -480,4 +485,5 @@ footer.site{padding:60px 0 40px;border-top:1px solid var(--line);background:rgba
   .signoff .name{font-size:clamp(64px,28vw,140px)}
   .foot-top{grid-template-columns:1fr;gap:28px;padding-bottom:36px}
   .foot-brand p{font-size:13px}
+  .back-to-top{bottom:20px;right:20px}
 }

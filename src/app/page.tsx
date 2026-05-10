@@ -20,6 +20,7 @@ const LogoMark = () => (
 export default function Home() {
   const [filter, setFilter] = useState<"all" | "full" | "front" | "api">("all");
   const [submitLabel, setSubmitLabel] = useState("Enviar mensagem");
+  const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
     // Reveal on scroll
@@ -98,10 +99,10 @@ export default function Home() {
     // Scroll progress
     const prog = document.getElementById("progress");
     const onScroll = () => {
-      if (!prog) return;
       const h = document.documentElement;
       const p = h.scrollTop / Math.max(h.scrollHeight - h.clientHeight, 1);
-      prog.style.width = p * 100 + "%";
+      if (prog) prog.style.width = p * 100 + "%";
+      setShowTop(h.scrollTop > 400);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -639,6 +640,15 @@ export default function Home() {
           <div className="name">Pedro <em>Ribeiro</em></div>
         </div>
       </section>
+
+      {/* BACK TO TOP */}
+      <button
+        className={`back-to-top${showTop ? " visible" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Voltar ao topo"
+      >
+        ↑
+      </button>
 
       {/* FOOTER */}
       <footer className="site">
