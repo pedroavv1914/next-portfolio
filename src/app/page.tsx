@@ -168,7 +168,7 @@ export default function Home() {
             <span className="live">
               <span className="dot"></span>Disponível · Q2 / 2026
             </span>
-            <span>// jundiaí, sp · brasil · UTC−3</span>
+            <span>{'// jundiaí, sp · brasil · UTC−3'}</span>
           </div>
 
           <h1 className="hero-name">
@@ -212,7 +212,7 @@ export default function Home() {
                 <span style={{ marginLeft: "auto", color: "var(--green)" }}>●</span>
               </div>
               <div className="panel-body">
-                <div className="term-line"><span className="c">// princípio operacional</span></div>
+                <div className="term-line"><span className="c">{'// princípio operacional'}</span></div>
                 <div className="term-line"><span className="k">const</span> <span className="v">missao</span> = {"{"}</div>
                 <div className="term-line">&nbsp;&nbsp;<span className="v">desenhar</span>: <span className="s">&quot;interface que parece leve&quot;</span>,</div>
                 <div className="term-line">&nbsp;&nbsp;<span className="v">construir</span>: <span className="s">&quot;backend que sustenta produto&quot;</span>,</div>
@@ -626,7 +626,7 @@ export default function Home() {
               <button className="submit" type="submit">
                 {submitLabel} <span className="arrow">→</span>
               </button>
-              <div className="footer">// pgp opcional · resposta em até 24h</div>
+              <div className="footer">{'// pgp opcional · resposta em até 24h'}</div>
             </form>
           </div>
         </div>
