@@ -144,19 +144,19 @@ export default function Home() {
           <div className="blob b"></div>
         </div>
         <div className="wrap">
-          <span className="hero-eyebrow">
+          <span className="hero-eyebrow" data-reveal>
             <span className="pulse" aria-hidden="true"></span>
             Jundiaí, SP · disponível para novos projetos
           </span>
-          <h1>
+          <h1 data-reveal data-reveal-delay="1">
             Oi, eu sou o Pedro. Construo <span className="hl">produtos web</span> de ponta a ponta.
           </h1>
-          <p className="hero-sub">
+          <p className="hero-sub" data-reveal data-reveal-delay="2">
             Desenvolvedor full stack, estudante de Ciência da Computação e cofundador da
             Aithos Tech. Este site é meu diário de bordo: o que estou construindo, as
             decisões que tomei no caminho e para onde estou indo.
           </p>
-          <div className="hero-actions">
+          <div className="hero-actions" data-reveal data-reveal-delay="3">
             <a href="#projetos" className="btn btn-primary">
               Ver os projetos <span className="arr">→</span>
             </a>
@@ -164,7 +164,7 @@ export default function Home() {
               Minha trajetória
             </a>
           </div>
-          <div className="hero-meta">
+          <div className="hero-meta" data-reveal data-reveal-delay="4">
             <a href="https://github.com/pedroavv1914" target="_blank" rel="noreferrer">
               GitHub
             </a>
