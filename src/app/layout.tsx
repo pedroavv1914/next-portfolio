@@ -1,38 +1,28 @@
 import type { Metadata } from "next";
-import { Archivo, Syne, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
-// Display de impacto: Syne no corte mais pesado. Formas alargadas com
-// junções incomuns entre haste e curva — é ela que assina o nome do hero
-// e as marcas d'água das seções.
-const syne = Syne({
-  subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-syne",
-});
-
-// Mesma superfamília, em variável: para títulos de seção e subtítulos,
-// onde 900 seria pesado demais. Assim display e headings combinam de raiz.
+// Display: Archivo variável COM o eixo de largura. Todo título do site
+// usa o corte condensado (wdth 62–84) em peso 900 — sem o eixo, o
+// navegador sintetiza o aperto e as letras saem deformadas.
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
+  axes: ["wdth"],
 });
 
-// Corpo: neutra, alta legibilidade em texto claro sobre fundo escuro.
-const instrument = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-instrument",
-});
-
-// Mono: rótulos de seção, kickers, chips — o "universo do código".
+// Corpo: mono em tudo que não é título. É a voz de "diário de bordo
+// de engenharia" do design — rótulos, parágrafos, metadados.
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
   weight: ["400", "500", "700"],
 });
 
-const faviconSvg = `<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" rx="28" fill="#050807"/><path d="M40 92V36h26a18 18 0 0 1 0 36H52" stroke="#16E27B" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 72l24 20" stroke="#16E27B" stroke-width="11" fill="none" stroke-linecap="round"/></svg>`;
+// Monograma "P" em barras retas com a perna diagonal em lima —
+// o mesmo desenho do header e do footer (components/Monogram.tsx).
+const faviconSvg = `<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0A0C0A"/><g transform="translate(23 9) scale(0.62)"><rect x="0" y="0" width="26" height="150" fill="#EDEFE6"/><rect x="26" y="0" width="84" height="26" fill="#EDEFE6"/><rect x="26" y="58" width="84" height="26" fill="#EDEFE6"/><rect x="84" y="0" width="26" height="84" fill="#EDEFE6"/><rect x="80" y="80" width="26" height="78" fill="#C3FF3E" transform="rotate(-22 80 80)"/></g></svg>`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pedroribeiro.dev"),
@@ -66,10 +56,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${archivo.variable} ${syne.variable} ${instrument.variable} ${jetbrains.variable}`}
-    >
+    <html lang="pt-BR" className={`${archivo.variable} ${jetbrains.variable}`}>
       <head>
         <link
           rel="icon"
@@ -77,8 +64,7 @@ export default function RootLayout({
           href={`data:image/svg+xml,${encodeURIComponent(faviconSvg)}`}
         />
       </head>
-      {/* sys-grain: camada fixa de grão sobre o fundo escuro (::after) */}
-      <body className="sys-grain">
+      <body>
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
