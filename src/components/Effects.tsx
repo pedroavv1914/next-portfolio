@@ -19,7 +19,9 @@ export default function Effects() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const lenis = new Lenis({ lerp: 0.12, anchors: true });
+    // offset negativo: para o scroll 72px ANTES da âncora, senão o topo
+    // da seção fica escondido atrás da nav sticky.
+    const lenis = new Lenis({ lerp: 0.12, anchors: { offset: -72 } });
     let rafId = 0;
 
     const raf = (time: number) => {
