@@ -1,27 +1,14 @@
-"use client";
-
-import { useRef } from "react";
-import { motion } from "motion/react";
-import { EASE, VIEWPORT } from "@/lib/motion";
-import SectionHeader from "@/components/system/SectionHeader";
-import GhostHeadline from "@/components/system/GhostHeadline";
-import GlassCard from "@/components/system/GlassCard";
-import FloatingOrb from "@/components/system/FloatingOrb";
-import ScrollLine, { ScrollNode } from "@/components/system/ScrollLine";
+import Reveal, {
+  RevealGroup,
+  RevealItem,
+  RevealLines,
+} from "@/components/Reveal";
+import SectionMark from "@/components/SectionMark";
 
 /**
- * PROCESSO — quatro etapas em fileira, ligadas por uma linha que se
- * desenha da esquerda para a direita conforme o scroll.
- *
- * A conexão é HORIZONTAL de propósito. A Trajetória já usa a linha
- * vertical, e repetir o mesmo desenho apagaria a diferença entre as
- * duas: lá é uma história que desce no tempo, aqui é um método que
- * avança em etapas. A direção da linha carrega esse significado.
- *
- * O número de cada etapa aparece duas vezes: colossal e translúcido ao
- * fundo do módulo, servindo de textura, e pequeno em mono ao lado do
- * título, para leitura. É o mesmo recurso das marcas d'água das seções,
- * na escala do card.
+ * PROCESSO — quatro etapas no mesmo grid de frestas do inventário.
+ * Só o número da primeira é lima cheio; os demais ficam no contorno
+ * apagado: o método começa aceso e o resto é consequência.
  */
 
 const ETAPAS = [
@@ -35,7 +22,7 @@ const ETAPAS = [
     n: "02",
     titulo: "Desenhar a solução",
     texto:
-      "Modelagem de dados, fluxos e as decisões técnicas justificadas por escrito: o que entra agora, o que fica para depois e por quê.",
+      "Modelagem de dados, fluxos e decisões técnicas justificadas por escrito: o que entra agora, o que fica para depois e por quê.",
   },
   {
     n: "03",
@@ -52,91 +39,48 @@ const ETAPAS = [
 ];
 
 export default function Processo() {
-  const trilho = useRef<HTMLDivElement>(null);
-
   return (
-    <section id="processo" className="relative isolate overflow-hidden py-28 lg:py-36">
-      <FloatingOrb size={400} blur={78} opacity={0.38} duration={28} className="-right-40 top-16 -z-20" />
-      <FloatingOrb size={280} blur={62} opacity={0.32} duration={24} delay={-10} className="-left-28 bottom-10 -z-20" />
+    <section id="processo" className="border-t border-line bg-coal-2">
+      <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32 xl:px-16">
+        <SectionMark numero="05" nome="Processo" />
 
-      <GhostHeadline variant="ghost" parallax={90} className="absolute inset-x-0 top-16 -z-10">
-        Processo
-      </GhostHeadline>
-
-      <div className="relative mx-auto w-[min(1160px,calc(100%-48px))]">
-        <SectionHeader label="Processo" index="05" />
-
-        <div className="mt-10 max-w-[62ch]">
-          <motion.h2
-            initial={{ opacity: 0, y: 26 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={VIEWPORT}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="font-display text-[clamp(2rem,5vw,3.6rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-ink"
-          >
-            Como eu <span className="sys-gradient-text-bright">trabalho</span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={VIEWPORT}
-            transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
-            className="mt-5 text-[1.02rem] leading-relaxed text-mist"
-          >
-            O mesmo caminho nos projetos próprios e nos da Aithos — pensado para quem
-            contrata entender o andamento sem precisar ler código.
-          </motion.p>
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
+          <h2 className="type-display text-[clamp(44px,5vw,76px)] text-ink">
+            <RevealLines linhas={["COMO EU TRABALHO"]} />
+          </h2>
+          <Reveal delay={0.25}>
+            <p className="max-w-[400px] text-[13px] text-muted [text-wrap:pretty]">
+              O mesmo caminho nos projetos próprios e nos da Aithos — pensado
+              para quem contrata entender o andamento sem precisar ler código.
+            </p>
+          </Reveal>
         </div>
 
-        <div ref={trilho} className="relative mt-20">
-          {/* trilho horizontal: nasce no centro do 1º nó e morre no do 4º,
-              por isso a margem lateral de 1/8 da largura de cada coluna */}
-          <ScrollLine
-            targetRef={trilho}
-            direction="horizontal"
-            className="left-[12.5%] right-[12.5%] top-[7px] hidden lg:block"
-          />
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-            {ETAPAS.map((e, i) => (
-              <motion.div
-                key={e.n}
-                initial={{ opacity: 0, y: 34 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.7, delay: i * 0.1, ease: EASE }}
-                className="relative"
+        <RevealGroup className="grid gap-px border border-line bg-line sm:grid-cols-2 xl:grid-cols-4">
+          {ETAPAS.map((etapa, i) => (
+            <RevealItem
+              key={etapa.n}
+              className="flex flex-col gap-3.5 bg-coal px-7 py-9"
+            >
+              <span
+                aria-hidden
+                className={`type-display text-[44px] leading-[0.8] [--wdth:62] ${
+                  i === 0
+                    ? "text-lime"
+                    : "text-transparent [-webkit-text-stroke:1.5px_var(--color-line-2)]"
+                }`}
               >
-                <ScrollNode className="left-1/2 top-0 hidden -translate-x-1/2 lg:block" />
-
-                <GlassCard className="h-full overflow-hidden p-7 lg:mt-9">
-                  {/* número colossal como textura de fundo do módulo */}
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -right-3 -top-6 select-none font-poster text-[7rem] font-extrabold leading-none text-ink/[0.045]"
-                  >
-                    {e.n}
-                  </span>
-
-                  <div className="relative flex items-center gap-3">
-                    <span className="font-mono text-[0.7rem] tracking-[0.2em] text-neon-400">
-                      {e.n}
-                    </span>
-                    <span aria-hidden="true" className="h-px flex-1 bg-ink/10" />
-                  </div>
-
-                  <h3 className="relative mt-5 font-display text-[1.18rem] font-bold leading-snug tracking-tight text-ink">
-                    {e.titulo}
-                  </h3>
-                  <p className="relative mt-3 text-[0.93rem] leading-relaxed text-mist">
-                    {e.texto}
-                  </p>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+                {etapa.n}
+              </span>
+              <h3 className="type-display text-xl text-ink [--wdth:84]">
+                {etapa.titulo}
+              </h3>
+              <p className="text-xs leading-[1.9] text-muted [text-wrap:pretty]">
+                {etapa.texto}
+              </p>
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </div>
     </section>
   );

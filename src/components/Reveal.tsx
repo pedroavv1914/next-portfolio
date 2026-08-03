@@ -6,10 +6,10 @@ import { EASE, DURATION, VIEWPORT } from "@/lib/motion";
 type Direction = "up" | "down" | "left" | "right" | "none";
 
 const OFFSET: Record<Direction, { x: number; y: number }> = {
-  up: { x: 0, y: 28 },
-  down: { x: 0, y: -28 },
-  left: { x: -32, y: 0 },
-  right: { x: 32, y: 0 },
+  up: { x: 0, y: 38 },
+  down: { x: 0, y: -38 },
+  left: { x: -44, y: 0 },
+  right: { x: 44, y: 0 },
   none: { x: 0, y: 0 },
 };
 
@@ -105,5 +105,59 @@ export function RevealItem({
     >
       {children}
     </motion.div>
+  );
+}
+
+/**
+ * Título que SOBE de dentro de uma máscara, linha por linha — o reveal
+ * editorial dos h2 de seção. Cada linha vive num line box com overflow
+ * hidden; o padding/margem negativa nas bordas evita decepar acento
+ * (Á, Ó) e a perna do J quando a animação assenta.
+ */
+export function RevealLines({
+  linhas,
+  delay = 0,
+  className,
+}: {
+  linhas: React.ReactNode[];
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    // O observer fica AQUI, no contêiner parado — nunca no span
+    // animado: transladado 112% para dentro do overflow-hidden ele
+    // está 100% recortado, o IntersectionObserver o vê com área zero
+    // e o whileInView jamais dispararia. As linhas recebem o estado
+    // por propagação de variants.
+    <motion.span
+      initial="hidden"
+      whileInView="show"
+      viewport={VIEWPORT}
+      className={`block ${className ?? ""}`}
+    >
+      {linhas.map((linha, i) => (
+        <span
+          key={i}
+          className="-mt-[0.12em] -mb-[0.08em] block overflow-hidden pt-[0.12em] pb-[0.08em]"
+        >
+          <motion.span
+            className="block"
+            variants={{
+              hidden: { y: "112%" },
+              show: {
+                y: "0%",
+                transition: {
+                  duration: 0.85,
+                  delay: delay + i * 0.11,
+                  ease: EASE,
+                },
+              },
+            }}
+          >
+            {linha}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
   );
 }

@@ -27,5 +27,7 @@ export const stagger = (staggerChildren = 0.09, delayChildren = 0): Variants => 
   show: { transition: { staggerChildren, delayChildren } },
 });
 
-/** Margem de disparo: começa um pouco antes do elemento centralizar. */
-export const VIEWPORT = { once: true, amount: 0.2, margin: "0px 0px -8% 0px" } as const;
+/** Margem de disparo: o elemento precisa entrar 12% na tela antes de
+ *  animar — disparo cedo demais faz o reveal acontecer fora da vista
+ *  e a página parecer estática. */
+export const VIEWPORT = { once: true, amount: 0.25, margin: "0px 0px -12% 0px" } as const;

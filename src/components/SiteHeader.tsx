@@ -1,79 +1,69 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "motion/react";
-import { EASE } from "@/lib/motion";
-import Monogram from "@/components/system/Monogram";
+import { motion, useScroll, useSpring } from "motion/react";
+import Monogram from "@/components/Monogram";
 
 const LINKS = [
-  { href: "#sobre", label: "Trajetória" },
-  { href: "#skills", label: "O que faço" },
-  { href: "#projetos", label: "Projetos" },
-  { href: "#processo", label: "Processo" },
+  { href: "#trajetoria", numero: "02", label: "Trajetória" },
+  { href: "#pratica", numero: "03", label: "Prática" },
+  { href: "#projetos", numero: "04", label: "Projetos" },
+  { href: "#processo", numero: "05", label: "Processo" },
 ];
 
+/**
+ * Nav fixa + régua de leitura: a linha lima de 2px no topo cresce com o
+ * scroll. scaleX em MotionValue — nada de setState por frame de scroll.
+ */
 export default function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const progresso = useSpring(scrollYProgress, {
+    stiffness: 260,
+    damping: 40,
+    restDelta: 0.001,
+  });
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: EASE }}
-      className={[
-        "fixed inset-x-0 top-0 z-60 transition-[background,box-shadow,backdrop-filter] duration-500",
-        scrolled
-          ? "bg-void/72 shadow-[0_1px_0_color-mix(in_srgb,var(--color-ink)_10%,transparent)] backdrop-blur-xl"
-          : "bg-transparent",
-      ].join(" ")}
-    >
-      <div
-        className={[
-          "mx-auto flex w-[min(1160px,calc(100%-48px))] items-center gap-7 transition-[padding] duration-500",
-          scrolled ? "py-3" : "py-5",
-        ].join(" ")}
+    <>
+      <motion.div
+        aria-hidden
+        style={{ scaleX: progresso }}
+        className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-lime"
+      />
+
+      <nav
+        aria-label="Seções"
+        className="sticky top-0 z-50 border-b border-line bg-coal/85 backdrop-blur-md"
       >
-        <a
-          href="#topo"
-          className="group flex items-center gap-2.5 font-mono text-sm font-medium tracking-tight text-ink"
-        >
-          <Monogram
-            size={22}
-            className="text-neon-500 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-[-8deg] group-hover:scale-110"
-          />
-          Pedro Ribeiro
-        </a>
-
-        <nav aria-label="Seções" className="ml-auto hidden items-center gap-8 md:flex">
-          {LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="group relative font-mono text-[0.72rem] uppercase tracking-[0.16em] text-mist transition-colors duration-300 hover:text-ink"
+        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-x-10 gap-y-3 px-6 py-4 md:px-12 xl:px-16">
+          <a href="#topo" className="flex flex-none items-center gap-3.5">
+            <Monogram size={30} />
+            <span
+              className="type-display text-base whitespace-nowrap text-ink [--wdth:76] [letter-spacing:0.04em]"
             >
-              {l.label}
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-1.5 left-0 h-px w-full origin-right scale-x-0 bg-neon-500 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:origin-left group-hover:scale-x-100"
-              />
-            </a>
-          ))}
-        </nav>
+              PEDRO RIBEIRO
+            </span>
+          </a>
 
-        <a
-          href="#contato"
-          className="ml-auto rounded-full border border-neon-500/40 bg-neon-500/10 px-5 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-neon-300 transition-[background,box-shadow,color,transform] duration-300 hover:-translate-y-px hover:bg-neon-500 hover:text-void hover:shadow-[0_0_24px_-4px_var(--color-neon-500)] md:ml-0"
-        >
-          Falar comigo
-        </a>
-      </div>
-    </motion.header>
+          <div className="flex items-center gap-5 sm:gap-8">
+            {LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="type-label hidden text-[11px] whitespace-nowrap text-muted transition-colors duration-200 [letter-spacing:0.18em] hover:text-lime md:inline"
+              >
+                <span className="text-dim">{link.numero} </span>
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#contato"
+              className="type-label bg-lime px-5 py-3 text-[11px] font-bold whitespace-nowrap text-coal transition-colors duration-200 [letter-spacing:0.14em] hover:bg-ink"
+            >
+              Falar comigo
+            </a>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
